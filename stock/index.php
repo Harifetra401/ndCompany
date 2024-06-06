@@ -190,9 +190,9 @@
                           </div>
                         </div>
                         <p></p>
-                        <p>Poid total: </p>
-                        <p>Nombre de sac : </p>
-                        <p>Nombre de carton: </p>
+                        <p>Poid total: <?=$total_poid_all | 0?> kg</p>
+                        <p>Nombre de sac: <?=$total_sac_all | 0?></p>
+                        <p>Nombre de carton: <?=$total_carton_all | 0?></p>
                       </div>
                     </div>
                   </div>

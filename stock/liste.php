@@ -12,6 +12,23 @@ $selection = $db->prepare("SELECT id_poisson, SUM(nombre_sac) AS total_sac, SUM(
 $selection->execute();
 $fetchAll = $selection->fetchAll();
 
+// selection du total poid au jourd'hui
+$selection_poid_all = $db->prepare("SELECT id_poisson, SUM(qtt) AS total_qtt_all FROM stock WHERE date(`date`)=CURDATE()");
+$selection_poid_all -> execute();
+$fetchAll_poid_all = $selection_poid_all -> fetchAll();
+$total_poid_all = $fetchAll_poid_all[0]['total_qtt_all'];
+
+// selection du sac (type=0) au jourd'hui
+$selection_sac_all = $db->prepare("SELECT id_poisson, SUM(nombre_sac) AS total_sac FROM stock WHERE date(`date`)=CURDATE() AND type=0");
+$selection_sac_all -> execute();
+$fetchAll_sac_all = $selection_sac_all -> fetchAll();
+$total_sac_all = $fetchAll_sac_all[0]['total_sac'];
+
+// selection du carton (type=1) au jourd'hui
+$selection_carton_all = $db->prepare("SELECT id_poisson, SUM(nombre_sac) AS total_sac FROM stock WHERE date(`date`)=CURDATE() AND type=1");
+$selection_carton_all -> execute();
+$fetchAll_carton_all = $selection_carton_all -> fetchAll();
+$total_carton_all = $fetchAll_carton_all[0]['total_sac'];
 
 
 foreach ($fetchAll as $fetch) {
