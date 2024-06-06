@@ -29,7 +29,9 @@
                     <tr class="text-nowrap">
                       <th>NumFact</th>
                       <th>Fournisseur</th>
+                      <th>Total a Payer</th>
                       <th>Payer</th>
+                      <th>Reste</th>
                       <th>Date</th>
                       
                     </tr>
@@ -42,7 +44,9 @@
                         <tr>
                             <th scope="row"><?=$get_fact['id']?></th>
                             <td><?=get_name($get_fact['id_fou'])?></td>
-                            
+                            <td><?=$get_fact['payee'] + $get_fact['restapayer'] ?></td>
+                            <td><?=$get_fact['payee']?></td>
+                            <td><?=$get_fact['restapayer']?></td>
                             <td><?=$get_fact['date']?></td>
                             <td>
                             <a href="../activity/facture.php?num=<?=$get_fact['id']?>">

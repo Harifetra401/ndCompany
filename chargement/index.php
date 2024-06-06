@@ -3,11 +3,13 @@ require '../session.php';
 ?>
 
 <!DOCTYPE html>
-<html lang="en" class="light-style layout-menu-fixed" dir="ltr" data-theme="theme-default" data-assets-path="../assets/" data-template="vertical-menu-template-free">
+<html lang="en" class="light-style layout-menu-fixed" dir="ltr" data-theme="theme-default" data-assets-path="../assets/"
+  data-template="vertical-menu-template-free">
 
 <head>
   <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0" />
+  <meta name="viewport"
+    content="width=device-width, initial-scale=1.0, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0" />
   <title>Logiciel de Gestion</title>
   <meta name="description" content="" />
 
@@ -17,7 +19,8 @@ require '../session.php';
   <!-- Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Public+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Public+Sans:wght@300;400;500;600;700&display=swap"
+    rel="stylesheet" />
 
   <!-- Icons -->
   <link rel="stylesheet" href="../assets/vendor/fonts/boxicons.css" />
@@ -89,7 +92,33 @@ require '../session.php';
                   <!-- Bon de Livraison -->
                   <div class="col-md-8 col-12">
                     <div class="card">
-                      <h5 class="card-header">Bon de livraison numero <?= htmlspecialchars($_GET["id"]) ?> du chargement aujourd'hui</h5>
+                      <table class="table">
+
+                        <tr>
+                          <th></th>
+                          <th style="width:200px"> <br><br>
+                            <div class="col-md-12  w-300">
+                              <center> <img src="../assets/img/logonordine.jpg" width="150px" alt=""></center>
+                            </div>
+                          </th>
+                          <th></th>
+                          <th></th>
+                          <th>
+                            <div class="col-md">
+
+                              <h6 class="my-4">Client : </h6>
+                              <h6 class="my-4">Adresse :</h6>
+                              <h6 class="my-4">Contact :</h6>
+
+
+                            </div>
+                          </th>
+
+                        </tr>
+
+                      </table>
+                      <h5 class="card-header">Bon de livraison numero <?= htmlspecialchars($_GET["id"]) ?> du chargement
+                        aujourd'hui</h5>
                       <div class="card-body">
                         <div class="table-responsive text-nowrap">
                           <table class="table">
@@ -110,7 +139,7 @@ require '../session.php';
                   </div>
 
                   <!-- Detailed List -->
-                  
+
                   <!-- /Detailed List -->
 
                 </div>
@@ -124,7 +153,7 @@ require '../session.php';
             <div class="container-xxl">
               <div class="footer-container d-flex justify-content-between py-2 flex-md-row flex-column">
                 <div class="mb-2 mb-md-0">
-                 
+
                 </div>
                 <div>
 

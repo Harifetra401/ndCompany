@@ -5,10 +5,12 @@
       $id_sortie = $_POST["id_sortie"];
       $sortieqtt = $_POST["sortieqtt"];
       
+      
       $supr = "DELETE FROM `sortie` WHERE id_sortie=$id_sortie";
       $del = $db->prepare($supr);
       $del -> execute();
       
+
       
       $sql = "INSERT INTO sortie(`id_sortie`, `sortieqtt`) VALUES ($id_sortie, '".$sortieqtt."')";
         $stmt = $db->prepare($sql);

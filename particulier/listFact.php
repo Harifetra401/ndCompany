@@ -1,19 +1,8 @@
 <?php
 
-function get_name($id_to_get)
-{
-  require ('../db.php');
-  $new_sql = "SELECT * FROM fournisseur WHERE id = $id_to_get";
-  $new_st = $db->prepare($new_sql);
-  $new_st->execute();
-  $fetch_name = $new_st->fetch();
-  return $fetch_name["nomfournisseur"];
-}
-
 require ('../db.php');
-require ('../facture/prix_one_facture.php');
-require ('../facture/poid_one_facture.php');
-$sql = "SELECT * FROM facture WHERE date(`date`)=CURDATE() ORDER BY id DESC";
+
+$sql = "SELECT * FROM particulier ORDER BY id DESC";
 $stmt = $db->prepare($sql);
 $stmt->execute();
 
@@ -40,10 +29,10 @@ $all_facture = $stmt->fetchAll(PDO::FETCH_ASSOC);
               ?>
               <tr>
                 <th scope="row"><?= $get_fact['id'] ?></th>
-                <td><?= get_name($get_fact['id_fou']) ?></td>
-                <td><?= poid_total($get_fact['id']) ?> KG</td>
+                <td><?= $get_fact['client'] ?></td>
+                
                 <td><?= $get_fact['date'] ?></td>
-                <td>Ar <?= nbr_total($get_fact['id']) ?> </td>
+                <td> </td>
                 <td>
                   <a class="btn btn-success" href="../activity/facture.php?num=<?= $get_fact['id'] ?>">
                     Consulter

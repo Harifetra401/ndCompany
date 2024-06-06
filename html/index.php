@@ -85,12 +85,14 @@ require ('date.php');
                       </canvas>
                       <div class="d-flex flex-column gap-0">
                         <h3 class="mb-2"><?= (get_all(2)[0] - get_sortie(2)[0]) ?> Kg :
-                          <?= (get_all(2)[1] - get_sortie(2)[1]) ?> Sac</h3>
+                          <?= (get_all(2)[1] - get_sortie(2)[1]) ?> Sac
+                        </h3>
                         <span>Poids total externe</span>
                       </div>
                       <div class="d-flex flex-column gap-0">
                         <h3 class="mb-2"><?= (get_all(1)[0] - get_sortie(1)[0]) ?> Kg :
-                          <?= (get_all(1)[1] - get_sortie(1)[1]) ?> Sac</h3>
+                          <?= (get_all(1)[1] - get_sortie(1)[1]) ?> Sac
+                        </h3>
                         <span>Poids total interne</span>
                       </div>
                     </div>
@@ -130,10 +132,13 @@ require ('date.php');
 
               </div>
               <!--/ Layout Demo -->
+
+              <?php require ('liste_facture.php') ?>
+              <?php require ('liste_chargement.php') ?>
+              <?php require ('liste_stock.php') ?>
+              <?php require('../particulier/listFact.php')?>
             </div>
-            <?php require ('liste_facture.php') ?>
-            <?php require ('liste_chargement.php') ?>
-            <?php require ('liste_stock.php') ?>
+
           </div>
         </div>
         <!-- / Content -->
@@ -220,7 +225,7 @@ require ('date.php');
         labels: ["externe", "interne"],
         datasets: [{
           label: "work load",
-          data: [500, stockinterne],
+          data: [stockexterne, stockinterne],
           backgroundColor: ['rgb(255, 99, 132)', 'rgb(54, 162, 235)'],
         }],
       },

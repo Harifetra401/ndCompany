@@ -8,7 +8,7 @@ require ('../db.php');
 // $fetchAll1 = $selection1->fetchAll();
 
 
-$selection = $db->prepare("SELECT id_poisson, SUM(nombre_sac) AS total_sac, SUM(qtt) AS total_qtt, type AS tp FROM stock WHERE date(`date`)=CURDATE()  GROUP BY id_poisson ORDER BY id_poisson DESC");
+$selection = $db->prepare("SELECT id, id_poisson, SUM(nombre_sac) AS total_sac, SUM(qtt) AS total_qtt, `type` AS tp FROM stock WHERE date(`date`)=CURDATE()  GROUP BY id ORDER BY id DESC");
 $selection->execute();
 $fetchAll = $selection->fetchAll();
 
@@ -34,7 +34,7 @@ $total_carton_all = $fetchAll_carton_all[0]['total_carton'];
 foreach ($fetchAll as $fetch) {
   $id_poisson = getNomPoisson($fetch['id_poisson']);
   $qtt_poisson = $fetch['total_qtt'];
-  // $id = $fetch['id'];
+   $id = $fetch['id'];
   $nombre_sac = $fetch['total_sac'];
   // $place = $fetch['place'];
   $type = $fetch['tp'];
@@ -65,7 +65,7 @@ foreach ($fetchAll as $fetch) {
           <i class="bx bx-dots-vertical-rounded"></i>
         </button>
         <div class="dropdown-menu">
-          <a class="dropdown-item" href="delete.php?id=<?= $id ?>"><i class="bx bx-trash me-1"></i>
+          <a class="dropdown-item" href="delete.php?id=<?=$id_poisson ?>&qtt=<?= $qtt_poisson ?>"><i class="bx bx-trash me-1"></i>
             Suprimer</a>
         </div>
       </div>

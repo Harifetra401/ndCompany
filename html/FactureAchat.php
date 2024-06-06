@@ -91,7 +91,7 @@ if ($_SESSION['username']!='Anthony') {
 
                             </div>
                             <div class="input-group input-group-merge">
-                              <input type="number" id="" step="0.01" title="" class="form-control" name="qtt" placeholder="" required />
+                              <input type="text" id="" step="0.01" title="" class="form-control" name="qtt" placeholder="" required />
                             </div>
                             <div class="d-flex justify-content-between">
                               <label class="form-label" for="password">Categorie</label>
@@ -113,7 +113,7 @@ if ($_SESSION['username']!='Anthony') {
                               <label class="form-label" for="password"></label>
                             </div>
                             <div class="input-group input-group-merge">
-                              <input type="hidden" class="form-control" value="0" name="pu" placeholder="" aria-describedby=""  />
+                              <input type="hidden" class="form-control" name="pu" value="0" placeholder="" aria-describedby=""  />
 
                             </div>
                           </div>

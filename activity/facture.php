@@ -145,7 +145,9 @@ function getRest($id_selector)
                           <form action="non_payer.php" method="post">
                             <input type="text" name="totalapayer" class="form-control"value="<?= $total ?>" readonly>
                             <input type="hidden" name="numfac" class="form-control" value="<?= $_GET['num'] ?>" readonly>
+                            <br>
                             <input type="text" name="payeena"class="form-control"value="facture Payee" readonly id="">
+                            <br>
                             <input type="button" class="form-control btn btn-primary"disabled value="Enregistrer">
                           </form>
                         <?php

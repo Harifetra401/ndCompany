@@ -190,12 +190,12 @@ require('date.php');
                         <thead>
                           <tr>
                             <th>Libelle</th>
-                            <th>Cout</th>
+                            <th>Montant</th>
                             <th>Description</th>
                           </tr>
                         </thead>
                         <tbody class="table-border-bottom-0">
-                          <?php  ?>
+                        <?php require ('listeEntrer.php') ?>
                         </tbody>
                       </table>
                     </div>

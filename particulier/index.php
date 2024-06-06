@@ -197,6 +197,8 @@ $fetchAll = $selection->fetchAll();
               </div>
             </div>
           </div>
+
+          
           <!-- / Content -->
           <div class="modal fade" id="addClientModal" tabindex="-1" aria-hidden="true">
             <div class="modal-dialog">

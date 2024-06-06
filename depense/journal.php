@@ -83,7 +83,9 @@ require ('date.php');
                                             </canvas>
                                             <br><br>
                                             <h6>
-                                             Solde en Main : <?= get_entrer($mois_actuel, $annee_actuel) + get_particulier_month($mois_actuel, $annee_actuel) - get_depense_month($mois_actuel, $annee_actuel) ?> Ariary
+                                                Solde en Main :
+                                                <?= get_entrer($mois_actuel, $annee_actuel) + get_particulier_month($mois_actuel, $annee_actuel) - get_depense_month($mois_actuel, $annee_actuel) ?>
+                                                Ariary
                                             </h6>
                                         </div>
                                     </div>
@@ -126,6 +128,89 @@ require ('date.php');
 
 
                     </div>
+                    <style>
+                        /* Container styling */
+                        .container-fluid {
+                            padding: 20px;
+                            background-color: #f8f9fa;
+                            /* Light grey background */
+                        }
+
+                        /* Card styling */
+                        
+
+                        .card h2 {
+                            text-align: center;
+                            margin-bottom: 20px;
+                            color: #007bff;
+                            /* Blue color for the title */
+                        }
+
+                        /* Table styling */
+                        .table {
+                            width: 100%;
+                            margin-bottom: 1rem;
+                            color: #212529;
+                        }
+
+                        .table th,
+                        .table td {
+                            padding: 12px;
+                            /* Increase padding */
+                            vertical-align: middle;
+                            /* Center content vertically */
+                            border-top: 1px solid #dee2e6;
+                        }
+
+                        .table thead th {
+                            background-color: #007bff;
+                            /* Blue background for header */
+                            color: #ffffff;
+                            /* White text for header */
+                            border-bottom: 2px solid #dee2e6;
+                        }
+
+                        .table tbody tr:nth-of-type(odd) {
+                            background-color: rgba(0, 0, 0, 0.05);
+                            /* Light grey background for odd rows */
+                        }
+
+                        .table tbody tr:hover {
+                            background-color: rgba(0, 0, 0, 0.075);
+                            /* Slightly darker background on hover */
+                        }
+
+                        .table .bg-success {
+                            background-color: #28a745 !important;
+                            /* Green background */
+                            color: #ffffff;
+                            /* White text */
+                        }
+
+                        .table .bg-primary {
+                            background-color: #007bff !important;
+                            /* Blue background */
+                            color: #ffffff;
+                            /* White text */
+                        }
+
+                        /* Optional: Media query for responsiveness */
+                        @media (max-width: 768px) {
+                            .container-fluid {
+                                padding: 10px;
+                            }
+
+                            .card {
+                                padding: 15px;
+                            }
+
+                            .table th,
+                            .table td {
+                                padding: 10px;
+                                /* Reduce padding on small screens */
+                            }
+                        }
+                    </style>
                     <div class="container-fluid flex-grow-1 container-p-y">
                         <div class="card mt-5">
                             <h2>Tableau DEBITEUR</h2>
@@ -173,7 +258,6 @@ require ('date.php');
                                         <td>Compte d'Immobilisation </td>
                                         <td><?= get_depense_imo($mois_actuel, $annee_actuel) ?></td>
                                     </tr>
-
                                     <tr>
                                         <td></td>
                                         <td>Autres dépenses</td>

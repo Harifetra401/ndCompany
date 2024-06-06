@@ -10,7 +10,7 @@ $fetch_obs = $selection_obs->fetch();
 <td id="sortiefilao">
     <?php
     if (empty($fetch_obs["sortieqtt"])) {
-        $sortie = 0
+        
             ?>
         <!-- Improved Modal -->
         <div class="modal fade" id="basicModl" tabindex="-1" aria-hidden="true">
@@ -24,6 +24,7 @@ $fetch_obs = $selection_obs->fetch();
                         <form action="sortie.php" method="post">
                             <input type="hidden" name="num" value="<?= $numeroFacture ?>">
                             <input type="hidden" value="<?= $id_sortie ?>" name="id_sortie" />
+                            <input type="text" name="" value="<?= $get_fact['qtt'] ?>" id="">
                             <div class="mb-3">
                                 <label for="sortieqtt" class="form-label">Quantité Sortie</label>
                                 <input type="text" class="form-control" id="sortieqtt" name="sortieqtt" autocomplete="off"
@@ -42,7 +43,8 @@ $fetch_obs = $selection_obs->fetch();
         </button>
 
         <?php
-    } else {
+    } 
+    else {
         $sortie = $fetch_obs["sortieqtt"];
         ?>
         <?= $sortie ?>
