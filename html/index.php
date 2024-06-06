@@ -77,36 +77,26 @@ require('date.php');
                     <div class="d-flex justify-content-between  flex-column mb-3">
                       <h1>Nombre de sac</h1>
                       <canvas class="d-flex flex-column align-items-center gap-0" id="myChart2" style="display: block; width: 100%; height: 150px;">
-                        <h1></h1>
                       </canvas>
-                      <div class="d-flex flex-column  gap-0">
+                      <div class="d-flex flex-column gap-0">
                         <h3 class="mb-2"><?= (get_all(2)[0] - get_sortie(2)[0]) ?> Kg : <?= (get_all(2)[1] - get_sortie(2)[1]) ?> Sac</h3>
                         <span>Poids total externe</span>
                       </div>
-                      <div class="d-flex flex-column  gap-0">
+                      <div class="d-flex flex-column gap-0">
                         <h3 class="mb-2"><?= (get_all(1)[0] - get_sortie(1)[0]) ?> Kg : <?= (get_all(1)[1] - get_sortie(1)[1]) ?> Sac</h3>
                         <span>Poids total interne</span>
                       </div>
-
-
-
                     </div>
-
                   </div>
                 </div>
               </div>
               <!--/ Order Statistics -->
-
-              <!-- Expense Overview -->
-
-              <!--/ Expense Overview -->
 
               <!-- Transactions -->
               <div class="col-md-8 col-lg-8 order-0 mb-8">
                 <div class="card h-100">
                   <div class="card-header d-flex align-items-center justify-content-between">
                     <h5 class="card-title m-0 me-2">Diagramme </h5>
-
                   </div>
                   <div class="card-body">
                     <div>
@@ -117,15 +107,12 @@ require('date.php');
               </div>
               <!--/ Transactions -->
 
-
               <?php require('liste_facture.php') ?>
-
               <?php require('liste_chargement.php') ?>
               <?php require('liste_stock.php') ?>
             </div>
           </div>
           <!-- / Content -->
-
 
           <div class="content-backdrop fade"></div>
         </div>
@@ -140,21 +127,12 @@ require('date.php');
   <!-- / Layout wrapper -->
 
   <script>
-    let sem = [
-      "Dimanche",
-      "Lundi",
-      "Mardi",
-      "Mercredi",
-      "Jeudi",
-      "Vendredi",
-      "Samedi",
-    ];
+    let sem = ["Dimanche", "Lundi", "Mardi", "Mercredi", "Jeudi", "Vendredi", "Samedi"];
     var date = new Date();
 
     function get_jour(sous) {
       let code = (date.getDay() - sous);
       code = code < 0 ? 7 + code : code;
-      console.log(code);
       return code;
     }
 
@@ -200,29 +178,23 @@ require('date.php');
         ],
       },
     });
-    // console.log(get_jour(6),get_jour(5),get_jour(4),get_jour(3),get_jour(2),get_jour(1),get_jour(0),);
+
     var ctx2 = document.getElementById("myChart2").getContext("2d");
-    var stockexterne = <?= (get_all(2)) ?>;
-    var stockinterne = <?= (get_all(1)[1] - get_sortie(1)[1]) ?>;
+    var stockexterne = <?= get_all(2)[1] - get_sortie(2)[1] ?>;
+    var stockinterne = <?= get_all(1)[1] - get_sortie(1)[1] ?>;
     var myChart2 = new Chart(ctx2, {
       type: "doughnut",
       data: {
-        labels: [
-          "externe",
-          "interne",
-        ],
+        labels: ["externe", "interne"],
         datasets: [{
           label: "work load",
           data: [stockexterne, stockinterne],
-          backgroundColor: [
-            'rgb(255, 99, 132)',
-            'rgb(54, 162, 235)'
-          ],
-
+          backgroundColor: ['rgb(255, 99, 132)', 'rgb(54, 162, 235)'],
         }],
       },
     });
   </script>
+
   <!-- Core JS -->
   <!-- build:js assets/vendor/js/core.js -->
   <script src="../assets/vendor/libs/jquery/jquery.js"></script>
@@ -230,20 +202,4 @@ require('date.php');
   <script src="../assets/vendor/js/bootstrap.js"></script>
   <script src="../assets/vendor/libs/perfect-scrollbar/perfect-scrollbar.js"></script>
 
-  <script src="../assets/vendor/js/menu.js"></script>
-  <!-- endbuild -->
-
-  <!-- Vendors JS -->
-  <script src="../assets/vendor/libs/apex-charts/apexcharts.js"></script>
-
-  <!-- Main JS -->
-  <script src="../assets/js/main.js"></script>
-
-  <!-- Page JS -->
-  <script src="../assets/js/dashboards-analytics.js"></script>
-
-  <!-- Place this tag in your head or just before your close body tag. -->
-  <script async defer src="https://buttons.github.io/buttons.js"></script>
-</body>
-
-</html>
+  <
