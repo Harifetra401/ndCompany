@@ -179,17 +179,20 @@
                                 <tr>
                                   <th>Nom</th>
                                   <th>poid</th>
-                                  <th>Nombre de sacs</th>
+                                  <th>Nombre de sacs (cartons)</th>
 
                                 </tr>
                               </thead>
                               <tbody class="table-border-bottom-0">
                                 <?php require ('liste.php') ?>
-
                               </tbody>
                             </table>
                           </div>
                         </div>
+                        <p></p>
+                        <p>Poid total: </p>
+                        <p>Nombre de sac : </p>
+                        <p>Nombre de carton: </p>
                       </div>
                     </div>
                   </div>
