@@ -205,8 +205,20 @@ $count = 0;
                               <input type="hidden" name="num" value="<?= $numeroFacture ?>">
                               <input type="hidden" name="id_poisson" value="<?= $get_fact['id_poisson'] ?>">
                               <input type="hidden" name="pdetail" value="0" id="">
-                              <select name="classpss" id="">
-                                <option value="8"></option>
+                              
+
+                              <?php
+
+                              if (!return_type_avant($get_fact['id_poisson'])) {
+                                $count += 1;
+                                $atraite = return_type($get_fact['id_poisson']) ?>
+
+
+
+                            </td>
+                                <td>
+                                <select name="classpss" id="">
+                                <option value="8">jkugiu</option>
                                 <option value="1">Avec.E SV</option>
                                 <option value="2">Avec.E AV</option>
                                 <option value="3">Sans.E SV</option>
@@ -220,17 +232,7 @@ $count = 0;
                                 <option value="9">Sans.E AB</option>
 
                               </select>
-
-                              <?php
-
-                              if (!return_type_avant($get_fact['id_poisson'])) {
-                                $count += 1;
-                                $atraite = return_type($get_fact['id_poisson']) ?>
-
-
-
-                            </td>
-
+                                </td>
                             <td>
                               <input type="text" class="form"autocomplete="off" name="qtt" value="<?= $atraite - $sortie ?>" id="input_qtt_y">
                               KG
@@ -240,17 +242,8 @@ $count = 0;
                               <span id="valeur_apres"></span>
                             <?php } else { ?>
 
-                              <!-- // return_type_avant($get_fact['id_poisson'])  -->
+                             <?= return_type_avant($get_fact['id_poisson']);?> KG
 
-
-                              <?php
-                              $count += 1;
-                              $atraite = return_type($get_fact['id_poisson']) ?>
-
-
-                              <input type="number" class="form" name="qtt" value="<?= $atraite - $sortie ?>" id="input_qtt_y">
-                              KG
-                              <button class="btn btn-primary" type="submit">ok</button>
 
                               <?php
                               if (return_type_avant($get_fact['id_poisson'])) {
