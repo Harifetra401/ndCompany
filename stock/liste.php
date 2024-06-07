@@ -8,7 +8,7 @@ require ('../db.php');
 // $fetchAll1 = $selection1->fetchAll();
 
 
-$selection = $db->prepare("SELECT id_poisson, SUM(nombre_sac) AS total_sac, SUM(qtt) AS total_qtt FROM stock WHERE date(`date`)=CURDATE()  GROUP BY id_poisson ORDER BY id_poisson DESC");
+$selection = $db->prepare("SELECT id_poisson, SUM(nombre_sac) AS total_sac, SUM(qtt) AS total_qtt, type AS tp FROM stock WHERE date(`date`)=CURDATE()  GROUP BY id_poisson ORDER BY id_poisson DESC");
 $selection->execute();
 $fetchAll = $selection->fetchAll();
 
@@ -24,8 +24,8 @@ $selection_sac_all -> execute();
 $fetchAll_sac_all = $selection_sac_all -> fetchAll();
 $total_sac_all = $fetchAll_sac_all[0]['total_sac'];
 
-// selection du carton (type=1) au jourd'hui
-$selection_carton_all = $db->prepare("SELECT id_poisson, SUM(nombre_sac) AS total_sac FROM stock WHERE date(`date`)=CURDATE() AND type=1");
+// selection du carton (type=2) au jourd'hui
+$selection_carton_all = $db->prepare("SELECT id_poisson, SUM(nombre_sac) AS total_sac FROM stock WHERE date(`date`)=CURDATE() AND type=2");
 $selection_carton_all -> execute();
 $fetchAll_carton_all = $selection_carton_all -> fetchAll();
 $total_carton_all = $fetchAll_carton_all[0]['total_sac'];
@@ -37,6 +37,7 @@ foreach ($fetchAll as $fetch) {
   // $id = $fetch['id'];
   $nombre_sac = $fetch['total_sac'];
   // $place = $fetch['place'];
+  $type = $fetch['tp'];
 
 
 ?>
@@ -46,7 +47,17 @@ foreach ($fetchAll as $fetch) {
       </strong></td>
     <td><?= $qtt_poisson ?></td>
     <td>
-      <?= $nombre_sac ?>
+      <?php
+        if ($type==0) {
+          ?>
+           <?= $nombre_sac ?> <?= '(Sac)' ?>
+           <?php
+        }elseif ($type==2) {
+          ?>
+           <?= $nombre_sac ?> <?= '(Carton)' ?>
+           <?php
+        }
+      ?>
     </td>
     <td>
       <div class="dropdown">
