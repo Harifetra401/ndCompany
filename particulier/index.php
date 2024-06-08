@@ -137,8 +137,6 @@ $fetchAll = $selection->fetchAll();
                     </form>
 
                     <!-- Modal -->
-
-
                   </div>
                 </div>
               </div>
