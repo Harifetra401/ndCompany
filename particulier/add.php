@@ -9,8 +9,8 @@
         $sql = "INSERT INTO particulier(`id`,`id_poisson`, `qtt`, `prix`) VALUES ($id, $poisson, $qtt, $pu)";
         $stmt = $db->prepare($sql);
 
-        if ($stmt->execute()) {
-            ?>
+        if ($stmt->execute()){
+            ?> 
                 <script>
                     document.location.href = "../particulier/?id=<?=$id?>"; 
                 </script>

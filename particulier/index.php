@@ -2,7 +2,10 @@
 require ('../session.php');
 require ('../db.php');
 $id = $_GET['id'];
-$selection = $db->prepare("SELECT * FROM particulier WHERE id = $id");
+
+// Utilisation des paramètres préparés pour éviter les injections SQL
+$selection = $db->prepare("SELECT * FROM particulier WHERE id = :id");
+$selection->bindParam(':id', $id, PDO::PARAM_INT);
 $selection->execute();
 $fetchAll = $selection->fetchAll();
 ?>
@@ -14,40 +17,21 @@ $fetchAll = $selection->fetchAll();
   <meta charset="utf-8" />
   <meta name="viewport"
     content="width=device-width, initial-scale=1.0, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0" />
-
   <title>Logiciel de Gestion</title>
-
-  <meta name="description" content="" />
-
-  <!-- Favicon -->
+  <meta name="description" content="Système de gestion" />
   <link rel="icon" type="image/x-icon" href="../assets/img/favicon/favicon.ico" />
-
-  <!-- Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link
-    href="https://fonts.googleapis.com/css2?family=Public+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,500;1,600;1,700&display=swap"
+  <link href="https://fonts.googleapis.com/css2?family=Public+Sans:wght@300;400;500;600;700&display=swap"
     rel="stylesheet" />
-
-  <!-- Icons. Uncomment required icon fonts -->
   <link rel="stylesheet" href="../assets/vendor/fonts/boxicons.css" />
-
-  <!-- Core CSS -->
-  <link rel="stylesheet" href="../assets/vendor/css/core.css" class="template-customizer-core-css" />
-  <link rel="stylesheet" href="../assets/vendor/css/theme-default.css" class="template-customizer-theme-css" />
+  <link rel="stylesheet" href="../assets/vendor/css/core.css" />
+  <link rel="stylesheet" href="../assets/vendor/css/theme-default.css" />
   <link rel="stylesheet" href="../assets/css/demo.css" />
-
-  <!-- Vendors CSS -->
   <link rel="stylesheet" href="../assets/vendor/libs/perfect-scrollbar/perfect-scrollbar.css" />
   <link rel="stylesheet" href="../assets/vendor/libs/apex-charts/apex-charts.css" />
-
-  <!-- Page CSS -->
-
-  <!-- Helpers -->
+  <link rel="stylesheet" href="../css/custom.css" /> <!-- Custom styles -->
   <script src="../assets/vendor/js/helpers.js"></script>
-
-  <!--! Template customizer & Theme config files MUST be included after core stylesheets and helpers.js in the <head> section -->
-  <!--? Config:  Mandatory theme config file contain global vars & default theme options, Set your preferred theme option in this file.  -->
   <script src="../assets/js/config.js"></script>
 </head>
 
@@ -72,11 +56,57 @@ $fetchAll = $selection->fetchAll();
         <div class="content-wrapper">
           <!-- Content -->
 
-          <div class="container-xxl flex-grow-1 container-p-y">
+          <div class="container-xxl flex-grow-2 container-p-y">
             <h4 class="fw-bold py-3 mb-4">
               <span class="text-muted fw-light"> </span> Enregistrement de vent Local
             </h4>
+            <div class="d-flex mb-3">
 
+              <div class="flex-grow-1 row">
+                <div class="col- col-sm-10 mb-sm-0 mb-8">
+                
+                </div>
+                <!-- <div class=""> -->
+
+                <button type="button" class="col-4 col-sm-2  btn btn-icon btn-primary" data-bs-toggle="modal"
+                  data-bs-target="#basicModal">
+                  <i class="">+</i>
+                </button>
+                <div class="modal fade" id="basicModal" tabindex="-1" aria-hidden="true">
+                  <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                      <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel1">Ajout client</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                      </div>
+                      <form action="client.php" method='POST'>
+                        <div class="modal-body">
+                          <div class="row">
+                            <div class="col mb-3">
+                              <label for="nameBasic" class="form-label">Nom</label>
+                              <input type="text" id="nameBasic" class="form-control" placeholder="Non de Poisson"
+                                name="name" /> 
+                                <input type="hidden" name="id" value="<?= $_GET['id'] ?>">
+                             <br>   <label for="nameBasic" class="form-label">Adresse</label>
+                              <input type="text" class="form-control" name="adresse" value="" />
+                              <br><label for="nameBasic" class="form-label">Contact</label>
+                              <input type="text" class="form-control" name="contact" value="" />
+                            </div>
+                          </div>
+
+
+                        </div>
+                        <div class="modal-footer">
+
+                          <button type="submit" class="btn btn-primary">Enregistrer</button>
+                        </div>
+                      </form>
+                    </div>
+                  </div>
+                </div>
+                <!-- </div> -->
+              </div>
+            </div>
             <div class="row">
               <div class="col-md-4 col-12 mb-md-0 mb-4">
                 <div class="card">
@@ -102,7 +132,13 @@ $fetchAll = $selection->fetchAll();
                       <div class="mb-3">
                         <button class="btn btn-primary d-grid w-100" type="submit">Ajouter</button>
                       </div>
+
+
                     </form>
+
+                    <!-- Modal -->
+
+
                   </div>
                 </div>
               </div>
@@ -121,8 +157,8 @@ $fetchAll = $selection->fetchAll();
                       <th></th>
                       <th>
                         <div class="col-md">
-                          
-                          <h6 class="my-4">Client :</h6>
+
+                          <h6 class="my-4">Client : </h6>
                           <h6 class="my-4">Adresse :</h6>
                           <h6 class="my-4">Contact :</h6>
 
@@ -148,14 +184,51 @@ $fetchAll = $selection->fetchAll();
                           <?php require ('liste.php') ?>
                         </tbody>
                       </table>
-                    </div>
+                    </div><br><br><br>
+                    <div class="col-md">
+
+                          <h6 class="my-4">Client : <?= htmlspecialchars($client) ?> </h6>
+                          <h6 class="my-4">Adresse :</h6>
+                          <h6 class="my-4">Contact :</h6>
+
+
+                        </div>
+                    <h6> Somme de :<?= htmlspecialchars($total) ?></h6>
                   </div>
                 </div>
               </div>
             </div>
           </div>
           <!-- / Content -->
-
+          <div class="modal fade" id="addClientModal" tabindex="-1" aria-hidden="true">
+            <div class="modal-dialog">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <h5 class="modal-title" id="addClientModalLabel">Ajouter Client</h5>
+                  <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                  </button>
+                </div>
+                <div class="modal-body">
+                  <form id="addClientForm" action="insert_client.php" method="POST">
+                    <div class="form-group">
+                      <label for="clientName">Nom du Client</label>
+                      <input type="text" class="form-control" id="clientName" name="clientName" required>
+                    </div>
+                    <div class="form-group">
+                      <label for="clientAddress">Adresse du Client</label>
+                      <input type="text" class="form-control" id="clientAddress" name="clientAddress" required>
+                    </div>
+                    <div class="form-group">
+                      <label for="clientContact">Contact du Client</label>
+                      <input type="text" class="form-control" id="clientContact" name="clientContact" required>
+                    </div>
+                    <button type="submit" class="btn btn-primary">Ajouter</button>
+                  </form>
+                </div>
+              </div>
+            </div>
+          </div>
           <!-- Footer -->
           <!-- / Footer -->
 

@@ -1,5 +1,7 @@
 <?php
 require ('../session.php');
+require('data.php');
+require('date.php');
 ?>
 <!DOCTYPE html>
 <html lang="en" class="light-style layout-menu-fixed" dir="ltr" data-theme="theme-default" data-assets-path="../assets/"
@@ -37,7 +39,7 @@ require ('../session.php');
   <link rel="stylesheet" href="../assets/vendor/libs/apex-charts/apex-charts.css" />
 
   <!-- Page CSS -->
-
+  <script src="../dashboardata/chart.js"></script>
   <!-- Helpers -->
   <script src="../assets/vendor/js/helpers.js"></script>
 
@@ -79,6 +81,7 @@ require ('../session.php');
                   <div class="card-body">
                     <form id="formAuthentication" class="mb-3" action="ajout.php" method="POST">
                       <div class="mb-3">
+                        
                         <label class="form-label" for="libelle">Libelle</label>
                         <select name="libelle" class="form-control" required>
                           <option value=""></option>
@@ -117,7 +120,7 @@ require ('../session.php');
                   </div>
                 </div>
               </div>
-
+              
               <div class="col-md-8 col-12">
                 <div class="card">
 
@@ -135,6 +138,19 @@ require ('../session.php');
                           <?php require ('liste.php') ?>
                         </tbody>
                       </table>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="mt-4">
+                <div class="card h-100">
+                  <div class="card-header d-flex align-items-center justify-content-between">
+                    <h5 class="card-title m-0 me-2">Diagramme annee:  <?=$annee_precedente_11.'-'.$annee_actuel?></h5>
+                  </div>
+                  <div class="card-body">
+                    <div>
+                      <canvas id="myChartYear"></canvas>
                     </div>
                   </div>
                 </div>
@@ -158,6 +174,73 @@ require ('../session.php');
     <div class="layout-overlay layout-menu-toggle"></div>
   </div>
   <!-- / Layout wrapper -->
+
+  <script>
+    let sem = ["Dimanche", "Lundi", "Mardi", "Mercredi", "Jeudi", "Vendredi", "Samedi"];
+    let year = ["Janvier", "Février", "Mars", "Avril", "Mai", "Juin", "Juillet", "Août", "Septembre", "Octobre", "Novembre", "Décembre"];
+    var date = new Date();
+
+    function get_month(sous) {
+      let code = (date.getMonth() - sous);
+      code = code < 0 ? 12 + code : code;
+      return code;
+    }
+
+     // diagramme pour chaque annee
+    var ctx = document.getElementById("myChartYear").getContext("2d");
+    var myChartYear = new Chart(ctx, {
+      type: "bar",
+      data: {
+        labels: [
+
+          year[get_month(0)],
+        ],
+        datasets: [{
+            label: "Depense effectué (MGA)",
+            data: [
+
+              <?= get_depense_month($mois_actuel, $annee_actuel) ?>,
+            ],
+            
+            backgroundColor: "rgba(255,0,0,0.6)",
+          },{
+            label: "Vente Local (MGA)",
+            data: [
+
+              <?= get_particulier_month($mois_actuel, $annee_actuel) ?>,
+            ],
+            
+            backgroundColor: "rgba(0,0,0,0.6)",
+          },{
+            label: "Dépense Ordinaire (MGA)",
+            data: [
+
+              <?= get_depense_month_by_class1($mois_actuel, $annee_actuel) ?>,
+            ],
+            
+            backgroundColor: "rgba(150,255,0,0.6)",
+          },{
+            label: "Coûts sur Produits(MGA)",
+            data: [
+
+              <?= get_depense_month_by_class2($mois_actuel, $annee_actuel) ?>,
+            ],
+            
+            backgroundColor: "rgba(150,0,0,0.6)",
+          },{
+            type: "line",
+            label: "Dépense Trasport (MGA)",
+            data: [
+
+              <?= get_depense_month_by_class3($mois_actuel, $annee_actuel) ?>,
+            ],
+            
+            backgroundColor: "rgba(200,0,100,0.6)",
+          }
+        ],
+      },
+    });
+  </script>
 
   <!-- Core JS -->
   <!-- build:js assets/vendor/js/core.js -->

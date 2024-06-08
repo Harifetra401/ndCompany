@@ -66,14 +66,13 @@
         return $fetch['qtt'] | 0;
     }
 
-    function get_dep_month($month, $year) {
+    function get_chargement_month($month, $year) {
         require('../db.php');
-        $sql = "SELECT SUM(cout) as cout FROM depence WHERE YEAR(`date`)=$year AND MONTH(`date`)=$month";
+        $sql = "SELECT SUM(qtt) as qtts FROM detailfilaosortie WHERE YEAR(`date`)=$year AND MONTH(`date`)=$month";
         $stmt = $db->prepare($sql);
         $stmt->execute();
         $fetch=$stmt->fetch();
-        return $fetch['cout'] | 0;
-
+        return $fetch['qtts'] | 0;
     }
 
 ?>

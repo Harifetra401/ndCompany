@@ -75,6 +75,33 @@
   </div>
 </div>
 
+<div class="modal fade" id="addClient" tabindex="-1" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Modification de Mot de passe</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <form action="../profil/editpswrd.php" method="POST">
+        <input type="hidden" name="iduser" value="<?= $_SESSION['id'] ?>">
+        <div class="modal-body">
+          <div class="mb-3">
+            <label for="currentPassword" class="form-label">Mot de passe Actuel</label>
+            <input type="password" id="currentPassword" class="form-control" name="actpassword" placeholder="Mot de passe actuel" required>
+          </div>
+          <div class="mb-3">
+            <label for="newPassword" class="form-label">Nouveau Mot de passe</label>
+            <input type="password" id="newPassword" class="form-control" name="newpassword" placeholder="Nouveau mot de passe" required>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Annuler</button>
+          <button type="submit" class="btn btn-primary">Enregistrer la modification</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
 <!-- Change Password Modal -->
 <div class="modal fade" id="changePasswordModal" tabindex="-1" aria-hidden="true">
   <div class="modal-dialog" role="document">
