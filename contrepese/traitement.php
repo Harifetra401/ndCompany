@@ -15,15 +15,19 @@ function get_name($id_to_get)
   return $fetch_name["nomFilao"];
 }
 
-// function get_cat($id_to_get)
-// {
-//   require ('../db.php');
-//   $new_sql = "SELECT * FROM poisson WHERE id = $id_to_get";
-//   $new_st = $db->prepare($new_sql);
-//   $new_st->execute();
-//   $fetch_name = $new_st->fetch();
-//   return $fetch_name["nomFilao"];
-// }
+function verify_if_ok($num_fact_ok, $id_poisson_ok)
+{
+  require ('../db.php');
+  $selection_if_ok = $db -> prepare("SELECT * FROM confirmentrer WHERE id_poisson=$id_poisson_ok AND NumFac=$num_fact_ok");
+  $selection_if_ok->execute();
+  $fetchAll = $selection_if_ok->fetchAll();
+  $nbr = count($fetchAll);
+    if ($nbr) {
+        return true;
+    } else {
+        return false;
+    }
+}
 
 function return_type($num_to_get)
 {
@@ -164,10 +168,10 @@ $count = 0;
                     <td>Initial</td>
                     <td>Contre Pesage</td>
                     <td>Décication 01</td>
-                    <td>Sortie</td>
                     <td> Traitement</td>
-                    <td>Entrer</td>
+                    <td>Sortie</td>
                     <td>Décication 02</td>
+                    <td>Entrer</td>
 
                   </thead>
                   <tbody>
@@ -177,21 +181,27 @@ $count = 0;
 
                       ?>
                       <tr>
-                        <form action="../contrepese/add_new.php" method="post">
-                          <input type="hidden" name="num" value="<?= $numeroFacture ?>">
-                          <input type="hidden" name="id_poisson" value="<?= $get_fact['id_poisson'] ?>">
-                          <td><?= get_name($get_fact['id_poisson']) ?></td>
-                          <td id="poid_init"><?= $get_fact['qtt'] ?> KG</td>
-                          <?php if (!return_type($get_fact['id_poisson'])) {
+                        <td><?= get_name($get_fact['id_poisson']) ?></td>
+                        <td id="poid_init"><?= $get_fact['qtt'] ?> KG</td>
+                        <?php 
+                          if (!return_type($get_fact['id_poisson'])) {
                             $count += 1; ?>
-                            <td colspan="3"><input type="text" name="qtt" value="<?= $get_fact['qtt'] ?>" id="input_qtt"
-                                onkeyup="maka_p(<?= $get_fact['qtt'] ?>,event,<?= $count ?>)"> KG
-                              <button class="btn btn-primary" type="submit">ok</button>
+                            <td>
+                              <form action="../contrepese/add_new.php" method="post">
+                                <input type="hidden" name="num" value="<?= $numeroFacture ?>">
+                                <input type="hidden" name="id_poisson" value="<?= $get_fact['id_poisson'] ?>">
+                                <input type="number" name="qtt" value="<?= $get_fact['qtt'] ?>" id="input_qtt"
+                                  onkeyup="maka_p(<?= $get_fact['qtt'] ?>,event,<?= $count ?>)" required> KG
+                                <button class="btn btn-primary" type="submit">ok</button>
+                                </form>
                             </td>
                             <td><span id="valeur_apres"></span></td>
                           <?php } else { ?>
-                            <td><?= return_type($get_fact['id_poisson']) ?> KG
+
+                            <td>
+                              <?= return_type($get_fact['id_poisson']) ?> KG
                             </td>
+
                             <?php
                             if (return_type($get_fact['id_poisson'])) {
                               $rest = $get_fact['qtt'] - return_type($get_fact['id_poisson']);
@@ -202,89 +212,104 @@ $count = 0;
                             } else {
                               echo "<td>la valeur ne doit pas etre null</td>";
                             }
-                          }
-                          ?>
-                        </form>
 
-                        <?php
-                        require ('sortieshow.php');
-                        if (return_type($get_fact['id_poisson'])) {
-                          ?>
-                          <td>
-                            <!-- apres traitement -->
+                            ?>
+
+                            <!-- debut form ajout avant chambre froid -->
+                            <td>
+
+                            <!-- raha mbl tsy ok de mi-afficher ito -->
+                            <?php 
+                            if(!verify_if_ok($numeroFacture, $get_fact['id_poisson'])){
+                            ?>
                             <form action="../contrepese/avant_chambre.php" method="post">
-                              <input type="hidden" name="num" value="<?= $numeroFacture ?>">
-                              <input type="hidden" name="id_poisson" value="<?= $get_fact['id_poisson'] ?>">
-                              <input type="hidden" name="pdetail" value="0" id="">
-                              <select name="classpss" id="">
-                                <option value="8"></option>
-                                <option value="1">Avec.E SV</option>
-                                <option value="2">Avec.E AV</option>
-                                <option value="3">Sans.E SV</option>
-                                <option value="4">Sans.E AV</option>
+                                <input type="hidden" name="num" value="<?= $numeroFacture ?>">
+                                <input type="hidden" name="id_poisson" value="<?= $get_fact['id_poisson'] ?>">
+                                <input type="hidden" name="pdetail" value="0" id="">
+                                <select name="classpss" id="">
+                                  <option value="8"></option>
+                                  <option value="1">Avec.E SV</option>
+                                  <option value="2">Avec.E AV</option>
+                                  <option value="3">Sans.E SV</option>
+                                  <option value="4">Sans.E AV</option>
 
-                                <option value="5">Filet TT</option>
-                                <option value="6">Filet SQLT</option>
-                                <option value="7">Filet Chaire</option>
-                                <option value="10">Filet AP</option>
-                                <option value="8">Sans.E SB</option>
-                                <option value="9">Sans.E AB</option>
+                                  <option value="5">Filet TT</option>
+                                  <option value="6">Filet SQLT</option>
+                                  <option value="7">Filet Chaire</option>
+                                  <option value="10">Filet AP</option>
+                                  <option value="8">Sans.E SB</option>
+                                  <option value="9">Sans.E AB</option>
 
-                              </select>
+                                </select>
 
                               <?php
 
-                              if (!return_type_avant($get_fact['id_poisson'])) {
-                                $count += 1;
-                                $atraite = return_type($get_fact['id_poisson']) ?>
+                              // if (!return_type_avant($get_fact['id_poisson'])) {
+                              //     $count += 1;
+                                $poid_precedant = return_type($get_fact['id_poisson']);
+                                $poid_deja_dans_chambre = return_type_avant($get_fact['id_poisson']);
+                                $poid_peut_entrer = $poid_precedant - $poid_deja_dans_chambre;
+                              ?>
+                                <input 
+                                <?php
+                                  if($poid_peut_entrer <= 0) {
+                                    echo "readonly title='il rest auccun poid, veillez valider'";
+                                  }
+                                ?>
+                                 type="number" class="form" autocomplete="off" name="qtt" value="<?=$poid_peut_entrer?>"
+                                  id="input_qtt_y" required>
+                                KG
+                                <?php if(!$poid_peut_entrer <= 0) { ?>
+                                  <button class="btn btn-primary" type="submit">ok</button>
+                                <?php } ?>
+                                <span id="valeur_apres"></span>
+
+                            </form>
+                                <?php 
+                            }
+                              ?>
                             </td>
 
-                            <td>
-                              <input type="text" class="form" autocomplete="off" name="qtt" value="<?= $atraite - $sortie ?>"
-                                id="input_qtt_y">
-                              KG
-                              <button class="btn btn-primary" type="submit">ok</button>
-                            </td>
-                            <td>
-                              <span id="valeur_apres"></span>
-                            <?php } else { ?>
-
-                              <!-- // return_type_avant($get_fact['id_poisson'])  -->
+                            <!-- fin form ajout avant chambre froid -->
 
 
-                              <?php
-                              $count += 1;
-                              $atraite = return_type($get_fact['id_poisson']) ?>
+                             <!-- enregistrement du deuxieme traitement -->
+                          <?php
 
-
-                              <input type="number" class="form w-50" name="qtt" value="<?= $atraite - $sortie ?>" id="input_qtt_y">
-                              KG
-                              <button class="btn btn-primary" type="submit">Entrer</button>
-
-                              <?php
                               if (return_type_avant($get_fact['id_poisson'])) {
                                 $rest = return_type($get_fact['id_poisson']) - $sortie;
                                 $pourcentage = ((return_type_avant($get_fact['id_poisson']) * 100) / $rest);
                                 $decicationPourcentage = 100 - $pourcentage;
                                 $decicationPourcentage = round($decicationPourcentage, 2);
-                                echo "<td> $decicationPourcentage  %</td>";
+                                echo '<td>'.return_type_avant($get_fact['id_poisson']).' KG</td>';
+                                echo "<td> $decicationPourcentage % </td>";
                               } else {
-                                echo "<td>la valeur ne doit pas etre null</td>";
+                                echo "<td>0</td>";
+                                echo "<td>0</td>";
                               }
+                              ?>
+
+                            <td>
+                            <?php
+                              if(!verify_if_ok($numeroFacture, $get_fact['id_poisson'])){
+                              ?>
+                                <form action="confirm.php" method="post">
+                                  <input type="hidden" name="num" value="<?= $numeroFacture ?>">
+                                  <input type="hidden" name="id_poisson" value="<?= $get_fact['id_poisson'] ?>">
+
+                                  <button class="btn btn-danger" type="submit">Valider</button>
+                                </form>
+
+                                <?php
                               }
-                        }
-                        ?>
-                          </form>
-                        </td>
-                        <td>
-                          <form action="confirm.php" method="post">
-                            <input type="hidden" name="num" value="<?= $numeroFacture ?>">
-                            <input type="hidden" name="id_poisson" value="<?= $get_fact['id_poisson'] ?>">
+                              ?>
+                            </td>
 
-                            <button class="btn btn-danger" type="submit">ok</button>
-                          </form>
+                          <?php
+                          }
+                          ?>
 
-                        </td>
+                       
 
                       </tr>
                     <?php } ?>
@@ -295,6 +320,7 @@ $count = 0;
               </div>
             </div>
             <!--/ Layout Demo -->
+            <!-- commentaire pour la facture actuel -->
             <div class="container-fluid flex-grow-1 container-p-y">
               <div class="card">
                 <h5 class="card-header">Commentaire pour cette facture</h5>
