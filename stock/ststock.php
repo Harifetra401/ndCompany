@@ -13,7 +13,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     if ($fetchAll['qtt'] - $qtt < 0) {
 ?>
         <script>
-            alert('stock insuffisant pour<?= $fetchAll['nomfilao'] ?>');
+            alert ('stock insuffisant pour<?= $fetchAll['nomfilao'] ?>');
         </script>
         <script>
             document.location.href = "../chargement?id=<?= $id_sortie ?>";

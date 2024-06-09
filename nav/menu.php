@@ -118,7 +118,13 @@
     <li class="menu-item">
       <a href="../depense" class="menu-link">
         <i class="menu-icon tf-icons bx bx-dock-top"></i>
-        <div>Gestion de dépenses</div>
+        <div>Suivie Compte</div>
+      </a>
+    </li>
+    <li class="menu-item">
+      <a href="../depense/journal.php" class="menu-link">
+        <i class="menu-icon tf-icons bx bx-dock-top"></i>
+        <div>Journal de Caisse</div>
       </a>
     </li>
 

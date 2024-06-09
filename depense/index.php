@@ -77,7 +77,7 @@ require('date.php');
             <div class="row">
               <div class="col-md-4 col-12 mb-md-0 mb-4">
                 <div class="card">
-                  <h5 class="card-header">Détail</h5>
+                  <h5 class="card-header">Somme sortie</h5>
                   <div class="card-body">
                     <form id="formAuthentication" class="mb-3" action="ajout.php" method="POST">
                       <div class="mb-3">
@@ -143,18 +143,66 @@ require('date.php');
                 </div>
               </div>
 
-              <div class="mt-4">
-                <div class="card h-100">
-                  <div class="card-header d-flex align-items-center justify-content-between">
-                    <h5 class="card-title m-0 me-2">Diagramme annee:  <?=$annee_precedente_11.'-'.$annee_actuel?></h5>
-                  </div>
+
+            </div>
+            <br><br><br>
+            <div class="row">
+              <div class="col-md-4 col-12 mb-md-0 mb-4">
+                <div class="card">
+                  <h5 class="card-header">Somme Entrer</h5>
                   <div class="card-body">
-                    <div>
-                      <canvas id="myChartYear"></canvas>
+                    <form id="formAuthentication" class="mb-3" action="entrer.php" method="POST">
+                      <div class="mb-3">
+                        
+                        <label class="form-label" for="libelle">Libelle</label>
+                        <select name="libelle" class="form-control" required>
+                          <option value=""></option>
+                          <option value="client">Versement clients </option>
+                          <option value="perso">Versement Personnels </option>
+
+                          <option value="patron">Patronal</option>
+                          <option value="comp">Comptable</option>
+
+                        </select>
+                      </div>
+                      <div class="mb-3">
+                        <label class="form-label" for="cout">Montant déposer (AR)</label>
+                        <input type="number" class="form-control" name="cout" placeholder="Montant déposer (AR)" required />
+                      </div>
+                      <div class="mb-3">
+                        <label class="form-label" for="desc">Description</label>
+                        <textarea name="desc" class="form-control" placeholder="Votre text ici"></textarea>
+                      </div>
+                      <div class="mb-3">
+                        <button class="btn btn-primary d-grid w-100" type="submit">Ajouter</button>
+                      </div>
+                    </form>
+                  </div>
+                </div>
+              </div>
+              
+              <div class="col-md-8 col-12">
+                <div class="card">
+
+                  <div class="card-body">
+                    <div class="table-responsive">
+                      <table class="table table-hover">
+                        <thead>
+                          <tr>
+                            <th>Libelle</th>
+                            <th>Cout</th>
+                            <th>Description</th>
+                          </tr>
+                        </thead>
+                        <tbody class="table-border-bottom-0">
+                          <?php  ?>
+                        </tbody>
+                      </table>
                     </div>
                   </div>
                 </div>
               </div>
+
 
             </div>
           </div>
@@ -196,7 +244,7 @@ require('date.php');
           year[get_month(0)],
         ],
         datasets: [{
-            label: "Depense effectué (MGA)",
+            label: "Credit (MGA)",
             data: [
 
               <?= get_depense_month($mois_actuel, $annee_actuel) ?>,
@@ -204,6 +252,16 @@ require('date.php');
             
             backgroundColor: "rgba(255,0,0,0.6)",
           },{
+            label: "DEBIT en (MGA)",
+            data: [
+
+              <?= get_entrer($mois_actuel, $annee_actuel) ?>,
+            ],
+            
+            backgroundColor: "rgba(255,0,0)",
+          },
+          
+          {
             label: "Vente Local (MGA)",
             data: [
 
