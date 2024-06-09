@@ -1,4 +1,5 @@
 <?php
+require('../session.php');
 require('../db.php');
 // //   if(empty($_GET['id'])) header('location:../html');
 $id = $_GET['id'];

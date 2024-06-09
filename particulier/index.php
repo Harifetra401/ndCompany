@@ -1,12 +1,12 @@
 <?php
-  require('../session.php');
-  require('../db.php');
+require ('../session.php');
+require ('../db.php');
 $id = $_GET['id'];
 $selection = $db->prepare("SELECT * FROM particulier WHERE id = $id");
 $selection->execute();
 $fetchAll = $selection->fetchAll();
-  ?>
-  <!DOCTYPE html>
+?>
+<!DOCTYPE html>
 <html lang="en" class="light-style layout-menu-fixed" dir="ltr" data-theme="theme-default" data-assets-path="../assets/"
   data-template="vertical-menu-template-free">
 
@@ -39,7 +39,6 @@ $fetchAll = $selection->fetchAll();
 
   <!-- Vendors CSS -->
   <link rel="stylesheet" href="../assets/vendor/libs/perfect-scrollbar/perfect-scrollbar.css" />
-
   <link rel="stylesheet" href="../assets/vendor/libs/apex-charts/apex-charts.css" />
 
   <!-- Page CSS -->
@@ -56,17 +55,17 @@ $fetchAll = $selection->fetchAll();
   <!-- Layout wrapper -->
   <div class="layout-wrapper layout-content-navbar">
     <div class="layout-container">
-      
+
       <!-- Menu -->
-      <?php require('../nav/menu.php')?>
+      <?php require ('../nav/menu.php') ?>
       <!-- / Menu -->
 
       <!-- Layout container -->
       <div class="layout-page">
-        
+
         <!-- Navbar -->
-        <?php $title='Vente Perticulier'?>
-        <?php require('../nav/header.php')?>
+        <?php $title = 'Vente Perticulier' ?>
+        <?php require ('../nav/header.php') ?>
         <!-- / Navbar -->
 
         <!-- Content wrapper -->
@@ -75,94 +74,80 @@ $fetchAll = $selection->fetchAll();
 
           <div class="container-xxl flex-grow-1 container-p-y">
             <h4 class="fw-bold py-3 mb-4">
-              <span class="text-muted fw-light"> </span> Enregistrement pour le vent rapide
+              <span class="text-muted fw-light"> </span> Enregistrement de vent Local
             </h4>
 
             <div class="row">
-              <div class="col-md-12">
-                <div class="row">
-                  <div class="col-md-4 col-12 mb-md-0 mb-4">
-                    <div class="card">
-                      <h5 class="card-header">Les poissons sortie</h5>
-                      <div class="card-body">
-                        <form id="formAuthentication" class="mb-3" action="add.php" method="POST">
-                          <div class="mb-3 form-password-toggle">
-                            <div class="d-flex justify-content-between">
-                              <label class="form-label" for="password">Selection Poisson</label>
+              <div class="col-md-4 col-12 mb-md-0 mb-4">
+                <div class="card">
 
-                            </div>
-
-
-                            <div class="d-flex mb-3">
-
-                              <div class="flex-grow-1 row">
-                                  <div class="input-group input-group-merge">
-                                    <select id="defaultSelect" name="poisson" class="form-select">
-                                      <?php require('../poisson/liste.php')?>
-                                    </select>
-                                </div>
-                                
-                                <!-- </div> -->
-                              </div>
-                            </div>
-                            <div class="d-flex justify-content-between">
-                                
-                                <label class="form-label" for="password">Poid en Kg</label>
-                                
-                            </div>
-                            <div class="input-group input-group-merge">
-                              <input type="hidden" name="id" value="<?=$_GET['id']?>">
-                            
-                                <input type="number" id="" class="form-control" name="qtt" placeholder="" required/>
-                            </div>
-                            <div class="d-flex justify-content-between">
-                              <label class="form-label" for="password">Prix par KG</label>
-
-                            </div>
-                            <div class="input-group input-group-merge">
-                              <input type="number" class="form-control" name="pu" placeholder="" aria-describedby="" required/>
-                            </div>
-                          </div>
-                          <div class="mb-3">
-                            <button class="btn btn-primary d-grid w-100" type="submit">Ajouter</button>
-                          </div>
-                        </form>
-                        
-
-                        <!-- /Connections -->
+                  <h5 class="card-header">Les poissons sortie</h5>
+                  <div class="card-body">
+                    <form id="formAuthentication" class="mb-3" action="add.php" method="POST">
+                      <div class="mb-3">
+                        <label class="form-label" for="poisson">Selection Poisson</label>
+                        <select id="defaultSelect" name="poisson" class="form-select">
+                          <?php require ('../poisson/liste.php') ?>
+                        </select>
                       </div>
-                    </div>
+                      <div class="mb-3">
+                        <label class="form-label" for="qtt">Poid en Kg</label>
+                        <input type="hidden" name="id" value="<?= $_GET['id'] ?>">
+                        <input type="number" class="form-control" name="qtt" required />
+                      </div>
+                      <div class="mb-3">
+                        <label class="form-label" for="pu">Prix par KG</label>
+                        <input type="number" class="form-control" name="pu" required />
+                      </div>
+                      <div class="mb-3">
+                        <button class="btn btn-primary d-grid w-100" type="submit">Ajouter</button>
+                      </div>
+                    </form>
                   </div>
-                  <div class="col-md-8 col-12">
-                    <div class="card">
-                      <div class="row">
-                        <!-- Bootstrap carousel -->
+                </div>
+              </div>
+              <div class="col-md-8 col-12">
+                <div class="card">
+                  <table class="table">
+
+                    <tr>
+                      <th></th>
+                      <th style="width:200px"> <br><br>
+                        <div class="col-md-12  w-300">
+                          <center> <img src="../assets/img/logonordine.jpg" width="150px" alt=""></center>
+                        </div>
+                      </th>
+                      <th></th>
+                      <th></th>
+                      <th>
                         <div class="col-md">
-                          <h5 class="my-4">Vente d' aujourd'hui </h5>
-                        </div>
-                      </div>
-                      <div class="card-body">
-                        <p></p>
-                        <!-- Social Accounts -->
-                        <div class="card">
-                          <div class="table-responsive text-nowrap">
-                            <table class="table">
-                              <thead>
-                                <tr>
-                                  <th>Poisson</th>
-                                  <th>Poid</th>
-                                  <th>prix</th>
-                                </tr>
-                              </thead>
-                              <tbody class="table-border-bottom-0">
-                                <?php require('liste.php')?>
-                              </tbody>
-                            </table>
-                          </div>
                           
+                          <h6 class="my-4">Client :</h6>
+                          <h6 class="my-4">Adresse :</h6>
+                          <h6 class="my-4">Contact :</h6>
+
+
                         </div>
-                        <!-- /Social Accounts -->
-                      </div>
+                      </th>
+
+                    </tr>
+
+                  </table>
+                  <h5 class="card-header">Vente d'aujourd'hui</h5>
+                  <div class="card-body">
+                    <div class="table-responsive text-nowrap">
+                      <table class="table table-hover">
+                        <thead>
+                          <tr>
+                            <th>Poisson</th>
+                            <th>Poid</th>
+                            <th>Prix</th>
+                          </tr>
+                        </thead>
+                        <tbody class="table-border-bottom-0">
+                          <?php require ('liste.php') ?>
+                        </tbody>
+                      </table>
                     </div>
                   </div>
                 </div>
@@ -172,7 +157,6 @@ $fetchAll = $selection->fetchAll();
           <!-- / Content -->
 
           <!-- Footer -->
-
           <!-- / Footer -->
 
           <div class="content-backdrop fade"></div>
@@ -186,8 +170,6 @@ $fetchAll = $selection->fetchAll();
     <div class="layout-overlay layout-menu-toggle"></div>
   </div>
   <!-- / Layout wrapper -->
-
-
 
   <!-- Core JS -->
   <!-- build:js assets/vendor/js/core.js -->

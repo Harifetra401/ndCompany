@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Hôte : 127.0.0.1
--- Généré le : jeu. 06 juin 2024 à 21:30
+-- Généré le : dim. 09 juin 2024 à 17:59
 -- Version du serveur : 10.4.32-MariaDB
 -- Version de PHP : 8.2.12
 
@@ -34,6 +34,13 @@ CREATE TABLE `apres_charge` (
   `qtt` varchar(255) NOT NULL,
   `date` datetime NOT NULL DEFAULT current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Déchargement des données de la table `apres_charge`
+--
+
+INSERT INTO `apres_charge` (`id`, `num`, `id_poisson`, `qtt`, `date`) VALUES
+(8, '16', '133', '12', '2024-06-08 10:38:11');
 
 -- --------------------------------------------------------
 
@@ -79,6 +86,33 @@ CREATE TABLE `client` (
 -- --------------------------------------------------------
 
 --
+-- Structure de la table `confirmentrer`
+--
+
+CREATE TABLE `confirmentrer` (
+  `idfilao` int(11) NOT NULL,
+  `id_poisson` int(11) NOT NULL,
+  `NumFac` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Déchargement des données de la table `confirmentrer`
+--
+
+INSERT INTO `confirmentrer` (`idfilao`, `id_poisson`, `NumFac`) VALUES
+(169, 169, 26),
+(169, 169, 26),
+(169, 169, 26),
+(169, 169, 26),
+(169, 169, 26),
+(169, 169, 26),
+(147, 147, 26),
+(128, 128, 26),
+(104, 104, 26);
+
+-- --------------------------------------------------------
+
+--
 -- Structure de la table `cv`
 --
 
@@ -109,7 +143,8 @@ INSERT INTO `depence` (`id`, `libelle`, `cout`, `description`, `date`) VALUES
 (9, '1', '12', 'hh', '2024-06-06 08:25:32'),
 (10, '1', '14', 'hgfg\r\n', '2024-06-06 08:26:01'),
 (11, '2', '455', '45456', '2024-06-06 08:31:35'),
-(12, '1', '4', 'kkk\r\n', '2024-06-07 09:09:59');
+(12, '1', '4', 'kkk\r\n', '2024-06-07 09:09:59'),
+(13, '1', '100000', 'ghg\r\n', '2024-06-08 08:37:31');
 
 -- --------------------------------------------------------
 
@@ -133,14 +168,13 @@ CREATE TABLE `detailavant` (
 --
 
 INSERT INTO `detailavant` (`id`, `idfilao`, `id_poisson`, `NumFac`, `qtt`, `lanja`, `class`, `pdetail`) VALUES
-(95, '94', '94', '2', '50.5', '50.5', '3', 0),
-(96, '95', '95', '2', '5.5', '5.5', '8', 0),
-(97, '95', '95', '2', '-0.5', '-0.5', '8', 0),
-(98, '96', '96', '5', '51.5', '51.5', '1', 0),
-(99, '97', '97', '5', '7.5', '7.5', '8', 0),
-(103, '97', '97', '5', '7.5', '7.5', '8', 0),
-(101, '94', '94', '1', '50.5', '50.5', '8', 0),
-(102, '95', '95', '1', '5', '5', '8', 0);
+(115, '147', '147', '26', '5', '5', '8', 0),
+(116, '169', '169', '26', '0', '0', '8', 0),
+(117, '147', '147', '26', '99', '99', '8', 0),
+(118, '128', '128', '26', '45', '45', '8', 0),
+(119, '104', '104', '26', '93', '93', '8', 0),
+(120, '104', '104', '26', '93', '93', '8', 0),
+(121, '135', '135', '26', '3', '3', '8', 0);
 
 -- --------------------------------------------------------
 
@@ -357,10 +391,17 @@ CREATE TABLE `detailfilaocontre` (
 --
 
 INSERT INTO `detailfilaocontre` (`id`, `id_poisson`, `NumFac`, `qtt`) VALUES
+(90, 147, '26', '99'),
+(89, 169, '26', '58'),
 (88, 97, '5', '7.5'),
 (87, 96, '5', '56'),
 (86, 95, '1', '5.5'),
-(85, 94, '1', '54.5');
+(85, 94, '1', '54.5'),
+(91, 128, '26', '45'),
+(92, 104, '26', '93'),
+(93, 135, '26', '3'),
+(94, 127, '26', '51'),
+(95, 184, '26', '5');
 
 -- --------------------------------------------------------
 
@@ -376,6 +417,13 @@ CREATE TABLE `detailfilaosortie` (
   `id_sortie` varchar(255) NOT NULL,
   `place` int(11) NOT NULL
 ) ENGINE=MyISAM DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
+
+--
+-- Déchargement des données de la table `detailfilaosortie`
+--
+
+INSERT INTO `detailfilaosortie` (`id`, `id_poisson`, `sac`, `qtt`, `id_sortie`, `place`) VALUES
+(18, '133', '45', 12, '16', 1);
 
 -- --------------------------------------------------------
 
@@ -395,7 +443,20 @@ CREATE TABLE `factmj` (
 INSERT INTO `factmj` (`id`, `date`) VALUES
 (1, '2024-06-05 16:14:17'),
 (2, '2024-06-06 11:00:11'),
-(3, '2024-06-06 11:20:54');
+(3, '2024-06-06 11:20:54'),
+(4, '2024-06-07 15:36:04'),
+(5, '2024-06-07 15:36:37'),
+(6, '2024-06-07 16:39:39'),
+(7, '2024-06-08 08:21:24'),
+(8, '2024-06-08 08:21:27'),
+(9, '2024-06-08 08:59:17'),
+(10, '2024-06-09 12:16:50'),
+(11, '2024-06-09 12:38:27'),
+(12, '2024-06-09 12:38:57'),
+(13, '2024-06-09 12:38:59'),
+(14, '2024-06-09 12:39:16'),
+(15, '2024-06-09 12:39:54'),
+(16, '2024-06-09 12:39:56');
 
 -- --------------------------------------------------------
 
@@ -442,7 +503,10 @@ INSERT INTO `facture` (`id`, `id_fou`, `totalapayee`, `payee`, `restapayer`, `da
 (23, 22, 0, 0, '0', '2024-06-05 16:01:03'),
 (24, 32, 0, 0, '0', '2024-06-05 16:02:18'),
 (25, 22, 0, 0, '0', '2024-06-05 16:19:38'),
-(26, 22, 0, 0, '0', '2024-06-05 17:11:56');
+(26, 22, 0, 0, '0', '2024-06-05 17:11:56'),
+(27, 22, 0, 0, '0', '2024-06-06 22:09:27'),
+(28, 22, 0, 0, '0', '2024-06-07 11:21:44'),
+(29, 22, 0, 0, '0', '2024-06-08 10:50:10');
 
 -- --------------------------------------------------------
 
@@ -470,7 +534,17 @@ INSERT INTO `facturesortie` (`id`, `destination`, `date`) VALUES
 (7, '', '2024-06-06 11:34:16'),
 (8, '', '2024-06-06 12:34:30'),
 (9, '', '2024-06-06 12:57:31'),
-(10, '', '2024-06-06 19:45:13');
+(10, '', '2024-06-06 19:45:13'),
+(11, '', '2024-06-07 07:59:53'),
+(12, '', '2024-06-05 09:42:57'),
+(13, '', '2024-06-07 11:20:07'),
+(14, '', '2024-06-07 15:03:21'),
+(15, '', '2024-06-07 15:46:26'),
+(16, '', '2024-06-07 16:45:12'),
+(17, '', '2024-06-07 17:06:47'),
+(18, '', '2024-06-08 08:17:29'),
+(19, '', '2024-06-08 10:25:57'),
+(20, '', '2024-06-09 12:15:43');
 
 -- --------------------------------------------------------
 
@@ -725,7 +799,8 @@ CREATE TABLE `imgpers` (
 --
 
 INSERT INTO `imgpers` (`id`, `img`) VALUES
-(11, 'uploads/111715346985572.jpg');
+(11, 'uploads/111715346985572.jpg'),
+(18, 'uploads/181715346985572.jpg');
 
 -- --------------------------------------------------------
 
@@ -761,7 +836,10 @@ CREATE TABLE `particulier` (
 
 INSERT INTO `particulier` (`idc`, `id`, `id_poisson`, `qtt`, `prix`, `client`, `date`) VALUES
 (10, 3, '133', '226', '2260000', NULL, '2024-06-06 11:22:18'),
-(11, 3, '93', '6', '6', NULL, '2024-06-06 11:25:11');
+(11, 3, '93', '6', '6', NULL, '2024-06-06 11:25:11'),
+(12, 5, '133', '2', '20000', NULL, '2024-06-07 15:38:51'),
+(13, 5, '133', '45', '90', NULL, '2024-06-07 15:39:07'),
+(14, 13, '133', '45', '2945520', NULL, '2024-06-09 12:39:13');
 
 -- --------------------------------------------------------
 
@@ -986,6 +1064,13 @@ CREATE TABLE `sortie` (
   `sortieqtt` text NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
+--
+-- Déchargement des données de la table `sortie`
+--
+
+INSERT INTO `sortie` (`id_sortie`, `sortieqtt`) VALUES
+(336, '58');
+
 -- --------------------------------------------------------
 
 --
@@ -1084,7 +1169,7 @@ INSERT INTO `stock` (`id`, `id_poisson`, `qtt`, `nombre_sac`, `type`, `place`, `
 (109, '222', 11, 1, 0, 1, '2024-06-04 16:40:33'),
 (110, '216', 11.5, 1, 0, 1, '2024-06-04 16:41:19'),
 (111, '211', 249.5, 12, 0, 1, '2024-06-05 16:49:01'),
-(112, '218', 79.5, 4, 0, 1, '2024-06-05 16:50:27'),
+(112, '218', 79.5, 4, 2, 1, '2024-06-05 16:50:27'),
 (113, '133', 164, 6, 0, 1, '2024-06-05 16:53:23'),
 (114, '153', 38, 2, 0, 1, '2024-06-05 16:54:33'),
 (115, '186', 623, 25, 0, 1, '2024-06-05 16:56:10'),
@@ -1105,7 +1190,7 @@ INSERT INTO `stock` (`id`, `id_poisson`, `qtt`, `nombre_sac`, `type`, `place`, `
 (130, '226', 15, 1, 0, 1, '2024-06-05 17:12:53'),
 (131, '153', 9, 1, 0, 1, '2024-06-05 17:13:18'),
 (132, '198', 5.5, 1, 0, 1, '2024-06-05 17:13:53'),
-(133, '204', 42, 2, 0, 1, '2024-06-05 17:14:24'),
+(133, '204', 30, 2, 0, 1, '2024-06-05 17:14:24'),
 (134, '215', 160, 8, 0, 1, '2024-06-05 17:15:00'),
 (135, '165', 5, 1, 0, 1, '2024-06-05 17:16:08'),
 (136, '222', 6, 0, 0, 1, '2024-06-05 17:16:42'),
@@ -1202,7 +1287,7 @@ INSERT INTO `stockf` (`id`, `nomFilao`, `qtt`) VALUES
 (130, 'Quatre Heure SE', 0),
 (131, 'Trie Besomo SE', 0),
 (132, 'TAKOROPA SE/SB', 5),
-(133, 'ANGY', 248),
+(133, 'ANGY', 223),
 (134, 'ANGYP PM', 0),
 (135, 'THON PM', 0),
 (136, 'PERROQUET ', 0),
@@ -1346,7 +1431,8 @@ CREATE TABLE `user` (
 --
 
 INSERT INTO `user` (`id`, `username`, `password`, `vente`, `achat`, `stock`, `lieukandra`) VALUES
-(1, 'Anthony', '0000', '0', '0', '0', '');
+(1, 'Anthony', '0000', '0', '0', '0', 'majunga'),
+(7, 'Arsene', '0000', '0', '0', '0', 'majunga');
 
 -- --------------------------------------------------------
 
@@ -1408,7 +1494,7 @@ INSERT INTO `ventetana` (`id`, `nomFilao`, `qtt`, `date`) VALUES
 (130, 'Quatre Heure SE', 0, '2024-06-02 12:36:25'),
 (131, 'Trie Besomo SE', 0, '2024-06-02 12:38:07'),
 (132, 'TAKOROPA SE/SB', 0, '2024-06-02 12:39:08'),
-(133, 'ANGY', 0, '2024-06-04 13:26:37'),
+(133, 'ANGY', 12, '2024-06-04 13:26:37'),
 (134, 'ANGYP PM', 0, '2024-06-04 13:28:49'),
 (135, 'THON PM', 0, '2024-06-04 13:37:16'),
 (136, 'PERROQUET ', 0, '2024-06-04 13:39:00'),
@@ -1668,7 +1754,7 @@ ALTER TABLE `ventetana`
 -- AUTO_INCREMENT pour la table `apres_charge`
 --
 ALTER TABLE `apres_charge`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 
 --
 -- AUTO_INCREMENT pour la table `chargement_bac`
@@ -1686,13 +1772,13 @@ ALTER TABLE `client`
 -- AUTO_INCREMENT pour la table `depence`
 --
 ALTER TABLE `depence`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
 
 --
 -- AUTO_INCREMENT pour la table `detailavant`
 --
 ALTER TABLE `detailavant`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=104;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=122;
 
 --
 -- AUTO_INCREMENT pour la table `detailfilao`
@@ -1704,13 +1790,13 @@ ALTER TABLE `detailfilao`
 -- AUTO_INCREMENT pour la table `detailfilaocontre`
 --
 ALTER TABLE `detailfilaocontre`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=89;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=96;
 
 --
 -- AUTO_INCREMENT pour la table `detailfilaosortie`
 --
 ALTER TABLE `detailfilaosortie`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=18;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=19;
 
 --
 -- AUTO_INCREMENT pour la table `filaolafo`
@@ -1740,7 +1826,7 @@ ALTER TABLE `observation`
 -- AUTO_INCREMENT pour la table `particulier`
 --
 ALTER TABLE `particulier`
-  MODIFY `idc` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
+  MODIFY `idc` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
 
 --
 -- AUTO_INCREMENT pour la table `personnel`
@@ -1782,7 +1868,7 @@ ALTER TABLE `traitement_coms`
 -- AUTO_INCREMENT pour la table `user`
 --
 ALTER TABLE `user`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 --
 -- AUTO_INCREMENT pour la table `ventetana`

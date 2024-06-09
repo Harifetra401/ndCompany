@@ -52,6 +52,17 @@ function return_type_sortie($num_to_get)
 }
 
 // avant entrer dans la chambre froid
+function confirm($num_to_get)
+{
+  require ('../db.php');
+  $numeroFacture = $_GET["num"];
+  $selection = $db->prepare("SELECT NumFac as NF FROM confirmentrer WHERE id_poisson=$num_to_get");
+  $selection->execute();
+  $fetchAll = $selection->fetchAll();
+  $nbr = count($fetchAll);
+
+  return $nbr;
+}
 function return_type_avant($num_to_get)
 {
   require ('../db.php');
@@ -226,13 +237,11 @@ $count = 0;
                               if (!return_type_avant($get_fact['id_poisson'])) {
                                 $count += 1;
                                 $atraite = return_type($get_fact['id_poisson']) ?>
-
-
-
                             </td>
 
                             <td>
-                              <input type="text" class="form"autocomplete="off" name="qtt" value="<?= $atraite - $sortie ?>" id="input_qtt_y">
+                              <input type="text" class="form" autocomplete="off" name="qtt" value="<?= $atraite - $sortie ?>"
+                                id="input_qtt_y">
                               KG
                               <button class="btn btn-primary" type="submit">ok</button>
                             </td>
@@ -248,9 +257,9 @@ $count = 0;
                               $atraite = return_type($get_fact['id_poisson']) ?>
 
 
-                              <input type="number" class="form" name="qtt" value="<?= $atraite - $sortie ?>" id="input_qtt_y">
+                              <input type="number" class="form w-50" name="qtt" value="<?= $atraite - $sortie ?>" id="input_qtt_y">
                               KG
-                              <button class="btn btn-primary" type="submit">ok</button>
+                              <button class="btn btn-primary" type="submit">Entrer</button>
 
                               <?php
                               if (return_type_avant($get_fact['id_poisson'])) {
@@ -267,7 +276,15 @@ $count = 0;
                         ?>
                           </form>
                         </td>
+                        <td>
+                          <form action="confirm.php" method="post">
+                            <input type="hidden" name="num" value="<?= $numeroFacture ?>">
+                            <input type="hidden" name="id_poisson" value="<?= $get_fact['id_poisson'] ?>">
 
+                            <button class="btn btn-danger" type="submit">ok</button>
+                          </form>
+
+                        </td>
 
                       </tr>
                     <?php } ?>

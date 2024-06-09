@@ -1,6 +1,6 @@
 <?php
-  require('../session.php');
-  ?>
+require ('../session.php');
+?>
 <!DOCTYPE html>
 <html lang="en" class="light-style layout-menu-fixed" dir="ltr" data-theme="theme-default" data-assets-path="../assets/"
   data-template="vertical-menu-template-free">
@@ -34,7 +34,6 @@
 
   <!-- Vendors CSS -->
   <link rel="stylesheet" href="../assets/vendor/libs/perfect-scrollbar/perfect-scrollbar.css" />
-
   <link rel="stylesheet" href="../assets/vendor/libs/apex-charts/apex-charts.css" />
 
   <!-- Page CSS -->
@@ -51,17 +50,17 @@
   <!-- Layout wrapper -->
   <div class="layout-wrapper layout-content-navbar">
     <div class="layout-container">
-      
+
       <!-- Menu -->
-      <?php require('../nav/menu.php')?>
+      <?php require ('../nav/menu.php') ?>
       <!-- / Menu -->
 
       <!-- Layout container -->
       <div class="layout-page">
-        
+
         <!-- Navbar -->
-        <?php $title='Suivie de Dépenses'?>
-        <?php require('../nav/header.php')?>
+        <?php $title = 'Suivie de Dépenses' ?>
+        <?php require ('../nav/header.php') ?>
         <!-- / Navbar -->
 
         <!-- Content wrapper -->
@@ -74,95 +73,65 @@
             </h4>
 
             <div class="row">
-              <div class="col-md-12">
-                <div class="row">
-                  <div class="col-md-4 col-12 mb-md-0 mb-4">
-                    <div class="card">
-                      <h5 class="card-header">Détail</h5>
-                      <div class="card-body">
-                        <form id="formAuthentication" class="mb-3" action="ajout.php" method="POST">
-                          <div class="mb-3 form-password-toggle">
-                            <div class="d-flex justify-content-between">
-                              <label class="form-label" for="password">Libelle</label>
-
-                            </div>
-
-
-                            <div class="d-flex mb-3">
-
-                              <div class="flex-grow-1 row">
-                                  <div class="input-group input-group-merge">
-                                    <!-- <input type="text" name="libelle" placeholder="Votre libelle ici" class="form-control"/> -->
-                                    <select name="libelle" class="form-control" id="">
-                                      <option value=""></option>
-                                      <option value="1">Depenses administratives</option>
-                                      <option value="2">Depenses operationnelles</option>
-                                      <option value="3">Depenses  approvisionnelles</option>
-                                      <option value="4">Autre</option>
-                                    </select>
-                                  </div>
-                                
-                                <!-- </div> -->
-                              </div>
-                            </div>
-                            <div class="d-flex justify-content-between">
-                                
-                                <label class="form-label" for="">Coût de Dépense (AR)</label>
-                                
-                            </div>
-                            <div class="input-group input-group-merge">
-                                <input type="number" class="form-control" name="cout" placeholder="Coût de Dépenses" required/>
-                            </div>
-                            <div class="d-flex justify-content-between">
-                              <label class="form-label" for="">Description</label>
-
-                            </div>
-                            <div class="input-group input-group-merge">
-                              <textarea name="desc" class="form-control" placeholder="Votre text ici"></textarea>
-                            </div>
-                          </div>
-                          <div class="mb-3">
-                            <button class="btn btn-primary d-grid w-100" type="submit">Ajouter</button>
-                          </div>
-                        </form>
-                        
-
-                        <!-- /Connections -->
+              <div class="col-md-4 col-12 mb-md-0 mb-4">
+                <div class="card">
+                  <h5 class="card-header">Détail</h5>
+                  <div class="card-body">
+                    <form id="formAuthentication" class="mb-3" action="ajout.php" method="POST">
+                      <div class="mb-3">
+                        <label class="form-label" for="libelle">Libelle</label>
+                        <select name="libelle" class="form-control" required>
+                          <option value=""></option>
+                          <option value="1">Depenses administratives</option>
+                          <option value="2">Depenses operationnelles</option>
+                          <option value="3">Depenses approvisionnelles</option>
+                          <option value="4">Autre</option>
+                          
+                        </select>
                       </div>
-                    </div>
-                  </div>
-                  <div class="col-md-8 col-12">
-                    <div class="card">
-                      <div class="row">
-                        <!-- Bootstrap carousel -->
-                        <div class="col-md">
-                          <h5 class="my-4">Liste de depense Ajourd'hui</h5>
-                          <div class="table-responsive text-nowrap">
-                            <table class="table">
-                              <thead>
-                                <tr>
-                                  <th>Libelle</th>
-                                  <th>Cout</th>
-                                  <th>Description</th>
-                                </tr>
-                              </thead>
-                              <tbody class="table-border-bottom-0">
-                                <?php require('liste.php')?>
-                              </tbody>
-                            </table>
-                          </div>
-
-                        </div>
+                      <div class="mb-3">
+                        <label class="form-label" for="cout">Coût de Dépense (AR)</label>
+                        <input type="number" class="form-control" name="cout" placeholder="Coût de Dépenses" required />
                       </div>
+                      <div class="mb-3">
+                        <label class="form-label" for="desc">Description</label>
+                        <textarea name="desc" class="form-control" placeholder="Votre text ici"></textarea>
+                      </div>
+                      <div class="mb-3">
+                        <button class="btn btn-primary d-grid w-100" type="submit">Ajouter</button>
+                      </div>
+                    </form>
                   </div>
                 </div>
               </div>
+
+              <div class="col-md-8 col-12">
+                <div class="card">
+                  
+                  <div class="card-body">
+                    <div class="table-responsive">
+                      <table class="table table-hover">
+                        <thead>
+                          <tr>
+                            <th>Libelle</th>
+                            <th>Cout</th>
+                            <th>Description</th>
+                          </tr>
+                        </thead>
+                        <tbody class="table-border-bottom-0">
+                          <?php require ('liste.php') ?>
+                        </tbody>
+                      </table>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
             </div>
           </div>
           <!-- / Content -->
 
           <!-- Footer -->
-
           <!-- / Footer -->
 
           <div class="content-backdrop fade"></div>
@@ -176,8 +145,6 @@
     <div class="layout-overlay layout-menu-toggle"></div>
   </div>
   <!-- / Layout wrapper -->
-
-
 
   <!-- Core JS -->
   <!-- build:js assets/vendor/js/core.js -->

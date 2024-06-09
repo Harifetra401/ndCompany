@@ -49,7 +49,7 @@
 <aside id="layout-menu" class="layout-menu menu-vertical menu bg-menu-theme">
   <br><br>
   <center>
-    <img src="../assets/img/logonordine.jpg" alt="Logo" class="w-px-150 h-auto rounded-circle" />
+    <img src="../assets/img/logonordine.jpg" alt="Logo" class="w-px-100 h-auto rounded-circle" />
   </center>
   <ul class="menu-inner py-1">
     <li class="menu-item active">
@@ -67,18 +67,30 @@
         <div>Nouvelle Achat</div>
       </a>
     </li>
-    <li class="menu-item">
-      <a href="../html/listeFact.php" class="menu-link">
-        <i class="menu-icon tf-icons bx bx-dock-top"></i>
-        <div>Suivi Traitement</div>
-      </a>
-    </li>
-    <li class="menu-item">
-      <a href="../chargement/all_charge.php" class="menu-link">
-        <i class="menu-icon tf-icons bx bx-dock-top"></i>
-        <div>Traitement TANA</div>
-      </a>
-    </li>
+
+    <?php
+    if ($_SESSION['lieukandra'] == 'majunga') {
+      ?>
+      <li class="menu-item">
+        <a href="../html/listeFact.php" class="menu-link">
+          <i class="menu-icon tf-icons bx bx-dock-top"></i>
+          <div>Suivi Traitement</div>
+        </a>
+      </li>
+      <?php
+    } else {
+      ?>
+      <li class="menu-item">
+        <a href="../chargement/all_charge.php" class="menu-link">
+          <i class="menu-icon tf-icons bx bx-dock-top"></i>
+          <div>Traitement TANA</div>
+        </a>
+      </li>
+      <?php
+    }
+    ?>
+
+
     <li class="menu-item">
       <a href="../stock" class="menu-link">
         <i class="menu-icon tf-icons bx bx-dock-top"></i>
@@ -88,16 +100,8 @@
     <li class="menu-item">
       <a href="../livraison" class="menu-link">
         <i class="menu-icon tf-icons bx bx-dock-top"></i>
-        <div>Gestion de Chargement</div>
+        <div>Chargement</div>
       </a>
-    </li>
-    <li class="menu-item">
-      <!-- <form action="../particulier/factmj.php" method="post"> -->
-      <a href="../particulier/factmj.php" class="menu-link">
-        <i class="menu-icon tf-icons bx bx-dock-top"></i>
-        <div>Vente Majunga</div>
-      </a>
-      <!-- </form> -->
     </li>
     <li class="menu-item">
       <a href="../personnel" class="menu-link">
@@ -111,13 +115,32 @@
         <div>Gestion de dépenses</div>
       </a>
     </li>
-    <li class="menu-item">
-      <!-- <form action="../ventetana/factureTana.php" method="post"> -->
-      <a href="../ventetana/factureTana.php" class="menu-link">
-        <i class="menu-icon tf-icons bx bx-dock-top"></i>
-        <div>Vente TANA</div>
-      </a>
-      <!-- </form> -->
-    </li>
+
+    <?php
+    if ($_SESSION['lieukandra'] == 'majunga') {
+      ?>
+      <li class="menu-item">
+        <form action="../particulier/factmj.php" method="post">
+          <a href="" class="menu-link">
+            <i class="menu-icon tf-icons bx bx-dock-top"></i>
+            <button>Vente Majunga</button>
+          </a>
+        </form>
+      </li>
+      <?php
+    } else {
+      ?>
+      <li class="menu-item">
+        <form action="../particulier/factmj.php" method="post">
+          <a href="" class="menu-link">
+            <i class="menu-icon tf-icons bx bx-dock-top"></i>
+            <button>Vente Tana</button>
+          </a>
+        </form>
+      </li>
+      <?php
+    }
+    ?>
+
   </ul>
 </aside>

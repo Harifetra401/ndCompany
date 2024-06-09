@@ -20,7 +20,7 @@
     <ul class="navbar-nav flex-row align-items-center ms-auto">
       <!-- Place this tag where you want the button to render. -->
       <li>
-        <a class="dropdown-item btn btn-primary" href="../nav/deconnexion.php">
+        <a class="dropdown-item btn btn-primary" href="javascript:void(0);" data-bs-toggle="modal" data-bs-target="#logoutModal">
           <i class="bx bx-power-off me-2"></i>
           <span class="align-middle">Se déconnecter</span>
         </a>
@@ -58,6 +58,26 @@
 
   </div>
 </nav>
+
+<!-- Logout Confirmation Modal -->
+<div class="modal fade" id="logoutModal" tabindex="-1" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="logoutModalLabel">Confirmation de Déconnexion</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <p>Êtes-vous sûr de vouloir vous déconnecter?</p>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Annuler</button>
+        <a href="../nav/deconnexion.php" class="btn btn-primary">Se déconnecter</a>
+      </div>
+    </div>
+  </div>
+</div>
+
 <div class="modal fade" id="basical" tabindex="-1" aria-hidden="true">
   <div class="modal-dialog" role="document">
     <div class="modal-content">
@@ -70,24 +90,25 @@
         <div class="modal-body">
           <div class="row">
             <div class="col mb-3">
-              <label for="nameBasic" class="form-label">Mot de passe Actuel</label>
-              <input type="password" id="nameBasic" autocomplete="off" class="form-control" placeholder="Mot de passe actuel" name="actpassword" />
+              <label for="currentPassword" class="form-label">Mot de passe Actuel</label>
+              <input type="password" id="currentPassword" autocomplete="off" class="form-control" placeholder="Mot de passe actuel" name="actpassword" />
             </div>
             <div class="col mb-3">
-              <label for="nameBasic" class="form-label">Nouveau Mot de passe</label>
-              <input type="password" id="nameBasic" autocomplete="off" class="form-control" placeholder="Nouveau mot de passe" name="newpassword" />
+              <label for="newPassword" class="form-label">Nouveau Mot de passe</label>
+              <input type="password" id="newPassword" autocomplete="off" class="form-control" placeholder="Nouveau mot de passe" name="newpassword" />
             </div>
           </div>
 
         </div>
         <div class="modal-footer">
-
-          <button class="btn btn-primary">Enregistrer la modification</button>
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Annuler</button>
+          <button type="submit" class="btn btn-primary">Enregistrer la modification</button>
         </div>
       </form>
     </div>
   </div>
 </div>
+
 <div class="modal fade" id="ModalUser" tabindex="-1" aria-hidden="true">
   <div class="modal-dialog" role="document">
     <div class="modal-content">
@@ -99,43 +120,37 @@
         <div class="modal-body">
           <div class="col">
             <div class="col mb-3">
-              <label for="nameBasic" class="form-label">Nom De l' utilisateur</label>
-              <input type="text" id="nameBasic" autocomplete="off" class="form-control" placeholder="Nom d'utilisateur" name="username" />
+              <label for="username" class="form-label">Nom De l'utilisateur</label>
+              <input type="text" id="username" autocomplete="off" class="form-control" placeholder="Nom d'utilisateur" name="username" />
             </div>
             <div class="col mb-3">
-              <label for="nameBasic" class="form-label">Lieu de Travail</label>
-              <select name="place" id="" class="form-control">
+              <label for="place" class="form-label">Lieu de Travail</label>
+              <select name="place" id="place" class="form-control">
                 <option value=""></option>
                 <option value="majunga">Majunga</option>
                 <option value="tana">Antananarivo</option>
               </select>
             </div>
-
-            <div class="col m-3">
-              <label for="nameBasic" class="form-label">Responsabilité</label>
+            <div class="col mb-3">
+              <label for="responsibility" class="form-label">Responsabilité</label>
+              <div class="form-check">
+                <input class="form-check-input" type="checkbox" name="action" id="vente">
+                <label class="form-check-label" for="vente">Responsable de Vente</label>
+              </div>
+              <div class="form-check">
+                <input class="form-check-input" type="checkbox" name="action1" id="achat">
+                <label class="form-check-label" for="achat">Responsable d'Achat et Traitement</label>
+              </div>
+              <div class="form-check">
+                <input class="form-check-input" type="checkbox" name="action2" id="stock">
+                <label class="form-check-label" for="stock">Responsable de Stock et Chargement</label>
+              </div>
             </div>
-            <div class="col">
-              <input type="checkbox" name="action" id="vente">
-              <label for="vente">Responsable de Vente</label>
-            </div>
-            <div class="col">
-              <input type="checkbox" name="action1" id="achat">
-              <label for="achat">Responsable d' Achat et Traitement</label>
-            </div>
-            <div class="col">
-              <input type="checkbox" name="action2" id="stock">
-              <label for="stock">Responsable de Stock et Chargement</label>
-            </div>
-            <!-- <div class="col">
-              <input type="checkbox" name="action3" id="stock">
-              <label for="stock">Trésorerie et Dépense</label>
-            </div> -->
           </div>
-
         </div>
         <div class="modal-footer">
-
-          <button class="btn btn-primary">Enregistrer</button>
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Annuler</button>
+          <button type="submit" class="btn btn-primary">Enregistrer</button>
         </div>
       </form>
     </div>

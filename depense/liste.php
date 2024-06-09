@@ -59,6 +59,6 @@ foreach ($fetchAll as $fetch) {
 }
 ?>
 </table>
-<h1>
-  <?=poid_total($date['date'])?>
-</h1>
+<h2>Cout Total</h2>
+  <?=poid_total(['date'])?>
+

@@ -78,10 +78,7 @@ require('date.php');
                       <h1>Nombre de sac</h1>
                       <canvas class="d-flex flex-column align-items-center gap-0" id="myChart2" style="display: block; width: 100%; height: 150px;">
                       </canvas>
-                      <div class="d-flex flex-column gap-0">
-                        <h3 class="mb-2"><?= (get_all(2)[0] - get_sortie(2)[0]) ?> Kg : <?= (get_all(2)[1] - get_sortie(2)[1]) ?> Sac</h3>
-                        <span>Poids total externe</span>
-                      </div>
+                      
                       <div class="d-flex flex-column gap-0">
                         <h3 class="mb-2"><?= (get_all(1)[0] - get_sortie(1)[0]) ?> Kg : <?= (get_all(1)[1] - get_sortie(1)[1]) ?> Sac</h3>
                         <span>Poids total interne</span>
@@ -163,7 +160,7 @@ require('date.php');
             backgroundColor: "rgba(153,205,1,0.6)",
           },
           {
-            label: "vente particulier",
+            label: "vente Local",
             data: [
               <?= get_particulier($hier_6) ?>,
               <?= get_particulier($hier_5) ?>,
