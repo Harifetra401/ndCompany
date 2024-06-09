@@ -48,4 +48,22 @@
         return $fetch['qtt'] | 0;
     }
 
+    function get_achat_month($month, $year) {
+        require('../db.php');
+        $sql = "SELECT SUM(qtt) as qtt FROM detailfilao WHERE YEAR(`date`)=$year AND MONTH(`date`)=$month";
+        $stmt = $db->prepare($sql);
+        $stmt->execute();
+        $fetch=$stmt->fetch();
+        return $fetch['qtt'] | 0;
+    }
+
+    function get_particulier_month($month, $year) {
+        require('../db.php');
+        $sql = "SELECT SUM(qtt) as qtt FROM particulier WHERE YEAR(`date`)=$year AND MONTH(`date`)=$month";
+        $stmt = $db->prepare($sql);
+        $stmt->execute();
+        $fetch=$stmt->fetch();
+        return $fetch['qtt'] | 0;
+    }
+
 ?>

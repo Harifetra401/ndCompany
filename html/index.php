@@ -71,7 +71,22 @@ require('date.php');
             <div class="row">
               <!-- Order Statistics -->
 
-              <div class="col-md-6 col-lg-4 col-xl-4 order-1 mb-4">
+              <!-- Transactions Diagrame par jour -->
+              <div class="col-md-8 col-lg-8 mb-4">
+                <div class="card h-100">
+                  <div class="card-header d-flex align-items-center justify-content-between">
+                    <h5 class="card-title m-0 me-2">Diagramme </h5>
+                  </div>
+                  <div class="card-body">
+                    <div>
+                      <canvas id="myChart"></canvas>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <!--/ Transactions -->
+
+              <div class="col-md-6 col-lg-4 col-xl-4 mb-4">
                 <div class="card h-100">
                   <div class="card-body">
                     <div class="d-flex justify-content-between  flex-column mb-3">
@@ -89,21 +104,21 @@ require('date.php');
               </div>
               <!--/ Order Statistics -->
 
-              <!-- Transactions -->
-              <div class="col-md-8 col-lg-8 order-0 mb-8">
+              <!-- Transactions Diagrame par annee -->
+              <div class="mb-8 mt-8">
                 <div class="card h-100">
                   <div class="card-header d-flex align-items-center justify-content-between">
-                    <h5 class="card-title m-0 me-2">Diagramme </h5>
+                    <h5 class="card-title m-0 me-2">Diagramme annee:  <?=$annee_precedente_11.'-'.$annee_actuel?></h5>
                   </div>
                   <div class="card-body">
                     <div>
-                      <canvas id="myChart"></canvas>
+                      <canvas id="myChartYear"></canvas>
                     </div>
                   </div>
                 </div>
               </div>
               <!--/ Transactions -->
-
+              
               <?php require('liste_facture.php') ?>
               <?php require('liste_chargement.php') ?>
               <?php require('liste_stock.php') ?>
@@ -125,11 +140,18 @@ require('date.php');
 
   <script>
     let sem = ["Dimanche", "Lundi", "Mardi", "Mercredi", "Jeudi", "Vendredi", "Samedi"];
+    let year = ["Janvier", "Février", "Mars", "Avril", "Mai", "Juin", "Juillet", "Août", "Septembre", "Octobre", "Novembre", "Décembre"];
     var date = new Date();
 
     function get_jour(sous) {
       let code = (date.getDay() - sous);
       code = code < 0 ? 7 + code : code;
+      return code;
+    }
+
+    function get_month(sous) {
+      let code = (date.getMonth() - sous);
+      code = code < 0 ? 12 + code : code;
       return code;
     }
 
@@ -169,6 +191,65 @@ require('date.php');
               <?= get_particulier($hier_2) ?>,
               <?= get_particulier($hier_1) ?>,
               <?= get_particulier($hier) ?>,
+            ],
+            backgroundColor: "rgba(155,153,10,0.6)",
+          },
+        ],
+      },
+    });
+
+    // diagramme pour chaque annee
+    var ctx = document.getElementById("myChartYear").getContext("2d");
+    var myChartYear = new Chart(ctx, {
+      type: "line",
+      data: {
+        labels: [
+          year[get_month(11)],
+          year[get_month(10)],
+          year[get_month(9)],
+          year[get_month(8)],
+          year[get_month(7)],
+          year[get_month(6)],
+          year[get_month(5)],
+          year[get_month(4)],
+          year[get_month(3)],
+          year[get_month(2)],
+          year[get_month(1)],
+          year[get_month(0)],
+        ],
+        datasets: [{
+            label: "Achat effectué",
+            data: [
+              <?= get_achat_month($mois_precedent_11, $annee_precedente_11) ?>,
+              <?= get_achat_month($mois_precedent_10, $annee_precedente_10) ?>,
+              <?= get_achat_month($mois_precedent_9, $annee_precedente_9) ?>,
+              <?= get_achat_month($mois_precedent_8, $annee_precedente_8) ?>,
+              <?= get_achat_month($mois_precedent_7, $annee_precedente_7) ?>,
+              <?= get_achat_month($mois_precedent_6, $annee_precedente_6) ?>,
+              <?= get_achat_month($mois_precedent_5, $annee_precedente_5) ?>,
+              <?= get_achat_month($mois_precedent_4, $annee_precedente_4) ?>,
+              <?= get_achat_month($mois_precedent_3, $annee_precedente_3) ?>,
+              <?= get_achat_month($mois_precedent_2, $annee_precedente_2) ?>,
+              <?= get_achat_month($mois_precedent_1, $annee_precedente_1) ?>,
+              <?= get_achat_month($mois_actuel, $annee_actuel) ?>,
+            ],
+            backgroundColor: "rgba(153,205,1,0.6)",
+          },
+          {
+            label: "vente Local",
+            data: [
+              <?= get_particulier_month($mois_precedent_11, $annee_precedente_11) ?>,
+              <?= get_particulier_month($mois_precedent_10, $annee_precedente_10) ?>,
+              <?= get_particulier_month($mois_precedent_9, $annee_precedente_9) ?>,
+              <?= get_particulier_month($mois_precedent_8, $annee_precedente_8) ?>,
+              <?= get_particulier_month($mois_precedent_7, $annee_precedente_7) ?>,
+              <?= get_particulier_month($mois_precedent_6, $annee_precedente_6) ?>,
+              <?= get_particulier_month($mois_precedent_5, $annee_precedente_5) ?>,
+              <?= get_particulier_month($mois_precedent_4, $annee_precedente_4) ?>,
+              <?= get_particulier_month($mois_precedent_3, $annee_precedente_3) ?>,
+              <?= get_particulier_month($mois_precedent_2, $annee_precedente_2) ?>,
+              <?= get_particulier_month($mois_precedent_1, $annee_precedente_1) ?>,
+              <?= get_particulier_month($mois_actuel, $annee_actuel) ?>,
             ],
             backgroundColor: "rgba(155,153,10,0.6)",
           },
