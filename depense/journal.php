@@ -77,11 +77,14 @@ require ('date.php');
                                 <div class="card h-100">
                                     <div class="card-body">
                                         <div class="">
-                                            <h1>Debit / credit</h1>
+                                            <h1>Debit / credit</h1> <br><br>
                                             <canvas class="col-lg-8" id="myChart2"
                                                 style="display: block; width: 300px; height: auto;">
                                             </canvas>
-
+                                            <br><br>
+                                            <h6>
+                                             Solde en Main : <?= get_entrer($mois_actuel, $annee_actuel) + get_particulier_month($mois_actuel, $annee_actuel) - get_depense_month($mois_actuel, $annee_actuel) ?> Ariary
+                                            </h6>
                                         </div>
                                     </div>
                                 </div>
@@ -330,170 +333,124 @@ require ('date.php');
             type: "bar",
             data: {
                 labels: [
-
                     year[get_month(0)],
                 ],
                 datasets: [
-
                     {
                         label: "Dépense personnel (MGA)",
                         data: [
-
                             <?= get_depense_pers($mois_actuel, $annee_actuel) ?>,
                         ],
-
                         backgroundColor: "rgba(150,255,0,0.6)",
-                    }, {
+                    },
+                    {
                         label: "Frais de deplacement(MGA)",
                         data: [
-
                             <?= get_depense_dpl($mois_actuel, $annee_actuel) ?>,
                         ],
-
-                        backgroundColor: "rgba(150,0,0,0.6)",
-                    }, {
-
+                        backgroundColor: "rgba(255,99,132,0.6)",
+                    },
+                    {
                         label: "Aménagement (MGA)",
                         data: [
-
                             <?= get_depense_amenagemen($mois_actuel, $annee_actuel) ?>,
                         ],
-
-                        backgroundColor: "rgba(200,0,100,0.6)",
-                    }, {
-
+                        backgroundColor: "rgba(54,162,235,0.6)",
+                    },
+                    {
                         label: "Loyer (MGA)",
                         data: [
-
                             <?= get_depense_loyer($mois_actuel, $annee_actuel) ?>,
                         ],
-
-                        backgroundColor: "rgba(200,0,100,0.6)",
+                        backgroundColor: "rgba(75,192,192,0.6)",
                     },
                     {
-
-                        label: "AUTORITE  (MGA)",
+                        label: "AUTORITE (MGA)",
                         data: [
-
                             <?= get_depense_aut($mois_actuel, $annee_actuel) ?>,
                         ],
-
-                        backgroundColor: "rgba(200,0,100,0.6)",
+                        backgroundColor: "rgba(153,102,255,0.6)",
                     },
                     {
-
-                        label: " Commission (MGA)",
+                        label: "Commission (MGA)",
                         data: [
-
                             <?= get_depense_comms($mois_actuel, $annee_actuel) ?>,
                         ],
-
-                        backgroundColor: "rgba(200,0,100,0.6)",
+                        backgroundColor: "rgba(255,159,64,0.6)",
                     },
                     {
-
                         label: "Compte d'Immobilisation (MGA)",
                         data: [
-
                             <?= get_depense_imo($mois_actuel, $annee_actuel) ?>,
                         ],
-
-                        backgroundColor: "rgba(200,0,100,0.6)",
+                        backgroundColor: "rgba(255,206,86,0.6)",
                     },
                     {
-
                         label: "Autres dépenses (MGA)",
                         data: [
-
                             <?= get_depense_autre($mois_actuel, $annee_actuel) ?>,
                         ],
-
-                        backgroundColor: "rgba(200,0,100,0.6)",
+                        backgroundColor: "rgba(0,255,127,0.6)",
                     },
                     {
-
                         label: "Enlèvement des produits (MGA)",
                         data: [
-
                             <?= get_depense_elprod($mois_actuel, $annee_actuel) ?>,
                         ],
-
-                        backgroundColor: "rgba(200,0,100,0.6)",
+                        backgroundColor: "rgba(0,191,255,0.6)",
                     },
                     {
-
                         label: "Conservation des produits (MGA)",
                         data: [
-
                             <?= get_depense_csrvprod($mois_actuel, $annee_actuel) ?>,
                         ],
-
-                        backgroundColor: "rgba(200,0,100,0.6)",
+                        backgroundColor: "rgba(75,0,130,0.6)",
                     },
                     {
-
                         label: "Coût du Traitements (MGA)",
                         data: [
-
                             <?= get_depense_ctrait($mois_actuel, $annee_actuel) ?>,
                         ],
-
-                        backgroundColor: "rgba(200,0,100,0.6)",
+                        backgroundColor: "rgba(240,128,128,0.6)",
                     },
                     {
-
                         label: "Matériels d'approvisionnements (MGA)",
                         data: [
-
                             <?= get_depense_appro($mois_actuel, $annee_actuel) ?>,
                         ],
-
-                        backgroundColor: "rgba(200,0,100,0.6)",
+                        backgroundColor: "rgba(124,252,0,0.6)",
                     },
                     {
-
                         label: "Emballage des produits (MGA)",
                         data: [
-
                             <?= get_depense_emball($mois_actuel, $annee_actuel) ?>,
                         ],
-
-                        backgroundColor: "rgba(200,0,100,0.6)",
+                        backgroundColor: "rgba(238,130,238,0.6)",
                     },
                     {
-
                         label: "Dépenses diverses (MGA)",
                         data: [
-
                             <?= get_depense_dpdiv($mois_actuel, $annee_actuel) ?>,
                         ],
-
-                        backgroundColor: "rgba(200,0,100,0.6)",
+                        backgroundColor: "rgba(255,69,0,0.6)",
                     },
                     {
-
                         label: "Transport locale (MGA)",
                         data: [
-
                             <?= get_depense_transloc($mois_actuel, $annee_actuel) ?>,
                         ],
-
-                        backgroundColor: "rgba(200,0,100,0.6)",
+                        backgroundColor: "rgba(0,255,255,0.6)",
                     },
                     {
-
                         label: "Livraison à Tanà (MGA)",
                         data: [
-
                             <?= get_depense_lTana($mois_actuel, $annee_actuel) ?>,
                         ],
-
-                        backgroundColor: "rgba(200,0,100,0.6)",
+                        backgroundColor: "rgba(255,20,147,0.6)",
                     }
                 ],
             },
         });
-
     </script>
 
     <!-- Core JS -->
