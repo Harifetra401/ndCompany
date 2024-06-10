@@ -82,11 +82,24 @@ require ('../session.php');
                         <label class="form-label" for="libelle">Libelle</label>
                         <select name="libelle" class="form-control" required>
                           <option value=""></option>
-                          <option value="1">Depenses administratives</option>
-                          <option value="2">Depenses operationnelles</option>
-                          <option value="3">Depenses approvisionnelles</option>
-                          <option value="4">Autre</option>
-                          
+                          <option value="depense_personnel">Dépense Personnel</option>
+                          <option value="frais_deplacement">Frais de déplacement (personnel & matériel)</option>
+                          <option value="amenagement">Aménagement (fourniture d'entretien)</option>
+                          <option value="loyer">Loyer (Jirama & locataire)</option>
+                          <option value="autorite">AUTORITE (ristourne & contrôle papier)</option>
+                          <option value="compte_immobilisation">Compte d'Immobilisation</option>
+                          <option value="commission">Commission</option>
+                          <option value="autres_depenses">Autres dépenses</option>
+                          <option value="enlevement_produits">Enlèvement des produits</option>
+                          <option value="conservation_produits">Conservation des produits</option>
+                          <option value="cout_traitements">Coût du Traitement</option>
+                          <option value="materiels_approvisionnements">Matériels d'approvisionnement</option>
+                          <option value="emballage_produits">Emballage des produits</option>
+                          <option value="depenses_diverses">Dépenses diverses</option>
+                          <option value="transport_locale">Transport locale</option>
+                          <option value="livraison_tana">Livraison à Tanà</option>
+
+
                         </select>
                       </div>
                       <div class="mb-3">
@@ -107,7 +120,7 @@ require ('../session.php');
 
               <div class="col-md-8 col-12">
                 <div class="card">
-                  
+
                   <div class="card-body">
                     <div class="table-responsive">
                       <table class="table table-hover">

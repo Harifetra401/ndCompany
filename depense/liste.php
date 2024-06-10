@@ -27,15 +27,7 @@ foreach ($fetchAll as $fetch) {
   ?>
 
   <tr>
-    <?php 
-      if ($libelle == 1) {
-        echo '<td>Depenses administratives</td>';
-      } else if ($libelle == 2) {
-        echo '<td>Depenses operationnelles</td>';
-      } else if ($libelle == 3) {
-        echo '<td>Depenses  approvisionnelles</td>';
-      }
-?>
+    <td><?=$libelle?></td>
     
     <td>
       <?= $cout ?> AR

@@ -110,27 +110,7 @@ require '../session.php';
                   </div>
 
                   <!-- Detailed List -->
-                  <div class="col-md-12 col-12">
-                    <div class="card">
-                      <h5 class="card-header">Toutes les listes détaillées</h5>
-                      <div class="card-body">
-                        <div class="table-responsive text-nowrap">
-                          <table class="table">
-                            <thead>
-                              <tr>
-                                <th>Poisson</th>
-                                <th>Poid</th>
-                                <th>Nombre de sac</th>
-                              </tr>
-                            </thead>
-                            <tbody class="table-border-bottom-0">
-                              <?php require 'liste.php'; ?>
-                            </tbody>
-                          </table>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
+                  
                   <!-- /Detailed List -->
 
                 </div>
@@ -144,12 +124,10 @@ require '../session.php';
             <div class="container-xxl">
               <div class="footer-container d-flex justify-content-between py-2 flex-md-row flex-column">
                 <div class="mb-2 mb-md-0">
-                  © <?= date('Y'); ?>, made with ❤️ by your company
+                 
                 </div>
                 <div>
-                  <a href="#" class="footer-link me-4">Support</a>
-                  <a href="#" class="footer-link me-4">Terms of Use</a>
-                  <a href="#" class="footer-link me-4">Privacy Policy</a>
+
                 </div>
               </div>
             </div>

@@ -212,10 +212,15 @@ $count = 0;
                             } else {
                               echo "<td>la valeur ne doit pas etre null</td>";
                             }
-
+                            
                             ?>
-
+                            <td>
+                              <?php
+                                require('sortieshow.php');
+                              ?>
+                            </td>
                             <!-- debut form ajout avant chambre froid -->
+                             
                             <td>
 
                             <!-- raha mbl tsy ok de mi-afficher ito -->
@@ -256,7 +261,7 @@ $count = 0;
                                     echo "readonly title='il rest auccun poid, veillez valider'";
                                   }
                                 ?>
-                                 type="number" class="form" autocomplete="off" name="qtt" value="<?=$poid_peut_entrer?>"
+                                 type="number" class="form" autocomplete="off" name="qtt" value="<?=$poid_peut_entrer - $sortie?>"
                                   id="input_qtt_y" required>
                                 KG
                                 <?php if(!$poid_peut_entrer <= 0) { ?>

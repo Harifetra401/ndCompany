@@ -66,4 +66,14 @@
         return $fetch['qtt'] | 0;
     }
 
+    function get_dep_month($month, $year) {
+        require('../db.php');
+        $sql = "SELECT SUM(cout) as cout FROM depence WHERE YEAR(`date`)=$year AND MONTH(`date`)=$month";
+        $stmt = $db->prepare($sql);
+        $stmt->execute();
+        $fetch=$stmt->fetch();
+        return $fetch['cout'] | 0;
+
+    }
+
 ?>

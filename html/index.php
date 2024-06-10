@@ -37,7 +37,7 @@ require('date.php');
   <!-- <link rel="stylesheet" href="../assets/vendor/libs/apex-charts/apex-charts.css" /> -->
 
   <!-- Page CSS -->
-  <script src="../dashboardata/chart.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.2.2/Chart.min.js"></script>
   <!-- Helpers -->
   <script src="../assets/vendor/js/helpers.js"></script>
 
@@ -253,6 +253,7 @@ require('date.php');
             ],
             backgroundColor: "rgba(155,153,10,0.6)",
           },
+         
         ],
       },
     });

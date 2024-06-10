@@ -98,6 +98,12 @@
       </a>
     </li>
     <li class="menu-item">
+      <a href="../stock/sortiestock.php" class="menu-link">
+        <i class="menu-icon tf-icons bx bx-dock-top"></i>
+        <div>Sortie Stock</div>
+      </a>
+    </li>
+    <li class="menu-item">
       <a href="../livraison" class="menu-link">
         <i class="menu-icon tf-icons bx bx-dock-top"></i>
         <div>Chargement</div>

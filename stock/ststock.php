@@ -2,7 +2,7 @@
 require('../db.php');
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $poisson = $_POST["poisson"];
-
+    $id_sortie = $_POST["id_sortie"];
     $qtt = $_POST["qtt"];
     $sac = $_POST["sac"];
     $place = 1;
@@ -16,26 +16,22 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             alert('stock insuffisant pour<?= $fetchAll['nomfilao'] ?>');
         </script>
         <script>
-            document.location.href = "../sortieStock.php";
+            document.location.href = "../chargement?id=<?= $id_sortie ?>";
         </script>
         <?php
     } else {
-        $sql01 = $db->prepare("UPDATE stock SET qtt = qtt - $qtt WHERE id = $poisson");
-        // $sql01->execute();
+        $sql01 = $db->prepare("UPDATE stockf SET qtt = qtt - $qtt WHERE id = $poisson");
+        $sql01->execute();
 
 
-        // $sql = "INSERT INTO detailfilaosortie(`id_poisson`, `sac`, `qtt`, `id_sortie`, `place`) VALUES ($poisson, $sac, $qtt, $id_sortie, $place)";
-        // $stmt = $db->prepare($sql);
+       
 
-        if ($sql01->execute()) {
         ?>
             <script>
-                alert('ghdfghsfgh')
+                document.location.href = "../chargement?id=<?= $id_sortie ?>";
             </script>
 <?php
-        } else {
-            echo " Erreur lors de l'insertion des datail filao.";
-        }
+        } 
     }
-}
+
 ?>

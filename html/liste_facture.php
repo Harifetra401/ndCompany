@@ -21,7 +21,7 @@
 ?>
 <div class="container-fluid flex-grow-1 container-p-y col-md-8 col-lg-8 order-3 mb-8">
     <div class="card">
-              <h5 class="card-header"> Liste des Stocks Effectué</h5>
+              <h5 class="card-header"> Liste Achats Effectué</h5>
               <div class="table-responsive text-nowrap">
                 <table class="table">
                   <thead>
