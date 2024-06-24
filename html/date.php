@@ -3,6 +3,8 @@
 $aujourdhui = new DateTime();
 $day = clone $aujourdhui;
 
+$niany = $day->modify('-1 day');
+$niany = $niany->format('Y-m-d');
 // Obtenez la date d'hier
 $hier = $day->modify('-1 day');
 $hier = $hier->format('Y-m-d');

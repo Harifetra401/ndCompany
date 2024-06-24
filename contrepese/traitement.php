@@ -1,5 +1,13 @@
 <?php
-require ('../session.php');
+session_start();
+if ($_SESSION['username']!='Anthony') {
+  ?>
+    <script>
+      alert("Merci de contacter l'admin pour y acceder ")
+    </script>
+  <?php
+    header('location:../html/index.php');
+}
 ?>
 <?php
 
@@ -168,7 +176,7 @@ $count = 0;
                     <td>Initial</td>
                     <td>Contre Pesage</td>
                     <td>Décication 01</td>
-                    <td> Traitement</td>
+                    <!-- <td> Traitement</td> -->
                     <td>Sortie</td>
                     <td>Décication 02</td>
                     <td>Entrer</td>
@@ -282,7 +290,7 @@ $count = 0;
                           <?php
 
                               if (return_type_avant($get_fact['id_poisson'])) {
-                                $rest = return_type($get_fact['id_poisson']) - $sortie;
+                                $rest = return_type($get_fact['id_poisson']);
                                 $pourcentage = ((return_type_avant($get_fact['id_poisson']) * 100) / $rest);
                                 $decicationPourcentage = 100 - $pourcentage;
                                 $decicationPourcentage = round($decicationPourcentage, 2);

@@ -3,6 +3,7 @@
 
     if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $fournisseur = $_POST["fournisseur"];
+        $date = $_POST["date"];
 
         $sql = "SELECT MAX(id) AS id FROM facture";
         $stmt = $db->prepare($sql);
@@ -16,7 +17,7 @@
 
 
         
-        $creatNewFact = "INSERT INTO facture(`id`, `id_fou`, `totalapayee`,`payee`,`restapayer`) VALUES ($newNumFact, $fournisseur, 0, 0 ,0)";
+        $creatNewFact = "INSERT INTO facture(`id`, `id_fou`, `totalapayee`,`payee`,`restapayer`, `date`) VALUES ($newNumFact, $fournisseur, 0, 0 ,0, $date)";
         $validation = $db->prepare($creatNewFact);
 
         if ($validation->execute()) {

@@ -1,7 +1,12 @@
 <?php
 session_start();
 if ($_SESSION['username']!='Anthony') {
-    header('location:../index.php');
+  ?>
+    <script>
+      alert("Merci de contacter l'admin pour y acceder ")
+    </script>
+  <?php
+    header('location:index.php');
 }
 ?>
 <!DOCTYPE html>

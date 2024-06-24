@@ -1,7 +1,12 @@
 <?php
 session_start();
 if ($_SESSION['username']!='Anthony') {
-    header('location:../index.php');
+  ?>
+    <script>
+      alert("Merci de contacter l'admin pour y acceder ")
+    </script>
+  <?php
+    header('location:index.php');
 }
 ?>
 <!DOCTYPE html>
@@ -90,6 +95,9 @@ if ($_SESSION['username']!='Anthony') {
                             <select id="defaultSelect" class="form-select" name="fournisseur">
                               <?php require ('../fournisseur/select_list.php') ?>
                             </select>
+
+                            <label for="date">DATE</label>
+                            <input type="date" name="date" class="form-control" id="">
                             <br>
 
                             <div class="mb-3">

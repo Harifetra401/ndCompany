@@ -1,7 +1,7 @@
 <!-- <?php
 // session_start();
 ?> -->
-<nav class="layout-navbar container-xxl navbar navbar-expand-xl navbar-detached align-items-center active" id="layout-navbar">
+<nav class="layout-navbar container-xxl navbar navbar-expand-xl navbar-detached align-items-center active" id="layout-navbar">        
   <div class="layout-menu-toggle navbar-nav align-items-xl-center me-3 me-xl-0 d-xl-none">
     <a class="nav-item nav-link px-0 me-xl-4" href="javascript:void(0)">
       <i class="bx bx-menu bx-sm"></i>
@@ -12,7 +12,7 @@
     <!-- Title -->
     <div class="navbar-nav align-items-center">
       <div class="nav-item d-flex align-items-center">
-        <h3 class="card-header text-black"><?= $title ?></h3>
+        <h3 class="card-header text-black"></h3>
       </div>
     </div>
     <!-- /Title -->

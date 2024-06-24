@@ -76,8 +76,13 @@ require '../session.php';
                             <select id="poissonSelect" name="poisson" class="form-select" required>
                               <?php require '../poisson/liste.php'; ?>
                             </select>
-
-                            <label class="form-label mt-3" for="sacNumber">Nombre de sac</label>
+                            <br>
+                            <label class="form-label" for="typeselect">Mise En</label>
+                            <select id="typ" name="typ" class="form-select" required>
+                              <option value="1">En sac</option>
+                              <option value="2">En Carton</option>
+                            </select>
+                            <label class="form-label mt-3" for="sacNumber">QUANTITE</label>
                             <input type="number" id="sacNumber" class="form-control" name="sac" required />
 
                             <label class="form-label mt-3" for="poidNumber">Poid en Kg</label>

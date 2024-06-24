@@ -1,5 +1,5 @@
 <?php
-require ('../session.php');
+require '../session.php';
 ?>
 
 <!DOCTYPE html>
@@ -10,9 +10,7 @@ require ('../session.php');
   <meta charset="utf-8" />
   <meta name="viewport"
     content="width=device-width, initial-scale=1.0, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0" />
-
   <title>Logiciel de Gestion</title>
-
   <meta name="description" content="" />
 
   <!-- Favicon -->
@@ -21,11 +19,10 @@ require ('../session.php');
   <!-- Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link
-    href="https://fonts.googleapis.com/css2?family=Public+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,500;1,600;1,700&display=swap"
+  <link href="https://fonts.googleapis.com/css2?family=Public+Sans:wght@300;400;500;600;700&display=swap"
     rel="stylesheet" />
 
-  <!-- Icons. Uncomment required icon fonts -->
+  <!-- Icons -->
   <link rel="stylesheet" href="../assets/vendor/fonts/boxicons.css" />
 
   <!-- Core CSS -->
@@ -35,16 +32,13 @@ require ('../session.php');
 
   <!-- Vendors CSS -->
   <link rel="stylesheet" href="../assets/vendor/libs/perfect-scrollbar/perfect-scrollbar.css" />
-
   <link rel="stylesheet" href="../assets/vendor/libs/apex-charts/apex-charts.css" />
 
   <!-- Page CSS -->
+  <link rel="stylesheet" href="../assets/css/custom.css" /> <!-- Custom styles -->
 
   <!-- Helpers -->
   <script src="../assets/vendor/js/helpers.js"></script>
-
-  <!--! Template customizer & Theme config files MUST be included after core stylesheets and helpers.js in the <head> section -->
-  <!--? Config:  Mandatory theme config file contain global vars & default theme options, Set your preferred theme option in this file.  -->
   <script src="../assets/js/config.js"></script>
 </head>
 
@@ -52,114 +46,114 @@ require ('../session.php');
   <!-- Layout wrapper -->
   <div class="layout-wrapper layout-content-navbar">
     <div class="layout-container">
-
       <!-- Menu -->
-      <?php require ('../nav/menu.php') ?>
+      <?php require '../nav/menu.php'; ?>
       <!-- / Menu -->
 
       <!-- Layout container -->
       <div class="layout-page">
-
         <!-- Navbar -->
-        <?php $title = 'Sortie Stock' ?>
-        <?php require ('../nav/header.php') ?>
+        <?php $title = 'Chargement'; ?>
+        <?php require '../nav/header.php'; ?>
         <!-- / Navbar -->
 
         <!-- Content wrapper -->
         <div class="content-wrapper">
           <!-- Content -->
-<br><br>
           <div class="container-xxl flex-grow-1 container-p-y">
             <div class="row">
               <div class="col-md-12">
                 <div class="row">
+                  <!-- Add Poisson Form -->
                   <div class="col-md-4 col-12 mb-md-0 mb-4">
                     <div class="card">
-                      <h5 class="card-header">Sortie Stock</h5>
+                      <h5 class="card-header">Les poissons sortie</h5>
                       <div class="card-body">
                         <form id="formAuthentication" class="mb-3" action="ststock.php" method="POST">
+                        
                           <div class="mb-3 form-password-toggle">
-                            <div class="d-flex justify-content-between">
-                              <label class="form-label" for="password">Selection Poisson</label>
+                            <label class="form-label" for="poissonSelect">Selection Poisson</label>
+                            <select id="poissonSelect" name="poisson" class="form-select" required>
+                              <?php require '../poisson/liste.php'; ?>
+                            </select>
+                            <br>
+                            <label class="form-label" for="typeselect">Mise En</label>
+                            <select id="typ" name="typ" class="form-select" required>
+                              <option value="1">En sac</option>
+                              <option value="2">En Carton</option>
+                            </select>
+                            
+                            <label class="form-label mt-3" for="poidNumber">Poid en Kg</label>
+                            <input type="number" step="0.01" id="poidNumber" class="form-control" name="qtt" required />
+                            <label class="form-label mt-3" for="sacNumber">QUANTITE</label>
+                            <input type="number" id="sacNumber" class="form-control" name="sac" required />
 
-                            </div>
+                            <label class="form-label mt-3" for="poidNumber">Date</label>
+                            <input type="date" step="0.01" id="poidNumber" class="form-control" name="daty" required />
+                            <label for="motif" class="form-label mt-3">MOTIF</label>
+                            <select id="mot" name="mot" class="form-select" required>
+                              <option value="melange">Melange</option>
+                              <option value="vlocal">Vente Local</option>
+                            </select>
 
-
-                            <div class="d-flex mb-3">
-
-                              <div class="flex-grow-1 row">
-                                <div class="input-group input-group-merge">
-                                  <select id="defaultSelect" name="poisson" class="form-select">
-                                    <?php require ('../poisson/liste.php') ?>
-                                  </select>
-                                </div>
-
-                                <!-- </div> -->
-                              </div>
-                            </div>
-                            <div class="d-flex justify-content-between">
-                              <label class="form-label" for="password">Nombre de sac</label>
-
-                            </div>
-                            <div class="input-group input-group-merge">
-                              <input type="number" class="form-control" name="sac" placeholder="" aria-describedby=""
-                                require />
-                            </div>
-                            <div class="d-flex justify-content-between">
-
-                              <label class="form-label" for="password">Poid en Kg</label>
-
-                            </div>
-                            <div class="input-group input-group-merge">
-                              <input type="number" step="0.01" id="" class="form-control" name="qtt" placeholder=""
-                                require />
-                            </div>
                           </div>
-                          <div class="mb-3">
-                            <button class="btn btn-primary d-grid w-100" type="submit">Ajouter</button>
-                          </div>
+                          <button class="btn btn-primary d-grid w-100" type="submit">Ajouter</button>
                         </form>
-
-
-                        <!-- /Connections -->
                       </div>
                     </div>
                   </div>
+
+                  <!-- Bon de Livraison -->
                   <div class="col-md-8 col-12">
                     <div class="card">
-                      <div class="row">
-                        <!-- Bootstrap carousel -->
-                        <div class="col-md">
+                      <!-- <table class="table">
 
-                        <div>
-                          </div>
-                        </div>
-                      </div>
+                        <tr>
+                          <th></th>
+                          <th style="width:200px"> <br><br>
+                            <div class="col-md-12  w-300">
+                              <center> <img src="../assets/img/logonordine.jpg" width="150px" alt=""></center>
+                            </div>
+                          </th>
+                          <th></th>
+                          <th></th>
+                          <th>
+                            <div class="col-md">
+
+                              <h6 class="my-4">Client : </h6>
+                              <h6 class="my-4">Adresse :</h6>
+                              <h6 class="my-4">Contact :</h6>
+
+
+                            </div>
+                          </th>
+
+                        </tr>
+
+                      </table> -->
+                     
                       <div class="card-body">
-                        <p></p>
-                        <!-- Social Accounts -->
-                        <div class="card">
-                          <div class="table-responsive text-nowrap">
-                            <table class="table">
-                              <thead>
-                                <tr>
-                                  <th>Poisson</th>
-                                  <th>Poid</th>
-                                  <th>Nombre de sac</th>
-
-                                </tr>
-                              </thead>
-                              <tbody class="table-border-bottom-0">
-                              </tbody>
-                            </table>
-                          </div>
+                        <div class="table-responsive text-nowrap">
+                          <table class="table">
+                            <thead>
+                              <tr>
+                                <th>Poisson</th>
+                                <th>Poid</th>
+                                <th>Nombre de sac</th>
+                              </tr>
+                            </thead>
+                            <tbody class="table-border-bottom-0">
+                          <?php require 'listeStortie.php'; ?>
+                            </tbody>
+                          </table>
                         </div>
-                        <!-- /Social Accounts -->
                       </div>
                     </div>
                   </div>
-                  <!-- tout les liste  -->
-                  
+
+                  <!-- Detailed List -->
+
+                  <!-- /Detailed List -->
 
                 </div>
               </div>
@@ -168,42 +162,42 @@ require ('../session.php');
           <!-- / Content -->
 
           <!-- Footer -->
+          <footer class="content-footer footer bg-footer-theme">
+            <div class="container-xxl">
+              <div class="footer-container d-flex justify-content-between py-2 flex-md-row flex-column">
+                <div class="mb-2 mb-md-0">
 
+                </div>
+                <div>
+
+                </div>
+              </div>
+            </div>
+          </footer>
           <!-- / Footer -->
 
           <div class="content-backdrop fade"></div>
         </div>
-        <!-- Content wrapper -->
+        <!-- / Content wrapper -->
       </div>
       <!-- / Layout page -->
     </div>
-
     <!-- Overlay -->
     <div class="layout-overlay layout-menu-toggle"></div>
   </div>
   <!-- / Layout wrapper -->
 
-
-
   <!-- Core JS -->
-  <!-- build:js assets/vendor/js/core.js -->
   <script src="../assets/vendor/libs/jquery/jquery.js"></script>
   <script src="../assets/vendor/libs/popper/popper.js"></script>
   <script src="../assets/vendor/js/bootstrap.js"></script>
   <script src="../assets/vendor/libs/perfect-scrollbar/perfect-scrollbar.js"></script>
-
   <script src="../assets/vendor/js/menu.js"></script>
-  <!-- endbuild -->
-
-  <!-- Vendors JS -->
 
   <!-- Main JS -->
   <script src="../assets/js/main.js"></script>
-
-  <!-- Page JS -->
-
-  <!-- Place this tag in your head or just before your close body tag. -->
-  <script async defer src="https://buttons.github.io/buttons.js"></script>
+  <!-- Custom JS -->
+  <script src="../assets/js/custom.js"></script>
 </body>
 
 </html>

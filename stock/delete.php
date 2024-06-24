@@ -1,28 +1,28 @@
 <?php
-    require('../db.php');
-    $id = $_GET["id"];
-    $qtt = $_GET['qtt'];
-
-    $sql = "DELETE FROM `stock` WHERE id=$id";
-    $stmt = $db->prepare($sql);
-    $sql02 = "UPDATE froidf SET qtt = qtt + :qtt WHERE id = :id";
-    $stmt02 = $db->prepare($sql02);
-    $stmt02->bindParam(':qtt', $qtt, PDO::PARAM_INT);
-    $stmt02->bindParam(':id', $id, PDO::PARAM_INT);
-    $stmt02->execute();
+    require ('../db.php');
     
-    $sql03 = "UPDATE stockf SET qtt = qtt - :qtt WHERE id = :id";
-    $stmt03 = $db->prepare($sql03);
-    $stmt03->bindParam(':qtt', $qtt, PDO::PARAM_INT);
-    $stmt03->bindParam(':id', $id, PDO::PARAM_INT);
-    $stmt03->execute();
-    if ($stmt->execute()) {
-        ?>
-            <script>
-                document.location.href = "../stock";
-            </script>
-       <?php
-    } else {
-        echo " $sql Erreur lors de supression des stock filao.";
+    if (!isset($_GET["id"])) {
+        echo "ID not provided.";
+        exit();
+    }
+
+    $id = $_GET["id"];
+
+    // Ensure $id is an integer
+    if (!filter_var($id, FILTER_VALIDATE_INT)) {
+        echo "Invalid ID.";
+        exit();
+    }
+
+    try {
+        // Use prepared statements to prevent SQL injection
+        $sql = "DELETE FROM `stock` WHERE id = :id";
+        $stmt = $db->prepare($sql);
+        $stmt->bindParam(':id', $id, PDO::PARAM_INT);
+        $stmt->execute();
+
+        echo "Stock item with ID $id has been successfully deleted.";
+    } catch (PDOException $e) {
+        echo "Error during stock deletion: " . $e->getMessage();
     }
 ?>

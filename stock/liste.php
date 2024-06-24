@@ -65,7 +65,7 @@ foreach ($fetchAll as $fetch) {
           <i class="bx bx-dots-vertical-rounded"></i>
         </button>
         <div class="dropdown-menu">
-          <a class="dropdown-item" href="delete.php?id=<?=$id_poisson ?>&qtt=<?= $qtt_poisson ?>"><i class="bx bx-trash me-1"></i>
+          <a class="dropdown-item" href="delete.php?id=<?=$id_poisson ?>"><i class="bx bx-trash me-1"></i>
             Suprimer</a>
         </div>
       </div>

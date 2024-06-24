@@ -17,6 +17,7 @@ foreach ($fetchAll as $fetch) {
   $id_poisson = getNomPoisson($fetch['id_poisson']);
   $qtt_poisson = $fetch['qtt'];
   $nombre_sac = $fetch['sac'];
+  $type = $fetch['typ'];
   $id = $fetch['id'];
 
 
@@ -27,7 +28,15 @@ foreach ($fetchAll as $fetch) {
       </strong></td>
     <td><?= $qtt_poisson ?></td>
     <td>
-      <?= $nombre_sac ?>
+      <?php
+      if ($type == 1) {
+        ?><?= $nombre_sac ?> (Sac)
+        <?php
+      }else{
+        ?><?= $nombre_sac ?> (carton)
+        <?php
+      }
+      ?>
     </td>
     <td>
       <div class="dropdown">

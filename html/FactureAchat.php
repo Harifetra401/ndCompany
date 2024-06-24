@@ -1,8 +1,6 @@
 <?php
 session_start();
-if ($_SESSION['username']!='Anthony') {
-    header('location:../index.php');
-}
+
 ?>
 <head>
   <meta charset="utf-8" />

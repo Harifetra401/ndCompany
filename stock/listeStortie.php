@@ -1,8 +1,8 @@
 <?php
 require ('../db.php');
-$id_sortie = $_GET['id'];
+
 //$selection = $db->prepare("SELECT id_poisson, SUM(sac) AS total_sac, SUM(qtt) AS total_qtt FROM detailfilaosortie WHERE id_sortie=$id_sortie GROUP BY id_poisson ORDER BY id_poisson DESC");
-$selection = $db->prepare("SELECT id_poisson, SUM(sac) AS total_sac, SUM(qtt) AS total_qtt, typ FROM detailfilaosortie WHERE id_sortie=$id_sortie GROUP BY id_poisson ORDER BY id_poisson DESC");
+$selection = $db->prepare("SELECT id_poisson, SUM(sac) AS total_sac, SUM(qtt) AS total_qtt, typ FROM detailfilaosortieStock GROUP BY id_poisson ORDER BY id_poisson DESC");
 $selection->execute();
 $fetchAll = $selection->fetchAll();
 

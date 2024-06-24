@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <?php
 require ('../session.php');
-require ('../sessioncontrole.php');
+// require ('../sessioncontrole.php');
 require ('data.php');
 require ('date.php');
 ?>
@@ -62,13 +62,12 @@ require ('date.php');
       <div class="layout-page">
 
         <!-- Navbar -->
-        <?php $title = $_SESSION['username'] ?>
-        <?php require ('../nav/header.php') ?>
-        <!-- / Navbar -->
 
-        <!-- Content wrapper -->
+        <?php
+        require ('../nav/header.php')
+          ?> 
         <div class="content-wrapper">
-          <!-- Content -->
+         
 
           <div class="container-xxl flex-grow-1 container-p-y">
 
@@ -91,7 +90,7 @@ require ('date.php');
                       </div>
                       <div class="d-flex flex-column gap-0">
                         <h3 class="mb-2"><?= (get_all(1)[0] - get_sortie(1)[0]) ?> Kg :
-                          <?= (get_all(1)[1] - get_sortie(1)[1]) ?> Sac
+                        <?= get_all(1)[1] - get_sortie(1)[1] - get_sortieStock(1)[1]  ?> Sac
                         </h3>
                         <span>Poids total interne</span>
                       </div>
@@ -101,6 +100,18 @@ require ('date.php');
               </div>
               <!--/ Order Statistics -->
 
+              <style>
+                .chart-container {
+                  position: relative;
+                  width: 100%;
+                  height: 100%;
+                }
+
+                #myChart {
+                  width: 100% !important;
+                  height: 100% !important;
+                }
+              </style>
               <!-- Transactions -->
               <div class="col-md-8 col-lg-8 order-0 mb-8">
                 <div class="card h-100">
@@ -136,7 +147,7 @@ require ('date.php');
               <?php require ('liste_facture.php') ?>
               <?php require ('liste_chargement.php') ?>
               <?php require ('liste_stock.php') ?>
-              <?php require('../particulier/listFact.php')?>
+              <?php require ('../particulier/listFact.php') ?>
             </div>
 
           </div>
@@ -178,29 +189,32 @@ require ('date.php');
       type: "bar",
       data: {
         labels: [
-          sem[get_jour(7)],
           sem[get_jour(6)],
           sem[get_jour(5)],
           sem[get_jour(4)],
           sem[get_jour(3)],
           sem[get_jour(2)],
           sem[get_jour(1)],
+          sem[get_jour(0)],
         ],
         datasets: [{
           label: "Achat effectué",
           data: [
-            <?= get_achat($hier_6) ?>,
+           
             <?= get_achat($hier_5) ?>,
             <?= get_achat($hier_4) ?>,
             <?= get_achat($hier_3) ?>,
             <?= get_achat($hier_2) ?>,
             <?= get_achat($hier_1) ?>,
             <?= get_achat($hier) ?>,
+            <?= get_achat_aujourd($niany) ?>
+
+
           ],
           backgroundColor: "rgba(153,205,1,0.6)",
         },
         {
-          label: "vente particulier",
+          label: "vente Local",
           data: [
             <?= get_particulier($hier_6) ?>,
             <?= get_particulier($hier_5) ?>,
@@ -217,8 +231,8 @@ require ('date.php');
     });
 
     var ctx2 = document.getElementById("myChart2").getContext("2d");
-    var stockexterne = <?= get_all(2)[1] - get_sortie(2)[1] ?>;
-    var stockinterne = <?= get_all(1)[1] - get_sortie(1)[1] ?>;
+    var stockexterne = <?= get_all(2)[1] - get_sortie(2)[1] - get_sortieStock(2)[1] ?>;
+    var stockinterne = <?= get_all(1)[1] - get_sortie(1)[1] - get_sortieStock(1)[1]  ?>;
     var myChart2 = new Chart(ctx2, {
       type: "pie",
       data: {
@@ -251,7 +265,7 @@ require ('date.php');
           year[get_month(0)],
         ],
         datasets: [{
-          label: "Vente effectué (MGA)",
+          label: "Vente Local  <?= get_particulier_month($mois_actuel, $annee_actuel) ?>  Kg",
           data: [
             <?= get_particulier_month($mois_precedent_11, $annee_precedente_11) ?>,
             <?= get_particulier_month($mois_precedent_10, $annee_precedente_10) ?>,
@@ -269,7 +283,7 @@ require ('date.php');
 
           backgroundColor: "rgba(255,0,0,0.6)",
         }, {
-          label: "Achat?>,  (MGA)",
+          label: "Achat  <?= get_achat_month($mois_actuel, $annee_actuel) ?> kg",
           data: [
             <?= get_achat_month($mois_precedent_11, $annee_precedente_11) ?>,
             <?= get_achat_month($mois_precedent_10, $annee_precedente_10) ?>,
@@ -299,3 +313,6 @@ require ('date.php');
   <script src="../assets/vendor/libs/popper/popper.js"></script>
   <script src="../assets/vendor/js/bootstrap.js"></script>
   <script src="../assets/vendor/libs/perfect-scrollbar/perfect-scrollbar.js"></script>
+  <script src="../assets/vendor/js/menu.js"></script>
+  <script src="../assets/js/main.js"></script>
+  <script async defer src="https://buttons.github.io/buttons.js"></script>

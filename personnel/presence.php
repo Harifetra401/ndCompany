@@ -7,7 +7,7 @@ if (!isset($ville)) {
     $ville = 'DefaultVille'; // Or fetch it from request parameters or another source
 }
 
-$sql_personnel = "SELECT * FROM personnel WHERE poste=:ville ORDER BY nom ASC";
+$sql_personnel = "SELECT * FROM personnel WHERE poste=:ville ORDER BY id ASC";
 $stmt_personnel = $db->prepare($sql_personnel);
 $stmt_personnel->execute(['ville' => $ville]);
 $stmt_personnel_pre = $stmt_personnel->fetchAll(PDO::FETCH_ASSOC);
@@ -52,6 +52,9 @@ if (!function_exists('is_present')) {
                                     </td>
                                     <td>
                                         <input type="time" name="fin" required />
+                                    </td>
+                                    <td>
+                                        <input type="date" name="daty" id="">
                                     </td>
                                     <td>
                                         <button type="submit" class="btn btn-success" title="Marquer <?= htmlspecialchars($get_per_pre['nom']) ?> comme present">
