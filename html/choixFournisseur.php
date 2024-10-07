@@ -1,14 +1,16 @@
 <?php
 session_start();
-if ($_SESSION['username']!='Anthony') {
-  ?>
-    <script>
-      alert("Merci de contacter l'admin pour y acceder ")
-    </script>
-  <?php
-    header('location:index.php');
+
+if ($_SESSION['username'] != 'Anthony') {
+  echo "<script>
+    alert(\"Merci de contacter l'admin pour y acceder\");
+    window.location.href = 'index.php'; // Redirect after the alert
+  </script>";
+  exit(); // Ensure no further code is executed after the redirection
 }
 ?>
+
+
 <!DOCTYPE html>
 
 <html lang="en" class="light-style layout-menu-fixed" dir="ltr" data-theme="theme-default" data-assets-path="../assets/"
@@ -79,7 +81,6 @@ if ($_SESSION['username']!='Anthony') {
           <!-- Content -->
 
           <div class="container-xxl flex-grow-1 container-p-y">
-            <h4 class="fw-bold py-3 mb-4"><span class="text-muted fw-light"></span> </h4>
 
             <!-- Basic Bootstrap Table -->
             <form action="../fournisseur/select.php" method="post">
@@ -95,11 +96,17 @@ if ($_SESSION['username']!='Anthony') {
                             <select id="defaultSelect" class="form-select" name="fournisseur">
                               <?php require ('../fournisseur/select_list.php') ?>
                             </select>
-
+                            <br>
                             <label for="date">DATE</label>
                             <input type="date" name="date" class="form-control" id="">
                             <br>
-
+                            <label for="date">Type D'Achat</label>
+                            <select id="defaultSelect" class="form-select" name="typ">
+                              <option value="1">Achat Congeler</option>
+                              <option value="2">Achat Frais</option>
+                              <option value="3">Autre</option>
+                            </select>                            
+                            <br>
                             <div class="mb-3">
                               <button class="btn btn-primary d-grid w-100" type="submit">Valider</button>
                             </div>

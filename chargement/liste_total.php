@@ -1,43 +1,29 @@
 <?php
 require ('../db.php');
-$id_sortie = $_GET['id'];
-//$selection = $db->prepare("SELECT id_poisson, SUM(sac) AS total_sac, SUM(qtt) AS total_qtt FROM detailfilaosortie WHERE id_sortie=$id_sortie GROUP BY id_poisson ORDER BY id_poisson DESC");
-$selection = $db->prepare("SELECT id_poisson, SUM(sac) AS total_sac, SUM(qtt) AS total_qtt, typ FROM detailfilaosortie WHERE id_sortie=$id_sortie GROUP BY id_poisson ORDER BY id_poisson DESC");
-$selection->execute();
-$fetchAll = $selection->fetchAll();
+    $id_sortie = $_GET['id'];
 
-function getNomPoisson($id_selector)
-{
-    require ('../db.php');
-    $getBy = $db->prepare("SELECT nomFilao FROM poisson WHERE id=$id_selector");
-    $getBy->execute();
-    $fetchBy = $getBy->fetch();
-    return $fetchBy["nomFilao"];
-}
+    $sql = "SELECT * FROM detailfilaosortie WHERE id_sortie = :id_sortie";
+    $stmt = $db->prepare($sql);
+    $stmt->bindParam(':id_sortie', $id_sortie);
+    $stmt->execute();
+    $results = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
-foreach ($fetchAll as $fetch) {
-    $id_poisson = getNomPoisson($fetch['id_poisson']);
-    $qtt_poisson = $fetch['total_qtt'];
-    $nombre_sac = $fetch['total_sac'];
-    $type = $fetch['typ'];
+
+foreach ($results as $row) {
+
 
     ?>
 
     <tr>
-        <td><i class="fab fa-angular fa-lg text-danger me-3"></i> <strong><?= $id_poisson ?></strong></td>
-        <td><?= $qtt_poisson ?></td>
-        <?php
-        if ($type == 1) {
-            ?>       <td> <?= $nombre_sac ?> (Sac)</td>
-            <?php
-        } else {
-            ?>        <td><?= $nombre_sac ?> (carton)</td>
-            <?php
-        }
-        ?>
+        <td><i class="fab fa-angular fa-lg text-danger me-3"></i> <strong><?= htmlspecialchars($row['id_poisson']) ?></strong></td>
+        <td><?= htmlspecialchars($row['qtt']) ?></td>
+        <td><?= htmlspecialchars($row['sac']) ?> <?= htmlspecialchars($row['typ']) ?></td>
+      
     </tr>
 
     <?php
 }
 ?>
 </table>
+
+

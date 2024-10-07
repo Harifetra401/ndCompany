@@ -2,7 +2,7 @@
 require ('../db.php');
 
 //$selection = $db->prepare("SELECT id_poisson, SUM(sac) AS total_sac, SUM(qtt) AS total_qtt FROM detailfilaosortie WHERE id_sortie=$id_sortie GROUP BY id_poisson ORDER BY id_poisson DESC");
-$selection = $db->prepare("SELECT id_poisson, SUM(sac) AS total_sac, SUM(qtt) AS total_qtt, typ FROM detailfilaosortieStock GROUP BY id_poisson ORDER BY id_poisson DESC");
+$selection = $db->prepare("SELECT id_poisson, SUM(sac) AS total_sac, SUM(qtt) AS total_qtt, typ FROM detailfilaosortiestock  GROUP BY id_poisson ORDER BY id_poisson DESC");
 $selection->execute();
 $fetchAll = $selection->fetchAll();
 

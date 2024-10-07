@@ -57,7 +57,7 @@
             <div class="app-brand justify-content-center">
               <a href="index.html" class="app-brand-link gap-2">
                 <span class="app-brand-logo demo">
-                <img src="../assets/img/logonordine.jpg" alt class="w-px-100 h-auto rounded-circle" />                </span>
+                <img src="../assets/img/logonordine.png" alt class="w-px-100 h-auto rounded-circle" />                </span>
                 <!-- <span class="app-brand-text demo text-body fw-bolder">Nordine Collecte</span> -->
               </a>
             </div>

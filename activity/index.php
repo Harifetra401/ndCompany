@@ -1,5 +1,5 @@
 <?php
-  require("../session.php");
+ // require("../session.php");
 ?>
 <!DOCTYPE html>
 <html lang="en" class="light-style layout-menu-fixed" dir="ltr" data-theme="theme-default" data-assets-path="../assets/"
@@ -64,7 +64,7 @@
       <!-- / Navbar -->
 
       <!-- search bar -->
-      <?php require('search.php')?>
+       <?php require('search.php')?>
         <!-- / serach bar -->
 
         <?php require('facture_liste.php')?>
@@ -78,12 +78,33 @@
   <!-- / Layout wrapper -->
   <!-- Core JS -->
   <!-- build:js assets/vendor/js/core.js -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.9.2/html2pdf.bundle.min.js"></script>
+
   <script src="../assets/vendor/libs/jquery/jquery.js"></script>
   <script src="../assets/vendor/libs/popper/popper.js"></script>
   <script src="../assets/vendor/js/bootstrap.js"></script>
   <script src="../assets/vendor/libs/perfect-scrollbar/perfect-scrollbar.js"></script>
-
+  <script src="../rapport/export.js"></script>
   <script src="../assets/vendor/js/menu.js"></script>
+  <script>
+  document.getElementById('download').addEventListener('click', function() {
+    // Sélectionner le div que vous souhaitez exporter
+    var element = document.getElementById('myDiv');
+
+    // Configurer les options pour html2pdf
+    var opt = {
+      margin:       1,
+      filename:     'document.pdf',
+      image:        { type: 'jpeg', quality: 0.98 },
+      html2canvas:  { dpi: 192, letterRendering: true },
+      jsPDF:        { unit: 'in', format: 'letter', orientation: 'portrait' }
+    };
+
+    // Exporter le div en PDF
+    html2pdf().set(opt).from(element).save();
+  });
+</script>
+
   <!-- endbuild -->
 
   <!-- Vendors JS -->

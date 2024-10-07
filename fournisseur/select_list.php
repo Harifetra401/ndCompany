@@ -1,7 +1,7 @@
 <?php
 
         require('../db.php');
-        $sql = "SELECT id, nomfournisseur FROM fournisseur ORDER BY nomfournisseur";
+        $sql = "SELECT id, NOMS, PRENOMS, nomfournisseur FROM fournisseur ORDER BY nomfournisseur";
         $stmt = $db->prepare($sql);
         $stmt->execute();
     
@@ -9,5 +9,5 @@
     
 ?>
  <?php foreach ($fournisseurs as $fournisseur) : ?>
-       <option value="<?= $fournisseur['id'] ?>"><?= $fournisseur['nomfournisseur'] ?> <br></option>
+       <option value="<?= $fournisseur['id'] ?>"><?= $fournisseur['NOMS'] ?> <?= $fournisseur['PRENOMS'] ?> (<?= $fournisseur['nomfournisseur'] ?>) <br></option>
  <?php endforeach; ?>

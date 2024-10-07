@@ -1,6 +1,14 @@
-<?php 
-  require('../session.php');
-  require('../sessioncontrole.php');
+<?php
+session_start();
+if ($_SESSION['username'] != 'Nordine' && $_SESSION['username'] != 'Arsene') {
+  ?>
+    <script>
+      alert(" <?=$_SESSION['username'] ?>!!  Vous ne pouvez pas acceder a cette page, Merci de contacter Votre administrateur ");
+      window.location.href = "../html/index.php"; 
+    </script>
+  <?php
+
+}
 ?>
 <!DOCTYPE html>
 <html lang="en" class="light-style layout-menu-fixed" dir="ltr" data-theme="theme-default" data-assets-path="../assets/" data-template="vertical-menu-template-free">

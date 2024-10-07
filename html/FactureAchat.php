@@ -1,6 +1,13 @@
 <?php
 session_start();
-
+if ($_SESSION['username'] != 'Anthony' && $_SESSION['username'] != 'Nordine' && $_SESSION['username'] != 'Arsene') {
+  ?>
+    <script>
+      alert("Merci de contacter l'admin pour y acceder ")
+    </script>
+  <?php
+    header('location:index.php');
+}
 ?>
 <head>
   <meta charset="utf-8" />
@@ -92,18 +99,30 @@ session_start();
                               <input type="text" id="" step="0.01" title="" class="form-control" name="qtt" placeholder="" required />
                             </div>
                             <div class="d-flex justify-content-between">
-                              <label class="form-label" for="password">Categorie</label>
+                              <label class="form-label" for="password">Qualite</label>
                             </div>
+                            
                             <div class="input-group input-group-merge">
                                   <select id="defaultSelect" name="cat" class="form-select">
-                                    <option value="1"></option>
-                                    <option value="2">Triee</option>
-                                    <option value="3">TV</option>
-                                    <option value="4">Petit</option>
+                                    <option value="1">1er Choix</option>
+                                    <option value="2">2em choix</option>
+                                    <option value="3">3em choix</option>
+                                    <option value="4">4em choix</option>
                                   </select>
-                                  </div>
-
-                                  <div class="d-flex justify-content-between">
+                            </div>
+                            <div class="d-flex justify-content-between d-npne">
+                              <label class="form-label" for="password">Prix Unit.</label>
+                            </div>
+                            
+                            <div class="input-group input-group-merge d-none">
+                                  <select id="defaultSelect" name="taille" class="form-select">
+                                    <option value="1">GM</option>
+                                    <option value="2">Moyen</option>
+                                    <option value="3">PM</option>
+                                    
+                                  </select>
+                            </div>
+                                  <div class="d-flex justify-content-between  d-none">
                              
                             </div>
                             
@@ -111,12 +130,13 @@ session_start();
                               <label class="form-label" for="password"></label>
                             </div>
                             <div class="input-group input-group-merge">
-                              <input type="hidden" class="form-control" name="pu" value="0" placeholder="" aria-describedby=""  />
+                              <input type="text" class="form-control" name="pu" value="0" placeholder="" aria-describedby=""  />
 
                             </div>
                           </div>
                           <input type="hidden" name="id_fournisseur" value="<?= $_GET['id_fournisseur'] ?>" />
                           <input type="hidden" name="numFact" value="<?= $_GET['numFact'] ?>" />
+                           <input type="date" name="date" class='d-none' value="<?= $_GET['date']?>" />
                           <div class="mb-3">
                             <button class="btn btn-primary d-grid w-100" type="submit">Ajouter</button>
                           </div>
@@ -158,60 +178,12 @@ session_start();
                   <div class="col-md-8 col-12">
 
                     <div class="card" id="content">
-                      <table class="table">
-
-                        <tr>
-                          <th style="width:200px"> <br><br>
-                            <div class="col-md-12  w-300">
-                              <center> <img src="../assets/img/logonordine.jpg" width="150px" alt=""></center>
-                            </div>
-                          </th>
-                          <th>
-                            <div class="col-md">
-                              <?php require('../fournisseur/detail.php') ?>
-                              <h6 class="my-4">Fournisseur : <?= $nom_fou ?></h6>
-                              <h6 class="my-4">Adresse : <?= $Adresse_fou ?></h6>
-                              <h6 class="my-4">Contact : <?= $contact_fou ?></h6>
-
-
-                            </div>
-                          </th>
-
-                        </tr>
-
-                      </table>
-                      <div class="row">
-                        <!-- Bootstrap carousel -->
-
-                        <!-- Bootstrap crossfade carousel -->
-
-                      </div>
-                      <div class="card-body">
-                        <p></p>
-                        <!-- Social Accounts -->
-                        <div class="card">
-                          <h5 class="card-header">Facture Numero : <?= $_GET['numFact'] ?></h5>
-                          <div class="table-responsive text-nowrap">
-                            <table class="table">
-                              <thead>
-                                <tr>
-                                  <th>Poisson</th>
-                                  <th>Poid</th>
-                                  <th>Prix Unitaire</th>
-                                  <th>Prix Total</th>
-
-                                </tr>
-                              </thead>
-                              <tbody class="table-border-bottom-0">
+                      
+  
+                        
+                          
                                 <?php require('../poisson/list_detail.php') ?>
-                              </tbody>
-                            </table>
-                          </div>
-                        </div>
-                        <p>Poid total: <?= $total_poid ?> KG</p>
-                        <p>Prix total: <?= $total ?> AR</p>
-                        <!-- /Social Accounts -->
-                      </div>
+                       
                     </div>
                     <button class="btn btn-primary" onclick="imprimerContenu()">Imprimer</button>
                   </div>

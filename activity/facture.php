@@ -113,7 +113,7 @@ function getRest($id_selector)
                     </div>
 
 
-
+                    <a  class="btn btn-danger" href="../html/FactureAchat.php?id_fournisseur=<?=$id_fou?>&numFact=<?=$_GET['num']?>&date=<?=$_GET['date']?>">Modifier</a>
                     <button class="btn btn-primary" onclick="imprimerContenu()">Imprimer</button>
 
                     <!-- /Social Accounts -->

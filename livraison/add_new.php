@@ -1,41 +1,38 @@
 <?php
-    require('../db.php');
+require('../db.php');
 
-    if ($_SERVER["REQUEST_METHOD"] == "POST") {
-        $livraison = $_POST["livraison"];
+if ($_SERVER["REQUEST_METHOD"] == "POST") {
+    $livraison = $_POST["livraison"];
+    $chauffeur = $_POST["chauf"];
+    $numero = $_POST["numero"];
+    $date = $_POST["date"];
+
+    $sql_old = "SELECT MAX(id) AS idprec FROM facturesortie";
+    $exe = $db->prepare($sql_old);
+    $exe->execute();
+    $resul = $exe->fetch();
     
-        $sql_old = "SELECT MAX(id) AS idprec FROM facturesortie";
-        $exe = $db->prepare($sql_old);
-        $exe->execute();
-        $resul = $exe -> fetch(); 
-        if ($resul["idprec"]) {
-            $idnews = $resul["idprec"] + 1;
-        }else{
-            $idnews = 1;
-        }
-        
+    $idnews = $resul["idprec"] ? $resul["idprec"] + 1 : 1;
 
-        $sql = "INSERT INTO facturesortie(`id`,`destination`) VALUES ('$idnews','$livraison')";
-        $stmt = $db->prepare($sql);
+    $sql = "INSERT INTO facturesortie(`id`, `destination`, `chauffeur`, `numero`, `date`) 
+            VALUES (:id, :destination, :chauffeur, :numero, :date)";
+    
+    $stmt = $db->prepare($sql);
+    $stmt->bindParam(':id', $idnews);
+    $stmt->bindParam(':destination', $livraison);
+    $stmt->bindParam(':chauffeur', $chauffeur);
+    $stmt->bindParam(':numero', $numero);
+    $stmt->bindParam(':date', $date);
 
-        if ($stmt->execute()) {
-            $sql_new = "SELECT MAX(id) AS id FROM facturesortie";
-            $execute = $db->prepare($sql_new);
-            $execute->execute();
-            $resultat = $execute -> fetch(); 
-            if ($resultat["id"]) {
-                $newNumFact = $resultat["id"];
-            } else {
-                $newNumFact = 1;
-            }
-            ?>
-            <script>
-                window.document.location.href = "../chargement?id=<?=$newNumFact?>";
-            </script>
-            <?php
-        } else {
-            echo "$sql Erreur lors de l'insertion des données.";
-        }
+    if ($stmt->execute()) {
+        $newNumFact = $idnews;
+        ?>
+        <script>
+            window.document.location.href = "../chargement/charge.php?id=<?=$newNumFact?>";
+        </script>
+        <?php
+    } else {
+        echo "Erreur lors de l'insertion des données.";
     }
-
+}
 ?>

@@ -72,31 +72,94 @@
               <!-- Social Accounts -->
               <div class="card" id="content">
                   <div class="col-md">
-                      <h5 class="mt-4 mx-2">Bon de Livraison Numero : <?=$_GET['num']?></h5>
+                      
                       <?php require('depot_detail.php')?>
                                   </div>
-                          <div class="table-responsive text-nowrap">
-                            <table class="table">
-                              <thead>
-                                <tr>
-                                  <th>Poisson</th>
-                                  <th>Poid</th>
-                                  <th>Nombre de sac</th>
-                                  <th>Stock</th>
-
-                                </tr>
-                              </thead>
-                              <tbody class="table-border-bottom-0">
-                                <?php require('liste_all_charge.php')?>
-                              </tbody>
+                          <div class="container mt-4">
+                            <div class="text-center mb-3">
+                                <h1 class="h4">BON DE LIVRAISON N°  <?=$_GET['num']?></h1>
+                                <p class="small">Date : <?=$date?></p>
+                            </div>
+                            <div class="row mb-3">
+                                <table class="table table-bordered mb-3 table-light">
+                                    <thead>
+                                        <tr>
+                                            <th>
+                                             <div class="col-md-8">
+                                                <h2 class="h6">SOCIETE ND COMPANY SARLU</h2>
+                                                <p>Siège : Lot 12 RUE RANAIVOSON ARANTA MAHAJANGA I</p>
+                                                <p>Téléphone : +261322527119 / +261346323756</p>
+                                                <p>Email : younouss.nn@gmail.com</p>
+                                                <p>NIF : 6018579668 – STAT : 47214 41 2024 0 00630</p>
+                                             </div>
+                                            </th>
+                                            <th>
+                                                <div class="col-md-6">
+                                                    <p>A :  <?=$receveur?></p>
+                                                    <p>Adresse : </p>
+                                                    <p>Contact : </p>
+                                                    
+                                                </div>
+                                            </th>
+                                        </tr
+                                   
+                                    >
+                                   
+                                </table>
+                               
+                                
+                            </div>
+                    
+                            <table class="table table-bordered mb-3">
+                                <thead class="table-light">
+                                    <tr>
+                                        <th>Référence</th>
+                                        <th>Description</th>
+                                        <th>Nombre de Colis</th>
+                                        <th>Quantité livrées</th>
+                                        <th>Observations</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                   <?php require('liste_all_charge.php')?>
+                                    <!-- Ajoutez plus de lignes si nécessaire -->
+                                </tbody>
                             </table>
-                          </div>
+                    
+                            <div class="mb-3">
+                                <p>Emis par : <?=$emeteur?></p>
+                                <p>Chauffeur : <?=$chauff?></p>
+                                <p>CONTACT CH :  <?=$numero?> </p>
+                                <p>Numero d' Imatriculation : <?=$numVoiture?> </p>
+                            </div>
+                    
+                            <div>
+                                <!--<h3 class="h6">Colisage :</h3>-->
+                                <table class="table table-bordered">
+                                    <thead class="table-light">
+                                        <tr>
+                                            <th>Colis</th>
+                                            <th>Poids</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr><td>Carton : <?=$totalCarton?></td><td>    <?=$total?></td></tr>
+                                        <tr><td>Sac : <?=$totalSac?></td><td></td></tr>
+                                        <tr><td>Bac : <?=$totalbac?></td><td></td></tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                    
+                            <div class="mt-3">
+                                <p></p>
+                            </div>
+                        </div>
                         </div>
                         <button class="btn btn-primary" onclick="imprimerContenu()">Imprimer</button>
                         <!-- /Social Accounts -->
                     </div>
                     <!-- / Content -->
-                    
+                   
           
           <div class="content-backdrop fade"></div>
         </div>

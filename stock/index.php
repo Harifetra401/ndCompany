@@ -1,6 +1,15 @@
-<?php session_start();
-  
+<?php
+session_start();
+//if ($_SESSION['username']!='Samuel' && $_SESSION['username'] != 'Nordine' && $_SESSION['username'] != 'Arsene') {
+  ?>
+    <script>
+     // alert(" Vous ne pouvez pas acceder a cette page, Merci de contacter Votre administrateur ");
+     // window.location.href = "../html/index.php"; // Redirige a la página especificada
 
+    </script>
+  <?php
+    // header('location:../html/index.php');
+//}
 ?>
 <!DOCTYPE html>
 <html lang="en" class="light-style layout-menu-fixed" dir="ltr" data-theme="theme-default" data-assets-path="../assets/" data-template="vertical-menu-template-free">

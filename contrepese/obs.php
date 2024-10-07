@@ -7,7 +7,7 @@ $selection_obs -> execute();
 $fetch_obs = $selection_obs -> fetch();
 ?>
 
-<td>
+
       <form action="add_obs.php" method="post">
       <input type="hidden" name="num" value="<?=$numeroFacture?>">
       <input type="hidden" value="<?=$id_obs?>" name="id_obs"/>
@@ -16,7 +16,7 @@ $fetch_obs = $selection_obs -> fetch();
 if(empty($fetch_obs["obs"])){
 
     ?>
-        <input type="text" class="form-control" name="obs" autocomplete="off" placeholder="Appuyer 'Entrer' pour envoyer">
+        <input type="text" class="form-control w-100" name="obs" autocomplete="off" placeholder="Appuyer 'Entrer' pour envoyer">
     <?php
 
 }else{
@@ -28,4 +28,3 @@ if(empty($fetch_obs["obs"])){
 }
     ?>
       </form>                            
-</td>

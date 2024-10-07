@@ -1,104 +1,49 @@
 <?php
-session_start();
-if ($_SESSION['username']!='Anthony') {
-  ?>
-    <script>
-      alert("Merci de contacter l'admin pour y acceder ")
-    </script>
-  <?php
-    header('location:../html/index.php');
-}
-?>
-<?php
 
-require ('../db.php');
+require('../db.php');
 
-function get_name($id_to_get)
-{
-  require ('../db.php');
-  $new_sql = "SELECT * FROM poisson WHERE id = $id_to_get";
-  $new_st = $db->prepare($new_sql);
-  $new_st->execute();
-  $fetch_name = $new_st->fetch();
-  return $fetch_name["nomFilao"];
+$date= $_GET['date'];
+// Fonction pour récupérer le nom du poisson
+function get_name($id_to_get) {
+    require('../db.php');
+    $new_sql = "SELECT * FROM poisson WHERE id = :id_to_get";
+    $new_st = $db->prepare($new_sql);
+    $new_st->bindParam(':id_to_get', $id_to_get);
+    $new_st->execute();
+    $fetch_name = $new_st->fetch();
+    return $fetch_name["nomfilao"];
 }
 
-function verify_if_ok($num_fact_ok, $id_poisson_ok)
-{
-  require ('../db.php');
-  $selection_if_ok = $db -> prepare("SELECT * FROM confirmentrer WHERE id_poisson=$id_poisson_ok AND NumFac=$num_fact_ok");
-  $selection_if_ok->execute();
-  $fetchAll = $selection_if_ok->fetchAll();
-  $nbr = count($fetchAll);
-    if ($nbr) {
-        return true;
-    } else {
-        return false;
-    }
+$date = $_GET['date']; // Date au format YYYY-MM-DD
+$date_parts = explode('-', $date); // Sépare l'année, le mois, et le jour
+
+// Vérifiez que $date contient bien une date valide au format attendu
+if (count($date_parts) == 3) {
+    $year = $date_parts[0];
+    $month = $date_parts[1];
+    $day = $date_parts[2];
+    
+    // Modifiez la requête pour grouper par id_poisson et additionner les quantités
+    $select_sql = "SELECT id_poisson, SUM(qtt) AS total_qtt FROM detailfilao 
+                   WHERE YEAR(date) = :year AND MONTH(date) = :month AND DAY(date) = :day
+                   GROUP BY id_poisson";
+    
+    $stmt_contre = $db->prepare($select_sql);
+    $stmt_contre->bindParam(':year', $year, PDO::PARAM_INT);
+    $stmt_contre->bindParam(':month', $month, PDO::PARAM_INT);
+    $stmt_contre->bindParam(':day', $day, PDO::PARAM_INT);
+    $stmt_contre->execute();
+
+    $all_produit = $stmt_contre->fetchAll(PDO::FETCH_ASSOC);
+} else {
+    die("Format de date incorrect.");
 }
 
-function return_type($num_to_get)
-{
-  require ('../db.php');
-  $numeroFacture = $_GET["num"];
-  $selection = $db->prepare("SELECT * FROM detailfilaocontre WHERE NumFac=$numeroFacture AND id_poisson=$num_to_get");
-  $selection->execute();
-  $fetchAll = $selection->fetchAll();
-  $nbr = count($fetchAll);
-  if ($nbr) {
-    $qtt_f = $fetchAll[0]['qtt'];
-    return $qtt_f;
-  }
-  return false;
-}
-// sortie
-function return_type_sortie($num_to_get)
-{
-  require ('../db.php');
-  $id_sortie = $_GET["num"];
-  $num = $_GET['num'];
-  $selection_sortie = $db->prepare("SELECT * FROM sortie WHERE id_sortie=$id_sortie");
-  $selection_sortie->execute();
-  $fetch_sortie = $selection_sortie->fetch();
-  return $fetch_sortie["sortieqtt"];
-}
 
-// avant entrer dans la chambre froid
-function confirm($num_to_get)
-{
-  require ('../db.php');
-  $numeroFacture = $_GET["num"];
-  $selection = $db->prepare("SELECT NumFac as NF FROM confirmentrer WHERE id_poisson=$num_to_get");
-  $selection->execute();
-  $fetchAll = $selection->fetchAll();
-  $nbr = count($fetchAll);
-
-  return $nbr;
-}
-function return_type_avant($num_to_get)
-{
-  require ('../db.php');
-  $numeroFacture = $_GET["num"];
-  $selection = $db->prepare("SELECT SUM(qtt) AS Tqtt FROM detailavant WHERE NumFac=$numeroFacture AND id_poisson=$num_to_get");
-  $selection->execute();
-  $fetchAll = $selection->fetchAll();
-  $nbr = count($fetchAll);
-  if ($nbr) {
-    $qtt_f = $fetchAll[0]['Tqtt'];
-    return $qtt_f;
-  }
-  return false;
-}
-
-$numeroFacture = $_GET["num"];
-$select_sql = "SELECT * FROM detailfilao WHERE NumFac=$numeroFacture";
-$stmt_contre = $db->prepare($select_sql);
-$stmt_contre->execute();
-
-$all_produit = $stmt_contre->fetchAll(PDO::FETCH_ASSOC);
-$count = 0;
 ?>
 <!DOCTYPE html>
+<html lang="en" class="light-style layout-menu-fixed" dir="ltr" data-theme="theme-default" data-assets-path="../assets/"
+  data-template="vertical-menu-template-free">
 
 <html lang="en" class="light-style layout-menu-fixed" dir="ltr" data-theme="theme-default" data-assets-path="../assets/"
   data-template="vertical-menu-template-free">
@@ -118,9 +63,7 @@ $count = 0;
   <!-- Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link
-    href="https://fonts.googleapis.com/css2?family=Public+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,500;1,600;1,700&display=swap"
-    rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Public+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,500;1,600;1,700&display=swap" rel="stylesheet" />
 
   <!-- Icons. Uncomment required icon fonts -->
   <link rel="stylesheet" href="../assets/vendor/fonts/boxicons.css" />
@@ -145,21 +88,20 @@ $count = 0;
   <script src="../assets/js/config.js"></script>
 </head>
 
+
 <body>
   <!-- Layout wrapper -->
   <div class="layout-wrapper layout-content-navbar">
     <div class="layout-container">
-
       <!-- Menu -->
-      <?php require ('../nav/menu.php') ?>
+      <?php require('../nav/menu.php')?>
       <!-- / Menu -->
 
       <!-- Layout container -->
       <div class="layout-page">
-
         <!-- Navbar -->
-        <?php $title = 'Traitement' ?>
-        <?php require ('../nav/header.php') ?>
+        <?php $title = 'Traitement'?>
+        <?php require('../nav/header.php')?>
         <!-- / Navbar -->
 
         <!-- Content wrapper -->
@@ -168,241 +110,190 @@ $count = 0;
 
           <div class="container-fluid flex-grow-1 container-p-y">
             <div class="card">
-              <h5 class="card-header"> Traitement Facture n° <?= $numeroFacture ?></h5>
-              <div class="table-responsive text-nowrap">
-                <table class="table">
-                  <thead>
-                    <td>Nom</td>
-                    <td>Initial</td>
-                    <td>Contre Pesage</td>
-                    <td>Décication 01</td>
-                    <!-- <td> Traitement</td> -->
-                    <td>Sortie</td>
-                    <td>Décication 02</td>
-                    <td>Entrer</td>
-
+              <h5 class="card-header">Traitement</h5>
+              <div class="table-responsive text-nowrap"  style="max-height: 300px; overflow-y: auto;">
+                <table class="table table-bordered table-striped">
+                  <thead class="thead-light">
+                    <tr>
+                      <th>Nom</th>
+                      <th>Initial</th>
+                      <th>Contre Pesage (kg)</th>
+                      <th>Sortie</th>
+                      <th>SsGl. Cite</th>
+                      <th>SsGl. Tana</th>
+                      <th>R.Traiter</th>
+                    </tr>
                   </thead>
                   <tbody>
-                    <!-- selection des facture aujourd'hui -->
-                    <?php
-                    foreach ($all_produit as $get_fact) {
-
+                      <?php foreach ($all_produit as $get_fact) { 
+                        // Vérifiez si le produit existe déjà dans bdAchat
+                        $check_sql = "SELECT * FROM bdAchat WHERE date = :numFact AND article = :id_poisson";
+                        $check_stmt = $db->prepare($check_sql);
+                        $check_stmt->bindParam(':numFact', $date);
+                        $check_stmt->bindParam(':id_poisson', $get_fact['id_poisson']);
+                        $check_stmt->execute();
+                        $existing_product = $check_stmt->fetch(PDO::FETCH_ASSOC);
+                        
+                        $rest =  $existing_product ? $existing_product['poids'] : 0;
+                        $contre_Pese_value = $existing_product ? $existing_product['contrePese'] : 0;
+                        $sortie_value = $existing_product ? $existing_product['SortieLocal'] : 0;
+                        $sgcite_value = $existing_product ? $existing_product['sous_glaceLocal'] : 0;
+                        $sgTana_value = $existing_product ? $existing_product['sous_glaceTana'] : 0;
+                        $obs_value = $existing_product ? $contre_Pese_value - $sortie_value -$sgcite_value -$sgTana_value: 0;
+                        $total += $get_fact['total_qtt'];
+                        $totalContre += $contre_Pese_value;
+                        $totalsortie += $sortie_value;
+                        $totalSglMg += $sgcite_value;
+                        $totalSgTana += $sgTana_value;
+                        $totalTraite += $obs_value;
+                        
                       ?>
-                      <tr>
-                        <td><?= get_name($get_fact['id_poisson']) ?></td>
-                        <td id="poid_init"><?= $get_fact['qtt'] ?> KG</td>
-                        <?php 
-                          if (!return_type($get_fact['id_poisson'])) {
-                            $count += 1; ?>
-                            <td>
-                              <form action="../contrepese/add_new.php" method="post">
-                                <input type="hidden" name="num" value="<?= $numeroFacture ?>">
-                                <input type="hidden" name="id_poisson" value="<?= $get_fact['id_poisson'] ?>">
-                                <input type="number" name="qtt" value="<?= $get_fact['qtt'] ?>" id="input_qtt"
-                                  onkeyup="maka_p(<?= $get_fact['qtt'] ?>,event,<?= $count ?>)" required> KG
-                                <button class="btn btn-primary" type="submit">ok</button>
-                                </form>
-                            </td>
-                            <td><span id="valeur_apres"></span></td>
-                          <?php } else { ?>
-
-                            <td>
-                              <?= return_type($get_fact['id_poisson']) ?> KG
-                            </td>
-
-                            <?php
-                            if (return_type($get_fact['id_poisson'])) {
-                              $rest = $get_fact['qtt'] - return_type($get_fact['id_poisson']);
-                              $pourcentage = ((return_type($get_fact['id_poisson']) * 100) / $get_fact['qtt']);
-                              $decicationPourcentage = 100 - $pourcentage;
-                              $decicationPourcentage = round($decicationPourcentage, 2);
-                              echo "<td> $decicationPourcentage %</td>";
-                            } else {
-                              echo "<td>la valeur ne doit pas etre null</td>";
-                            }
+                        <tr>
+                          <form method="POST" action="add_new.php">
+                            <input type="hidden" name="num" value="<?= $date ?>">
+                            <input type="hidden" name="id_poisson" value="<?= $get_fact['id_poisson'] ?>">
                             
-                            ?>
-                            <td>
-                              <?php
-                                require('sortieshow.php');
-                              ?>
+                            <td><?= get_name($get_fact['id_poisson']) ?></td>
+                            <td id="poid_init"><?= $get_fact['total_qtt'] ?> KG<input type="hidden" name="poid" value="<?= $get_fact['total_qtt'] ?>"></td>
+                            <td><input class="form-control" type="text" name="contre_Pese" value="<?= $contre_Pese_value ?>" placeholder="Contre Pesage"></td>
+                            <td><input class="form-control" type="text" name="sortie" value="<?= $sortie_value ?>" placeholder="Sortie"></td>
+                            <td><input class="form-control" type="text" name="sgcite" value="<?= $sgcite_value ?>" placeholder="Sous Glace Cite"></td>
+                            <td><input class="form-control" type="hidden" name="datedate" value="<?= $date ?>" placeholder="Sous Glace Tana">
+                            <input class="form-control" type="text" name="sgTana" value="<?= $sgTana_value ?>" placeholder="Sous Glace Tana">
+                            <input type='submit' class = 'd-none'>
                             </td>
-                            <!-- debut form ajout avant chambre froid -->
-                             
-                            <td>
-
-                            <!-- raha mbl tsy ok de mi-afficher ito -->
-                            <?php 
-                            if(!verify_if_ok($numeroFacture, $get_fact['id_poisson'])){
-                            ?>
-                            <form action="../contrepese/avant_chambre.php" method="post">
-                                <input type="hidden" name="num" value="<?= $numeroFacture ?>">
-                                <input type="hidden" name="id_poisson" value="<?= $get_fact['id_poisson'] ?>">
-                                <input type="hidden" name="pdetail" value="0" id="">
-                                <select name="classpss" id="">
-                                  <option value="8"></option>
-                                  <option value="1">Avec.E SV</option>
-                                  <option value="2">Avec.E AV</option>
-                                  <option value="3">Sans.E SV</option>
-                                  <option value="4">Sans.E AV</option>
-
-                                  <option value="5">Filet TT</option>
-                                  <option value="6">Filet SQLT</option>
-                                  <option value="7">Filet Chaire</option>
-                                  <option value="10">Filet AP</option>
-                                  <option value="8">Sans.E SB</option>
-                                  <option value="9">Sans.E AB</option>
-
-                                </select>
-
-                              <?php
-
-                              // if (!return_type_avant($get_fact['id_poisson'])) {
-                              //     $count += 1;
-                                $poid_precedant = return_type($get_fact['id_poisson']);
-                                $poid_deja_dans_chambre = return_type_avant($get_fact['id_poisson']);
-                                $poid_peut_entrer = $poid_precedant - $poid_deja_dans_chambre;
-                              ?>
-                                <input 
-                                <?php
-                                  if($poid_peut_entrer <= 0) {
-                                    echo "readonly title='il rest auccun poid, veillez valider'";
-                                  }
-                                ?>
-                                 type="number" class="form" autocomplete="off" name="qtt" value="<?=$poid_peut_entrer - $sortie?>"
-                                  id="input_qtt_y" required>
-                                KG
-                                <?php if(!$poid_peut_entrer <= 0) { ?>
-                                  <button class="btn btn-primary" type="submit">ok</button>
-                                <?php } ?>
-                                <span id="valeur_apres"></span>
-
-                            </form>
-                                <?php 
-                            }
-                              ?>
-                            </td>
-
-                            <!-- fin form ajout avant chambre froid -->
-
-
-                             <!-- enregistrement du deuxieme traitement -->
-                          <?php
-
-                              if (return_type_avant($get_fact['id_poisson'])) {
-                                $rest = return_type($get_fact['id_poisson']);
-                                $pourcentage = ((return_type_avant($get_fact['id_poisson']) * 100) / $rest);
-                                $decicationPourcentage = 100 - $pourcentage;
-                                $decicationPourcentage = round($decicationPourcentage, 2);
-                                echo '<td>'.return_type_avant($get_fact['id_poisson']).' KG</td>';
-                                echo "<td> $decicationPourcentage % </td>";
-                              } else {
-                                echo "<td>0</td>";
-                                echo "<td>0</td>";
-                              }
-                              ?>
-
-                            <td>
-                            <?php
-                              if(!verify_if_ok($numeroFacture, $get_fact['id_poisson'])){
-                              ?>
-                                <form action="confirm.php" method="post">
-                                  <input type="hidden" name="num" value="<?= $numeroFacture ?>">
-                                  <input type="hidden" name="id_poisson" value="<?= $get_fact['id_poisson'] ?>">
-
-                                  <button class="btn btn-danger" type="submit">Valider</button>
-                                </form>
-
-                                <?php
-                              }
-                              ?>
-                            </td>
-
-                          <?php
-                          }
-                          ?>
-
-                       
-
+                            <td><?= $obs_value ?></td>
+                            <td><input class="form-control" type="text" name="obs" placeholder="Observation"></td>
+                          </form>
+                        </tr>
+                      <?php } ?>
+                    <tr>
+                        <td>TOTAL</td>
+                        <td><?= $total ?></td>
+                        <td><?= $totalContre ?></td>
+                        <td><?= $totalsortie ?></td>
+                        <td><?= $totalSglMg ?></td>
+                        <td><?= $totalSgTana ?></td>
+                        <td><?= $totalTraite ?></td>
                       </tr>
-                    <?php } ?>
+                    </tbody>
 
-
-                  </tbody>
                 </table>
               </div>
+              <table>
+                  
+
+              </table>
+
             </div>
-            <!--/ Layout Demo -->
-            <!-- commentaire pour la facture actuel -->
+
+            <!-- Commentaire pour cette facture -->
             <div class="container-fluid flex-grow-1 container-p-y">
               <div class="card">
                 <h5 class="card-header">Commentaire pour cette facture</h5>
                 <div class="card-body">
                   <form id="formAuthentication" class="mb-3" action="add_coms.php" method="POST">
-                    <input type="hidden" name="num_fact" value="<?= $_GET["num"] ?>">
-                    <?php require ('coms.php') ?>
-
+                    <input type="hidden" name="num_fact" value="<?= $_GET['date'] ?>">
+                    <?php require('coms.php')?>
                     <button class="btn btn-primary m-1" type="submit">Ajouter</button>
                   </form>
                 </div>
               </div>
             </div>
           </div>
+
+
+  <!-- Button trigger modal -->
+  <button type="button" class="btn btn-primary m-3" data-bs-toggle="modal" data-bs-target="#commentModal">
+    Bon d' Achat
+  </button>
+<style>
+    .custom-modal-dialog {
+    min-width: 800px;
+}
+
+</style>
+  <!-- Modal -->
+ <div class="modal fade" id="commentModal" tabindex="-1" aria-labelledby="commentModalLabel" aria-hidden="true">
+    <div class="modal-dialog custom-modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="commentModalLabel">Commentaire pour cette facture</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <div class="card">
+            <h5 class="card-header">Traitement</h5>
+            <div class="table-responsive text-nowrap">
+              <table class="table">
+                <thead>
+                  <tr>
+                    <th>Nom</th>
+                    <th>Initial</th>
+                    <th>C. Pes</th>
+                    <th>Sortie</th>
+                    <th>SsGl. Cite</th>
+                    <th>SsGl. Tana</th>
+                    <th>R.Traiter</th>
+                   
+                  </tr>
+                </thead>
+                <tbody>
+                  <?php foreach ($all_produit as $get_fact) { 
+                    // Vérifier si le produit existe déjà dans bdAchat
+                    $check_sql = "SELECT * FROM bdAchat WHERE numFact = :numFact AND article = :id_poisson";
+                    $check_stmt = $db->prepare($check_sql);
+                    $check_stmt->bindParam(':numFact', $date);
+                    $check_stmt->bindParam(':id_poisson', $get_fact['id_poisson']);
+                    $check_stmt->execute();
+                    $existing_product = $check_stmt->fetch(PDO::FETCH_ASSOC);
+        
+                    $contre_Pese_value = $existing_product ? $existing_product['contrePese'] : '';
+                    $sortie_value = $existing_product ? $existing_product['SortieLocal'] : '';
+                    $sgcite_value = $existing_product ? $existing_product['sous_glaceLocal'] : '';
+                    $sgTana_value = $existing_product ? $existing_product['sous_glaceTana'] : '';
+                    $obs_value = $existing_product ? $existing_product['RestAtraiter'] : '';
+                    $total += $get_fact['qtt'];
+                  ?>
+                  <tr>
+                    <td><?= get_name($get_fact['id_poisson']) ?></td>
+                    <td><?= $get_fact['qtt'] ?> KG</td>
+                    <td><?= $contre_Pese_value ?></td>
+                    <td><?= $sortie_value ?></td>
+                    <td><?= $sgcite_value ?></td>
+                    <td><?= $sgTana_value ?></td>
+                    <td><?= $obs_value ?></td>
+                    <td></td>
+                  </tr>
+                  <?php } ?>
+                  
+                </tbody>
+              </table>
+            
+          </div>
+          
+            <button class="btn btn-primary m-1" type="submit">Imprimer</button>
+          
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
           <!-- / Content -->
-
-          <!-- Footer -->
-
-
           <div class="content-backdrop fade"></div>
         </div>
-
-        <script>
-          let poid_init = document.querySelector('#poid_init');
-          let input_qtt = document.querySelector('#input_qtt');
-          let input_qtt_y = document.querySelector('#input_qtt_y');
-          var valeur_apres = document.querySelectorAll('#valeur_apres');
-          let poisson = document.querySelector('#poisson');
-
-          function maka_p(valeur, e, x) {
-            if (valeur >= e.target.value) {
-              let rest = valeur - e.target.value;
-              let pourcentage = ((e.target.value * 100) / valeur);
-              let decicationPourcentage = 100 - pourcentage;
-              valeur_apres[x - 1].innerText = `${decicationPourcentage.toFixed(2)} %`;
-            } else {
-              valeur_apres[x - 1].innerText = `${decicationPourcentage.toFixed(2)} %`;
-              // valeur_apres[x-1].innerText = "la valeur doit etre inferieur au initiale";
-              // alert("la valeur doit etre inferieur ou egale au initiale");
-              // input_qtt.value = "";
-            }
-          }
-
-          function maka_py(valeur, e, x) {
-            if (valeur >= e.target.value) {
-              let rest = valeur - e.target.value;
-              let pourcentage = ((e.target.value * 100) / valeur);
-              let decicationPourcentage = 100 - pourcentage;
-              valeur_apres[x - 1].innerText = `${decicationPourcentage.toFixed(2)} %`;
-            } else {
-              valeur_apres[x - 1].innerText = `${decicationPourcentage.toFixed(2)} %`;
-              // valeur_apres[x-1].innerText = "la valeur doit etre inferieur au initiale";
-              // alert("la valeur doit etre inferieur ou egale au initiale");
-              // input_qtt_y.value = "";
-            }
-          }
-        </script>
         <!-- Content wrapper -->
       </div>
       <!-- / Layout page -->
     </div>
-
-    <!-- Overlay -->
     <div class="layout-overlay layout-menu-toggle"></div>
+    
   </div>
   <!-- / Layout wrapper -->
-
-
-  <!-- Core JS -->
+ <!-- Core JS -->
   <!-- build:js assets/vendor/js/core.js -->
   <script src="../assets/vendor/libs/jquery/jquery.js"></script>
   <script src="../assets/vendor/libs/popper/popper.js"></script>
@@ -425,4 +316,7 @@ $count = 0;
   <script async defer src="https://buttons.github.io/buttons.js"></script>
 </body>
 
+</html> 
+  <!-- Core JS and other scripts -->
+</body>
 </html>

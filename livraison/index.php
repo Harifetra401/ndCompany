@@ -68,33 +68,44 @@
           <div class="container-xxl flex-grow-1 container-p-y">
 
             <!-- Basic Bootstrap Table -->
-            <form action="add_new.php" method="post">
-                <div class="table-responsive text-nowrap">
-                    <center>
-                        <div class="col-md-6">
+          <form action="add_new.php" method="post">
+            <div class="table-responsive text-nowrap">
+                <center>
+                    <div class="col-md-6">
                         <div class="card mb-4">
                             <h5 class="card-header">Choisir une destination: </h5>
                             <div class="card-body">
-                            <div class="mb-3 col">
-                            <div class="modal-body">
-                                <div class="mb-3">
-                                <button class="btn btn-primary d-grid w-100" type="submit">chargement Normale</button>
-                                <center>Ou</center>
-                                <a href="../chargement_bac/" class="btn btn-success d-grid w-100">Chargement au Bac</a>
+                                <div class="mb-3 col">
+                                    <div class="modal-body">
+                                        <div class="mb-3">
+                                            <label>ADRESSE DE LIVRAISON</label>
+                                            <select class="form-control" name="livraison">
+                                                <option value=""></option>
+                                                <option value="Mr LUDOVIQUE">Mr LUDOVIQUE</option>
+                                                <option value="Mr JACKY">Mr JACKY</option>
+                                                <option value="SICOCEAN">SICOCEAN</option>
+                                            </select><br>
+                                            
+                                            <label>Chauffeur</label>
+                                            <input type="text" class="form-control" name="chauf"><br>
+                                            
+                                            <label>Num</label>
+                                            <input type="text" class="form-control" name="numero"><br>
+                                            
+                                            <label>Date</label>
+                                            <input type="date" class="form-control" name="date"><br>
+                                            
+                                            <button class="btn btn-primary d-grid w-100" type="submit">chargement Normale</button>
+                                        </div>
+                                    </div>
                                 </div>
-                                <!-- <div class=" mb-3">
-                                <small class="text-light fw-semibold">Ou</small>
-                                <div class="mt-3"> -->
-                                <!-- Button trigger modal -->
-                            </div>
                             </div>
                         </div>
+                    </div>
+                </center>
+            </div>
+        </form>
 
-
-                        </div>
-                    </center>
-                </div>
-            </form>
         </div>
               <!-- / Content -->
 

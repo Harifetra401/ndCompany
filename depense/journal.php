@@ -2,6 +2,10 @@
 require ('../session.php');
 require ('data.php');
 require ('date.php');
+$date = $_GET['date']; // Your date
+$mois_actuel = date('m', strtotime($date)); // Extract the month
+
+
 ?>
 <!DOCTYPE html>
 <html lang="en" class="light-style layout-menu-fixed" dir="ltr" data-theme="theme-default" data-assets-path="../assets/"
@@ -84,7 +88,7 @@ require ('date.php');
                                             <br><br>
                                             <h6>
                                                 Solde en Main :
-                                                <?= get_entrer($mois_actuel, $annee_actuel) + get_particulier_month($mois_actuel, $annee_actuel) - get_depense_month($mois_actuel, $annee_actuel) ?>
+                                                <?= get_entrer($mois_actuel, $annee_actuel)  - get_depense_month_by_class1($mois_actuel, $annee_actuel) ?>
                                                 Ariary
                                             </h6>
                                         </div>
@@ -96,6 +100,12 @@ require ('date.php');
                             <div class="col-md-8 col-lg-8 order-0 mb-8">
                                 <div class="card h-100">
                                     <div class="card-header d-flex align-items-center justify-content-between">
+                                        <form method='POST' action='journa.php'>
+                                            <input type='month' name='mois'>
+                                            <br>
+                                            <input type='submit'>
+                                        </form>
+
                                         <h5 class="card-title m-0 me-2">Diagramme annee:
                                             <?= $annee_precedente_11 . '-' . $annee_actuel ?>
                                         </h5>
@@ -213,7 +223,7 @@ require ('date.php');
                     </style>
                     <div class="container-fluid flex-grow-1 container-p-y">
                         <div class="card mt-5">
-                            <h2>Tableau DEBITEUR</h2>
+                            <h2>Tableau CREDITEUR</h2>
                             <table class="table table-striped">
                                 <thead>
                                     <tr>
@@ -397,15 +407,6 @@ require ('date.php');
                         ],
 
                         backgroundColor: "rgba(150,0,0,0.6)",
-                    }, {
-
-                        label: "Dépense Transport (MGA)",
-                        data: [
-
-                            <?= get_depense_month_by_class3($mois_actuel, $annee_actuel) ?>,
-                        ],
-
-                        backgroundColor: "rgba(200,0,100,0.6)",
                     }
                 ],
             },

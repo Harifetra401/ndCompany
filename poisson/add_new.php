@@ -11,7 +11,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         "INSERT INTO froidf (`nomFilao`) VALUES (:nomfilao)",
         "INSERT INTO stockf (`nomFilao`) VALUES (:nomfilao)",
         "INSERT INTO ventetana (`nomFilao`, `qtt`) VALUES (:nomfilao, 0)",
-        "INSERT INTO poisson (`nomFilao`) VALUES (:nomfilao)"
+        
+        "INSERT INTO `poisson`( `classe`, `NumClass`, `Categorie`, `NumCat`, `qualite`, `taille`, `TailleNum`, `CodeArticle`, `nomfilao`)
+        VALUES (:nomfilao, 0, :nomfilao, 0, :nomfilao, 0, 0, 0000000000, :nomfilao)"
     ];
 
     // Gestion des erreurs avec try-catch

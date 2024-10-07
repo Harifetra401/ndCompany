@@ -9,13 +9,12 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $contact = $_POST["contact"];
 
     // Préparation de la requête SQL avec des paramètres
-    $sql = "UPDATE particulier SET client = :name, adresse = :adresse, contact = :contact WHERE id = :id";
+    $sql = "UPDATE particulier SET client = :name WHERE id = :id";
     $stmt = $db->prepare($sql);
 
     // Liaison des paramètres
     $stmt->bindParam(':name', $name);
-    $stmt->bindParam(':adresse', $adresse);
-    $stmt->bindParam(':contact', $contact);
+
     $stmt->bindParam(':id', $id, PDO::PARAM_INT);
 
     // Exécution de la requête

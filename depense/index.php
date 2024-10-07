@@ -1,5 +1,19 @@
 <?php
-require ('../session.php');
+session_start();
+// if ($_SESSION['username']!='Severin') {
+//   ?>
+//     // <script>
+//     //   alert("Vous ne pouvez pas acceder a cette page, Merci de contacter Votre administrateur ");
+//     //   window.location.href = "../html/index.php"; 
+
+//     // </script>
+//   <?php
+   
+// }
+?>
+<?php
+// require ('../session.php');
+
 require('data.php');
 require('date.php');
 ?>
@@ -70,44 +84,52 @@ require('date.php');
           <!-- Content -->
 
           <div class="container-xxl flex-grow-1 container-p-y">
-            <h4 class="fw-bold py-3 mb-4">
-              <span class="text-muted fw-light"> </span> Controle de Dépenses
-            </h4>
+            <center><h1 class="">
+              <span class="text-muted fw-light"> </span> Flux Financiers
+            </h1></center><br>
 
             <div class="row">
-              <div class="col-md-4 col-12 mb-md-0 mb-4">
+              <div class="col-md-6 col-12 mb-md-0 mb-6">
                 <div class="card">
-                  <h5 class="card-header">Somme sortie</h5>
+                  <center><h2 class="card-header">Crédit (Somme sortie)</h2></center>
                   <div class="card-body">
-                    <form id="formAuthentication" class="mb-3" action="ajout.php" method="POST">
+                     <form id="formAuthentication" class="mb-3" action="ajout.php" method="POST">
                       <div class="mb-3">
                         
                         <label class="form-label" for="libelle">Libelle</label>
                         <select name="libelle" class="form-control" required>
-                          <option value=""></option>
-                          <option value="depense_personnel">Dépense Personnel</option>
-                          <option value="frais_deplacement">Frais de déplacement (personnel & matériel)</option>
-                          <option value="amenagement">Aménagement (fourniture d'entretien)</option>
-                          <option value="loyer">Loyer (Jirama & locataire)</option>
-                          <option value="autorite">AUTORITE (ristourne & contrôle papier)</option>
-                          <option value="compte_immobilisation">Compte d'Immobilisation</option>
-                          <option value="commission">Commission</option>
-                          <option value="autres_depenses">Autres dépenses</option>
-                          <option value="enlevement_produits">Enlèvement des produits</option>
-                          <option value="conservation_produits">Conservation des produits</option>
-                          <option value="cout_traitements">Coût du Traitement</option>
-                          <option value="materiels_approvisionnements">Matériels d'approvisionnement</option>
-                          <option value="emballage_produits">Emballage des produits</option>
-                          <option value="depenses_diverses">Dépenses diverses</option>
-                          <option value="transport_locale">Transport locale</option>
-                          <option value="livraison_tana">Livraison à Tanà</option>
-
-
+                          <option value="administration">ADMINISTRATION</option>
+                          <option value="autorite">AUTORITE</option>
+                          <option value="dpsprsls">DPS PRSNLS</option>
+                          <option value="carburant">CARBURANT</option>
+                          
+                          <option value="emballage">EMBALLAGE</option>
+                          <option value="jacky">JACKY</option>
+                          <option value="tl">TL</option>
+                          <option value="vedette">VEDETTE</option>
+                          <option value="fraisdeplacement">FRAIS DEPLACEMENT</option>
+                          <option value="materieldeproduit">MATERIEL DE PRODUIT</option>
+                          <option value="chequier">CHEQUIER</option>
+                          <option value="commission">COMMISSION</option>
+                          <option value="livraisontana">LIVRAISON TANA</option>
+                          <option value="ramassage">RAMASSAGE</option>
+                          <option value="sortie">SORTIE</option>
+                          <option value="fournisseurs">FOURNISSEURS</option>
+                          <option value="appromateriel">APPRO MATERIEL</option>
+                          <option value="coutdetraitement">COUT DE TRAITEMENT</option>
+                          <option value="conservation">CONSERVATION</option>
+                          <option value="loyer">LOYER</option>
+                          <option value="immobilier">IMMOBILIER</option>
                         </select>
+
                       </div>
                       <div class="mb-3">
                         <label class="form-label" for="cout">Coût de Dépense (AR)</label>
                         <input type="number" class="form-control" name="cout" placeholder="Coût de Dépenses" required />
+                      </div>
+                      <div class="mb-3">
+                        <label class="form-label" for="date">Date</label>
+                        <input type="date" class="form-control" name="daty" required />
                       </div>
                       <div class="mb-3">
                         <label class="form-label" for="desc">Description</label>
@@ -121,35 +143,10 @@ require('date.php');
                 </div>
               </div>
               
-              <div class="col-md-8 col-12">
+              <div class="col-md-6 col-12">
+              
                 <div class="card">
-
-                  <div class="card-body">
-                    <div class="table-responsive">
-                      <table class="table table-hover">
-                        <thead>
-                          <tr>
-                            <th>Libelle</th>
-                            <th>Cout</th>
-                            <th>Description</th>
-                          </tr>
-                        </thead>
-                        <tbody class="table-border-bottom-0">
-                          <?php require ('liste.php') ?>
-                        </tbody>
-                      </table>
-                    </div>
-                  </div>
-                </div>
-              </div>
-
-
-            </div>
-            <br><br><br>
-            <div class="row">
-              <div class="col-md-4 col-12 mb-md-0 mb-4">
-                <div class="card">
-                  <h5 class="card-header">Somme Entrer</h5>
+                  <center><h2 class="card-header">Débit (Somme Entrer)</h2></center>
                   <div class="card-body">
                     <form id="formAuthentication" class="mb-3" action="entrer.php" method="POST">
                       <div class="mb-3">
@@ -157,11 +154,16 @@ require('date.php');
                         <label class="form-label" for="libelle">Libelle</label>
                         <select name="libelle" class="form-control" required>
                           <option value=""></option>
-                          <option value="client">Versement clients </option>
-                          <option value="perso">Versement Personnels </option>
+                          <option value="CLIENTS LOCALE">CLIENTS LOCALE </option>
+                          <option value="CHEQUIER">CHEQUIER</option>
+                          <option value="VTE PRSNLS">VTE PRSNLS</option>
+                          <option value="PATRONALE">PATRONALE</option>
+                          <option value="COMPTABLE">COMPTABLE</option>
+                          
+                            
+                            
+                            
 
-                          <option value="patron">Patronal</option>
-                          <option value="comp">Comptable</option>
 
                         </select>
                       </div>
@@ -170,6 +172,10 @@ require('date.php');
                         <input type="number" class="form-control" name="cout" placeholder="Montant déposer (AR)" required />
                       </div>
                       <div class="mb-3">
+                        <label class="form-label" for="date">Date</label>
+                        <input type="date" class="form-control" name="daty" required />
+                      </div>
+                      <div class="mb-3">
                         <label class="form-label" for="desc">Description</label>
                         <textarea name="desc" class="form-control" placeholder="Votre text ici"></textarea>
                       </div>
@@ -180,26 +186,27 @@ require('date.php');
                   </div>
                 </div>
               </div>
-              
-              <div class="col-md-8 col-12">
-                <div class="card">
 
-                  <div class="card-body">
-                    <div class="table-responsive">
-                      <table class="table table-hover">
-                        <thead>
-                          <tr>
-                            <th>Libelle</th>
-                            <th>Montant</th>
-                            <th>Description</th>
-                          </tr>
-                        </thead>
-                        <tbody class="table-border-bottom-0">
-                        <?php require ('listeEntrer.php') ?>
-                        </tbody>
-                      </table>
+
+            </div>
+            <br><br><br>
+            <div class="container">
+              <div class="col-md-12 col-12 mb-md-0 mb-12">
+                  <div class="card">
+
+                          <?php require ('liste.php') ?>
+                       
                     </div>
                   </div>
+                </div>
+              </div>
+              </div>
+             <div class="container">
+              <div class="col-md-12 col-12 mb-md-0 mb-12">
+                <div class="card">
+
+                        <?php require ('listeEntrer.php') ?>
+                        
                 </div>
               </div>
 

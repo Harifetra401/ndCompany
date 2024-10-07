@@ -49,7 +49,7 @@
 <aside id="layout-menu" class="layout-menu menu-vertical menu bg-menu-theme">
   <br><br>
   <center>
-    <img src="../assets/img/logonordine.jpg" alt="Logo" class="w-px-100 h-auto rounded-circle" />
+    <img src="../assets/img/logonordine.png" alt="Logo" class="w-px-150 h-auto rounded-circle" />
   </center>
   <ul class="menu-inner py-1">
     <li class="menu-item active">
@@ -69,40 +69,46 @@
     </li>
 
     <?php
-    if ($_SESSION['lieukandra'] == 'majunga') {
+    //if ($_SESSION['lieukandra'] == 'majunga') {
       ?>
       <li class="menu-item">
-        <a href="../html/listeFact.php" class="menu-link">
+        <a href="../contrepese/factParDate.php" class="menu-link">
           <i class="menu-icon tf-icons bx bx-dock-top"></i>
-          <div>Suivi Traitement</div>
+          <div>Operation</div>
+        </a>
+      </li>
+       <li class="menu-item">
+        <a href="../contrepese/TraiteDate.php" class="menu-link">
+          <i class="menu-icon tf-icons bx bx-dock-top"></i>
+          <div>Traitement</div>
         </a>
       </li>
       <?php
-    } else {
+    //} else {
       ?>
       <li class="menu-item">
-        <a href="../chargement/all_charge.php" class="menu-link">
+        <a href="../chbrfroid/mixt.php" class="menu-link">
           <i class="menu-icon tf-icons bx bx-dock-top"></i>
-          <div>Traitement TANA</div>
+          <div>Mise En Sac</div>
         </a>
       </li>
       <?php
-    }
+    //}
     ?>
 
 
-    <li class="menu-item">
-      <a href="../stock" class="menu-link">
-        <i class="menu-icon tf-icons bx bx-dock-top"></i>
-        <div>Gestion de Stock</div>
-      </a>
-    </li>
-    <li class="menu-item">
-      <a href="../stock/sortiestock.php" class="menu-link">
-        <i class="menu-icon tf-icons bx bx-dock-top"></i>
-        <div>Sortie Stock</div>
-      </a>
-    </li>
+    <!--<li class="menu-item">-->
+    <!--  <a href="../stock" class="menu-link">-->
+    <!--    <i class="menu-icon tf-icons bx bx-dock-top"></i>-->
+    <!--    <div>Gestion de Stock</div>-->
+    <!--  </a>-->
+    <!--</li>-->
+    <!--<li class="menu-item">-->
+    <!--  <a href="../stock/sortiestock.php" class="menu-link">-->
+    <!--    <i class="menu-icon tf-icons bx bx-dock-top"></i>-->
+    <!--    <div>Sortie Stock</div>-->
+    <!--  </a>-->
+    <!--</li>-->
     <li class="menu-item">
       <a href="../livraison" class="menu-link">
         <i class="menu-icon tf-icons bx bx-dock-top"></i>

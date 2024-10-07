@@ -79,28 +79,15 @@ if ($_SESSION['username']!='Anthony') {
 
           <div class="container-fluid flex-grow-1 container-p-y">
             <div class="card">
-              <h5 class="card-header"> Liste  D' Achat</h5>
               <div class="table-responsive text-nowrap">
-                <table class="table">
-                  <thead>
-                    <tr class="text-nowrap">
-                      <th>NumFact</th>
-                      <th>Fournisseur</th>
-                      <th>Poid De produit</th>
-                      <th>Date</th>
-                      <th>Valeur (Ariary)</th>
-
-                    </tr>
-                  </thead>
-                  <tbody>
+               
                     <!-- selection des facture aujourd'hui -->
                     <?php require('../facture/liste.php')?>
 
                     
 
 
-                  </tbody>
-                </table>
+                 
               </div>
             </div>
             <!--/ Layout Demo -->

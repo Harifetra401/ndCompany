@@ -1,10 +1,23 @@
 <?php
+function poid_total1($num_fact) {
+    require('../db.php');
+    $total = 0;
+    $selection = $db -> prepare("SELECT qtt FROM detailfilao WHERE NumFac=$num_fact");
+    $selection -> execute();
+    $fetchAll = $selection -> fetchAll();
+
+    foreach($fetchAll as $fetch){
+        $qtt_poisson = $fetch['qtt'];
+        $total += ($qtt_poisson);
+    }
+    return $total;
+}
 
 function get_all($place)
 {
     require ('../db.php');
-    $sql = "SELECT SUM(qtt) as qtt FROM stock WHERE place=$place";
-    $sql1 = "SELECT SUM(nombre_sac) as sac FROM stock WHERE place=$place";
+    $sql = "SELECT SUM(qtt) as qtt FROM testStock";
+    $sql1 = "SELECT SUM(sac) as sac FROM testStock";
     $sql2 = "SELECT SUM(qtt) as stocktana FROM ventetana WHERE qtt !=0";
     $stmt = $db->prepare($sql);
     $stmt1 = $db->prepare($sql1);
@@ -17,7 +30,22 @@ function get_all($place)
     $fetch2 = $stmt2->fetch();
     return [$fetch["qtt"], $fetch1["sac"], $fetch2["stocktana"]];
 }
-
+function get_contre($month, $year) {
+    require('../db.php');
+    $sql = "SELECT SUM(qtt) as qtt FROM detailfilaocontre";
+    $stmt = $db->prepare($sql);
+    $stmt->execute();
+    $fetch=$stmt->fetch();
+    return $fetch['qtt'] | 0;
+}
+function get_Entrer($month, $year) {
+    require('../db.php');
+    $sql = "SELECT SUM(qtt) as qtt FROM detailavant";
+    $stmt = $db->prepare($sql);
+    $stmt->execute();
+    $fetch=$stmt->fetch();
+    return $fetch['qtt'] | 0;
+}
 
 function get_allsac($typ)
 {
@@ -55,8 +83,8 @@ function get_sortie($place)
 function get_sortieStock($place)
 {
     require ('../db.php');
-    $sql = "SELECT SUM(qtt) as qtt FROM detailfilaosortieStock WHERE place=$place";
-    $sql1 = "SELECT SUM(sac) as sac FROM detailfilaosortieStock WHERE place=$place";
+    $sql = "SELECT SUM(qtt) as qtt FROM detailfilaosortiestock WHERE place=$place";
+    $sql1 = "SELECT SUM(sac) as sac FROM detailfilaosortiestock WHERE place=$place";
     $stmt = $db->prepare($sql);
     $stmt1 = $db->prepare($sql1);
     $stmt->execute();

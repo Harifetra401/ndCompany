@@ -1,70 +1,52 @@
 <?php
-if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    require('../db.php');
-    
-    // Using filter_input to sanitize and validate inputs
-    $poisson = filter_input(INPUT_POST, 'poisson', FILTER_VALIDATE_INT);
-    $qtt = filter_input(INPUT_POST, 'qtt', FILTER_VALIDATE_FLOAT, FILTER_FLAG_ALLOW_FRACTION);
-    $sac = filter_input(INPUT_POST, 'sac', FILTER_VALIDATE_INT);
-    $type = filter_input(INPUT_POST, 'type', FILTER_VALIDATE_INT);
-    $place = 1;
+// add.php
 
-    if ($poisson === false || $qtt === false || $sac === false || $type === false) {
-        echo "Invalid input.";
-        exit;
+// Inclure le fichier de connexion à la base de données
+require('../db.php');
+
+// Vérifier si le formulaire est soumis et tous les champs nécessaires sont présents
+if (isset($_POST['nom_poisson'], $_POST['retHier'], $_POST['enter'], $_POST['qtt'], $_POST['type'], $_POST['EnterDate'])) {
+    // Récupérer les données du formulaire et les sécuriser
+    $nom_poisson = htmlspecialchars($_POST['nom_poisson']);
+    $retHier = htmlspecialchars($_POST['retHier']);
+    $PEnter = htmlspecialchars($_POST['enter']);
+    $poisson = isset($_POST['poisson']) ? htmlspecialchars($_POST['poisson']) : ''; // Si "poisson" est caché
+    $qtt = htmlspecialchars($_POST['qtt']);
+    $type = htmlspecialchars($_POST['type']);
+    $sac = isset($_POST['sac']) ? htmlspecialchars($_POST['sac']) : null;
+    $retour = isset($_POST['retour']) ? htmlspecialchars($_POST['retour']) : null;
+    $sortie = isset($_POST['sortie']) ? htmlspecialchars($_POST['sortie']) : null;
+    $EnterDate = htmlspecialchars($_POST['EnterDate']);
+
+    // Construire la requête SQL pour insérer les données
+    $insert_sql = "INSERT INTO testStock (nom_poisson, retourhiere, PEnter, poisson, qtt, type, sac, retour, sortie, EnterDate) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+    $insert_stmt = $db->prepare($insert_sql);
+    $insert_stmt->bindParam(1, $nom_poisson);
+    $insert_stmt->bindParam(2, $retHier);
+    $insert_stmt->bindParam(3, $PEnter);
+    $insert_stmt->bindParam(4, $poisson);
+    $insert_stmt->bindParam(5, $qtt);
+    $insert_stmt->bindParam(6, $type);
+    $insert_stmt->bindParam(7, $sac);
+    $insert_stmt->bindParam(8, $retour);
+    $insert_stmt->bindParam(9, $sortie);
+    $insert_stmt->bindParam(10, $EnterDate);
+
+    // Exécuter la requête et vérifier si elle a réussi
+    if ($insert_stmt->execute()) {
+         ?>
+            <script>
+                document.location.href = "../chbrfroid/pardate.php?date=<?= htmlspecialchars($EnterDate, ENT_QUOTES, 'UTF-8') ?>";
+            </script>
+       <?php
+    } else {
+        echo "Error: " . $insert_sql . "<br>" . $db->errorInfo()[2];
     }
 
-    session_start();
-    $_SESSION['emplacement'] = $place == 1 ? "eto" : "any";
-
-    try {
-        $db->beginTransaction();
-
-        // Fetch current quantity from 'froidf' table
-        $sql01 = "SELECT id, nomfilao, qtt FROM froidf WHERE id = :poisson";
-        $stmt01 = $db->prepare($sql01);
-        $stmt01->bindParam(':poisson', $poisson, PDO::PARAM_INT);
-        $stmt01->execute();
-        $all_facture01 = $stmt01->fetchAll(PDO::FETCH_ASSOC);
-
-        if (count($all_facture01) > 0) {
-            // Update 'froidf' table
-            $sql02 = "UPDATE froidf SET qtt = qtt - :qtt WHERE id = :poisson";
-            $stmt02 = $db->prepare($sql02);
-            $stmt02->bindParam(':qtt', $qtt);
-            $stmt02->bindParam(':poisson', $poisson, PDO::PARAM_INT);
-            $stmt02->execute();
-
-            // Update 'stockf' table
-            $sql03 = "UPDATE stockf SET qtt = qtt + :qtt WHERE id = :poisson";
-            $stmt03 = $db->prepare($sql03);
-            $stmt03->bindParam(':qtt', $qtt);
-            $stmt03->bindParam(':poisson', $poisson, PDO::PARAM_INT);
-            $stmt03->execute();
-
-            // Insert into 'stock' table
-            $sql = "INSERT INTO stock (id_poisson, qtt, nombre_sac, type, place) VALUES (:poisson, :qtt, :sac, :type, :place)";
-            $stmt = $db->prepare($sql);
-            $stmt->bindParam(':poisson', $poisson, PDO::PARAM_INT);
-            $stmt->bindParam(':qtt', $qtt);
-            $stmt->bindParam(':sac', $sac, PDO::PARAM_INT);
-            $stmt->bindParam(':type', $type, PDO::PARAM_INT);
-            $stmt->bindParam(':place', $place, PDO::PARAM_INT);
-
-            if ($stmt->execute()) {
-                $db->commit();
-                echo "<script>
-                        window.location.href = '../stock';
-                      </script>";
-            } else {
-                throw new Exception("Erreur lors de l'insertion des détails filao.");
-            }
-        } else {
-            throw new Exception("Poisson not found.");
-        }
-    } catch (Exception $e) {
-        $db->rollBack();
-        echo $e->getMessage();
-    }
+    // Fermer la connexion
+    $insert_stmt = null;
+    $db = null;
+} else {
+    echo "All required fields are not present.";
 }
 ?>

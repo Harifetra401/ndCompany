@@ -33,10 +33,16 @@ function liste($param, $query, $ordre)
                 <td><?= ($get_fact['destination']) ?></td>
                 <td><?= $get_fact['date'] ?></td>
                 <td>
-                  <a href="../activity/charge_one.php?num=<?= $get_fact['id'] ?>">
+                  <a class='btn btn-success' href="../activity/charge_one.php?num=<?= $get_fact['id'] ?>">
                     Consulter >
                   </a>
                 </td>
+                 <td>
+                  <a class='btn btn-danger' href="../chargement/charge.php?id=<?=$get_fact['id']?>">
+                    Modifier
+                  </a>
+                </td>
+            
               </tr>
             <?php endforeach; ?>
 

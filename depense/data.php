@@ -16,6 +16,8 @@
         $fetch=$stmt->fetch();
         return $fetch['couts'] | 0;
     }
+
+
     function get_depense_dpl($month, $year) {
         require('../db.php');
         $sql = "SELECT SUM(cout) as couts FROM depence WHERE YEAR(`date`)=$year AND MONTH(`date`)=$month AND libelle = 'frais_deplacement'";
@@ -167,7 +169,7 @@
 
     function get_depense_month_by_class1($month, $year) {
         require('../db.php');
-        $sql = "SELECT SUM(cout) as couts FROM depence WHERE YEAR(`date`)=$year AND MONTH(`date`)=$month AND class = 1";
+        $sql = "SELECT SUM(cout) as couts FROM depence WHERE YEAR(`date`)=$year AND MONTH(`date`)=$month";
         $stmt = $db->prepare($sql);
         $stmt->execute();
         $fetch=$stmt->fetch();

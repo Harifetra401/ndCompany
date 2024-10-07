@@ -127,16 +127,15 @@ require '../session.php';
                       <div class="card-body">
                         <div class="table-responsive text-nowrap">
                           <table class="table">
-                            <thead>
+                            
                               <tr>
                                 <th>Poisson</th>
                                 <th>Poid</th>
                                 <th>Nombre de sac</th>
                               </tr>
-                            </thead>
-                            <tbody class="table-border-bottom-0">
+                           
                               <?php require 'liste_total.php'; ?>
-                            </tbody>
+                            
                           </table>
                         </div>
                       </div>

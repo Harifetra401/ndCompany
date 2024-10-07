@@ -1,3 +1,4 @@
+
 <?php
 
         function get_name($id_to_get) {
@@ -27,7 +28,7 @@
                 <table class="table">
                   <thead>
                     <tr class="text-nowrap">
-                      <th>NumFact</th>
+                     
                       <th>Fournisseur</th>
                       <th>Total a Payer</th>
                       <th>Payer</th>
@@ -42,14 +43,14 @@
                     
                     <?php foreach ($all_facture as $get_fact) : ?>
                         <tr>
-                            <th scope="row"><?=$get_fact['id']?></th>
+                           
                             <td><?=get_name($get_fact['id_fou'])?></td>
                             <td><?=$get_fact['payee'] + $get_fact['restapayer'] ?></td>
                             <td><?=$get_fact['payee']?></td>
                             <td><?=$get_fact['restapayer']?></td>
                             <td><?=$get_fact['date']?></td>
                             <td>
-                            <a href="../activity/facture.php?num=<?=$get_fact['id']?>">
+                            <a href="../activity/facture.php?num=<?=$get_fact['id']?>&date=<?=$get_fact['date']?>">
                                 Consulter >
                             </a>
                         </td>
@@ -86,3 +87,4 @@ if(isset($_POST["btn_search"])){
   liste("", "id", "DESC");
 }
 ?>
+    

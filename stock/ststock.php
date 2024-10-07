@@ -26,13 +26,13 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $sql01 = $db->prepare("UPDATE stockf SET qtt = qtt - ? WHERE id = ?");
         $sql01->execute([$qtt, $poisson]);
 
-        $sql = "INSERT INTO detailfilaosortieStock(`id_poisson`, `sac`, `qtt`, `typ`, `place`, `date`) VALUES (?, ?, ?, ?, ?, ?)";
+        $sql = "INSERT INTO detailfilaosortiestock(`id_poisson`, `sac`, `qtt`, `typ`, `place`, `date`) VALUES (?, ?, ?, ?, ?, ?)";
         $stmt = $db->prepare($sql);
 
         if ($stmt->execute([$poisson, $sac, $qtt, $typ, $place,  $daty])) {
             ?>
             <script>
-                document.location.href = "../stock/sortieStock.php";
+                document.location.href = "../stock/sortiestock.php";
             </script>
             <?php
         } else {

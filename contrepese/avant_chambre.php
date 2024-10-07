@@ -1,28 +1,48 @@
 <?php
-    require('../db.php');
+require('../db.php');
 
-    if ($_SERVER["REQUEST_METHOD"] == "POST") {
-        $qtt = $_POST["qtt"];
-        $id_poisson = $_POST["id_poisson"];
-        $num_facture = $_POST['num'];
-        $classpss = $_POST['classpss'];
-        $pdetail = $_POST['pdetail'];
-        // $anarana = $_POST['anarana'];
-        // echo $qtt." / ".$id_poisson." / ".$num_facture;
+if ($_SERVER["REQUEST_METHOD"] == "POST") {
+    $qtt = $_POST["qtt"];
+    $id_poisson = $_POST["id_poisson"];
+    $num_facture = $_POST['num'];
+    $sortie = $_POST['sortieqtt'];
+    $classpss = 8;
+    $pdetail = 0;
 
-        $sql = "INSERT INTO `detailavant`(`idfilao`, `id_poisson`, `NumFac`, `qtt`,`lanja`, `class`, `pdetail`) VALUES ($id_poisson, $id_poisson, $num_facture, $qtt, $qtt, $classpss, $pdetail)";
-        $stmt = $db->prepare($sql);
-        if ($stmt->execute()) {
-            echo "Erreur lors de l'insertion des detail filao.";
+    // Vérifier si l'enregistrement existe déjà
+    $checkSql = "SELECT COUNT(*) FROM `detailavant` WHERE `id_poisson` = ? AND `NumFac` = ?";
+    $checkStmt = $db->prepare($checkSql);
+    $checkStmt->execute([$id_poisson, $num_facture]);
+    $exists = $checkStmt->fetchColumn();
+
+    if ($exists) {
+        // Si l'enregistrement existe, faire un UPDATE
+        $updateSql = "UPDATE `detailavant` SET `sortie` = ?, `qtt` = ?, `lanja` = ?, `class` = ?, `pdetail` = ? WHERE `id_poisson` = ? AND `NumFac` = ?";
+        $updateStmt = $db->prepare($updateSql);
+        $params = [$sortie, $qtt, $qtt, $classpss, $pdetail, $id_poisson, $num_facture];
+        if ($updateStmt->execute($params)) {
             ?>
-                <script>
-                    document.location.href = "traitement.php?num=<?=$num_facture?>";
-                </script>
-           <?php
+            <script>
+                document.location.href = "traitement.php?num=<?= $num_facture ?>";
+            </script><?php
         } else {
-            echo " $sql Erreur lors de l'insertion des datail filao.";
+            echo "Erreur lors de la mise à jour des détails.";
         }
-    
+    } else {
+        // Si l'enregistrement n'existe pas, faire un INSERT
+        $insertSql = "INSERT INTO `detailavant`(`idfilao`, `id_poisson`, `NumFac`, `sortie`, `qtt`, `lanja`, `class`, `pdetail`) VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
+        $insertStmt = $db->prepare($insertSql);
+        $params = [$id_poisson, $id_poisson, $num_facture, $sortie, $qtt, $qtt, $classpss, $pdetail];
+        if ($insertStmt->execute($params)) {
+            echo "Détails insérés avec succès.";
+            ?>
+            <script>
+                document.location.href = "traitement.php?num=<?= $num_facture ?>";
+            </script>
+            <?php
+        } else {
+            echo "Erreur lors de l'insertion des détails.";
+        }
     }
+}
 ?>
-
